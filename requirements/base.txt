@@ -4,8 +4,8 @@ argon2-cffi==23.1.0  # https://github.com/hynek/argon2_cffi
 whitenoise==6.6.0  # https://github.com/evansd/whitenoise
 redis==5.0.3  # https://github.com/redis/redis-py
 hiredis==2.3.2  # https://github.com/redis/hiredis-py
-celery==5.3.6  # pyup: < 6.0  # https://github.com/celery/celery
-django-celery-beat==2.5.0  # https://github.com/celery/django-celery-beat
+celery==5.4.0  # pyup: < 6.0  # https://github.com/celery/celery
+django-celery-beat==2.6.0  # https://github.com/celery/django-celery-beat
 flower==2.0.1  # https://github.com/mher/flower
 
 # Django
@@ -16,7 +16,7 @@ django-timezone-field==6.1.0 # https://github.com/mfogel/django-timezone-field
 django-model-utils==4.3.1  # https://github.com/jazzband/django-model-utils
 django-allauth==0.61.1  # https://github.com/pennersr/django-allauth
 django-private-storage==3.1.1  # https://github.com/edoburu/django-private-storage
-django-filter==24.1  # https://github.com/carltongibson/django-filter
+django-filter==24.2  # https://github.com/carltongibson/django-filter
 django-crispy-forms==2.1  # https://github.com/django-crispy-forms/django-crispy-forms
 crispy-bootstrap5==0.7  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-redis==5.4.0  # https://github.com/jazzband/django-redis
