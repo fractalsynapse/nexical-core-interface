@@ -46,7 +46,7 @@
       <div class="d-flex flex-column flex-lg-row align-items-center pt-3">
         <a href="{% ui_url %}" class="d-flex flex-column flex-lg-row link-body-emphasis text-decoration-none">
           <img src="{% static 'images/logos/nexical-logo.svg' %}" alt="nexical logo" />
-          <span class="fs-4 text-nowrap">Document Research Assistant</span>
+          <span class="fs-4 text-nowrap">Knowledge Explorer</span>
         </a>
         <nav class="navbar navbar-expand navbar-light d-inline-flex mt-3 mt-lg-0 ms-lg-auto border">
           <div class="container-fluid">
@@ -57,6 +57,12 @@
                   <a class="me-3 py-2 link-body-emphasis text-decoration-none text-nowrap" href="{% ui_url 'accounts/login' %}">
                     <i class="mx-2 bx bx-log-in align-middle"></i>
                     <span class="align-middle">{% translate "Sign In" %}</span>
+                  </a>
+                </li>
+                <li class="nav-item m-3 m-lg-1 d-none d-xl-block">
+                  <a class="me-3 py-2 link-body-emphasis text-decoration-none text-nowrap" href="{% ui_url 'users/signup' %}">
+                    <i class="mx-2 bx bx-user-plus align-middle"></i>
+                    <span class="align-middle">{% translate "Signup" %}</span>
                   </a>
                 </li>
                 <li class="nav-item m-3 m-lg-1 d-none d-xl-block">
