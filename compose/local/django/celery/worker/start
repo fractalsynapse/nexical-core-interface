@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+export DJANGO_SETTINGS_MODULE=config.settings.local.base
+
+exec watchfiles --filter python celery.__main__.main --args '-A config.celery_app worker -l INFO'

@@ -1,0 +1,24 @@
+<table id="{{ id }}" class="{{ classes }} table table-stripped">
+  {% if names %}
+    <thead>
+      <tr class="trow-0 trow">
+        {% autoescape off %}
+          {% for head in names %}<th>{{ head }}</th>{% endfor %}
+        {% endautoescape %}
+      </tr>
+    </thead>
+  {% endif %}
+  <tbody>
+    {% for row in data %}
+      <tr class="trow-{{ forloop.counter }} trow">
+        {% autoescape off %}
+          {% for cell in row %}
+            <td class="tcol-{{ forloop.counter }} tcol">
+              {% if cell != None %}{{ cell }}{% endif %}
+            </td>
+          {% endfor %}
+        {% endautoescape %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

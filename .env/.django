@@ -1,0 +1,19 @@
+# General
+# ------------------------------------------------------------------------------
+DOMAIN_NAME="localhost"
+BASE_UI_URL="http://localhost:3000"
+BASE_API_URL="http://localhost:8080"
+
+USE_DOCKER=yes
+IPYTHONDIR="/app/.ipython"
+
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_HOST="redis"
+REDIS_PORT=6379
+REDIS_PASSWORD=""
+
+# Mailgun
+# ------------------------------------------------------------------------------
+MAILGUN_DOMAIN="nexical.email"
+MAILGUN_API_URL="https://api.mailgun.net/v3"

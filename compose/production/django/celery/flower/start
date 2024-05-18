@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+export DJANGO_SETTINGS_MODULE=config.settings.production.base
+
+exec celery -A config.celery_app flower

@@ -1,0 +1,87 @@
+{% extends "drf_spectacular/swagger_ui.html" %}
+
+{% load static i18n %}
+
+{% block head %}
+  {{ block.super }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nexical Explorer" />
+  <meta name="author" content="Nexical AI" />
+  <link rel="icon" href="{% static 'images/icons/favicon.ico' %}" />
+  <style>
+    .page-wrapper {
+      padding-bottom: 50px;
+    }
+
+    .swagger-ui .information-container {
+      padding-bottom: 0 !important;
+    }
+
+    .swagger-ui .wrapper {
+      max-width: none;
+      margin: 0;
+      padding-bottom: 20px;
+    }
+
+    .swagger-ui .info {
+      margin: 0;
+      padding: 50px 50px 0 50px;
+    }
+
+    .swagger-ui .info .title {
+      padding: 10px;
+    }
+
+    .swagger-ui .info .description {
+      padding: 0 20px;
+      border-top: 1px solid #c3c3c3;
+    }
+
+    .swagger-ui .info .description p {
+      font-size: 1.2em;
+    }
+
+    .swagger-ui .info .link {
+      display: none;
+    }
+
+    .swagger-ui .scheme-container {
+      padding: 10px;
+    }
+
+    .swagger-ui .schemes-server-container {
+      display: none !important;
+    }
+
+    .swagger-ui .auth-wrapper {
+      text-align: center !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    .swagger-ui .auth-wrapper .authorize {}
+
+    .swagger-ui .filter-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .swagger-ui .operation-filter-input {
+      max-width: 500px;
+      margin: 0 !important;
+    }
+
+    .swagger-ui .opblock-tag {
+      border-bottom: 1px solid #c3c3c3;
+    }
+
+    .swagger-ui .opblock-tag-section {
+      padding: 10px 50px 10px 50px !important;
+    }
+
+    .swagger-ui .operation-tag-content {
+      margin-top: 20px !important;
+    }
+  </style>
+  <script src="{% static 'js/iframe-resizer-child-min.js' %}"></script>
+{% endblock head %}

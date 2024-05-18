@@ -1,0 +1,62 @@
+{% load static i18n site_urls user_perms %}
+
+{% if request.user.is_authenticated %}
+  <footer class="pt-2 pt-md-4 border-top">
+    <div class="container py-3">
+      <div class="row">
+        <div class="col px-4 px-sm-0">
+          <span class="p-2">
+            {% translate "Developed by" %}
+            <a href="https://fractalsynapse.com/" target="_blank">Fractal Synapse Labs</a>
+          </span>
+          <hr class="mb-0 pb-0" />
+          <div class="row pb-3">
+            <div class="col-md-6 pl-0">
+              <small class="d-block my-3">© 2024 Fractal Synapse Labs LCA PBC. {% translate "All Rights Reserved" %}</small>
+            </div>
+            <div class="col-md-6 d-md-flex justify-content-end align-items-center pr-0">
+              <a href="{% ui_url 'contact' %}" class="p-2">{% translate "Contact Us" %}</a>
+              {% is_business_team_member request.user as business_team_member %}
+              {% if business_team_member %}
+                <a href="{% ui_url 'api/docs' %}" class="p-2">{% translate "API Documentation" %}</a>
+              {% endif %}
+              <a href="{% ui_url 'tos' %}" class="p-2">{% translate "Terms of Service" %}</a>
+              <a href="{% ui_url 'privacy' %}" class="p-2">{% translate "Privacy Policy" %}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% else %}
+  <footer class="pt-4 pt-md-5 border-top">
+    <div class="container py-3">
+      <div class="row">
+        <div class="col px-4 px-sm-0">
+          <div class="row">
+            <div class="col">
+              <img class="mb-2 footer-logo" src="{% static 'images/logos/nexical-logo-white.svg' %}" alt="" />
+              <p class="mt-4 mb-2">
+                {% translate "Developed by" %}
+                <a href="https://fractalsynapse.com/" target="_blank">Fractal Synapse Labs</a>
+              </p>
+            </div>
+            <div class="col text-right">
+              <a href="{% ui_url 'contact' %}" class="btn btn-outline-light my-3 m-2">{% translate "Contact Us" %}</a>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-6 pl-0">
+              <small class="d-block my-3">© 2024 Fractal Synapse Labs LCA PBC. {% translate "All Rights Reserved" %}</small>
+            </div>
+            <div class="col-md-6 d-md-flex justify-content-end align-items-center pr-0">
+              <a href="{% ui_url 'tos' %}" class="p-2">{% translate "Terms of Service" %}</a>
+              <a href="{% ui_url 'privacy' %}" class="p-2">{% translate "Privacy Policy" %}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endif %}

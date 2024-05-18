@@ -1,0 +1,168 @@
+{% load static i18n %}
+
+<!-- START Feedback Modal -->
+<style>
+  .rating .form-check-label,
+  .rating .form-check-input {
+    text-align: center !important;
+  }
+
+  .rating .form-check-input {
+    background-image: url("{% static 'images/icons/star-off.svg' %}");
+    width: 42px;
+    height: 42px;
+    margin-bottom: 1rem;
+    border: none !important
+  }
+
+  .rating .form-check-input:checked[type=radio],
+  .rating .form-check-input.checked {
+    background-image: url("{% static 'images/icons/star-on.svg' %}") !important;
+    --bs-form-check-bg-image: url("{% static 'images/icons/star-on.svg' %}") !important;
+    background-color: transparent !important
+  }
+
+  .rating .form-check-input:focus {
+    box-shadow: none !important;
+  }
+
+  #feedback-button {
+    z-index: 1000;
+    position: fixed;
+    margin-right: -42px;
+    right: 0;
+    top: 60%;
+    transform: rotate(-90deg);
+    border-top-left-radius: .8rem !important;
+    border-top-right-radius: .8rem !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    padding-left: 1.6rem !important;
+    padding-right: 1.6rem !important;
+  }
+</style>
+<div class="modal fade" id="feedback-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form name="feedback-form">
+          <!-- START Question 1 -->
+          <div id="container">
+            <p class="lead mt-4">How would you rate your satisfaction with our contract discovery platform?</p>
+            <div class="py-3">
+              <div class="row rating">
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star1" value="1" />
+                    <label class="form-check-label" for="star1">1</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star2" value="2" />
+                    <label class="form-check-label" for="star2">2</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star3" value="3" />
+                    <label class="form-check-label" for="star3">3</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star4" value="4" />
+                    <label class="form-check-label" for="star4">4</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star5" value="5" />
+                    <label class="form-check-label" for="star5">5</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">Very disatisfied</div>
+                <div class="col d-flex justify-content-end">Very satisfied</div>
+              </div>
+              <div id="rating-warning" class="alert alert-danger mt-3 d-none" role="alert">Please rate our platform.</div>
+            </div>
+          </div>
+          <!-- END Question 1 -->
+          <hr />
+          <!-- START Question 2 -->
+          <div id="container">
+            <p class="lead mt-4">What could we do to make this platform more useful?</p>
+            <div class="py-3">
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="feedback-message" class="form-label">Please describe (Optional)</label>
+                    <textarea class="form-control" id="feedback-message" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Question 2 -->
+          <input type="hidden" id="feedback-url" value="{% url 'feedback:send' %}" />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="send-feedback" type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- START Floating button -->
+<a id="feedback-button" href="#" onclick="return false;" class="btn btn-primary">Feedback</a>
+<!-- END Floating button -->
+<script>
+    $(function() {
+        $('.rating .form-check-input').click(function() {
+            $('#rating-warning').addClass('d-none');
+            for (var i = 1; i < 6; i++) {
+                if (i <= $(this).val()) {
+                    $('#star' + i).addClass('checked');
+                } else {
+                    $('#star' + i).removeClass('checked');
+                }
+            }
+        });
+
+        $('#feedback-button').click(function() {
+            $('input[name=feedback-rating]').prop('checked', false);
+            $('#feedback-message').val('');
+            $('#feedback-modal').modal('show');
+        });
+
+        $('#send-feedback').click(function() {
+            var page_path = window.location.pathname + window.location.hash + window.location.search;
+
+            if (!$('input[name=feedback-rating]:checked').val()) {
+                $('#rating-warning').removeClass('d-none');
+                return;
+            }
+            // Submit form
+            $.ajax({
+                method: 'POST',
+                url: $('#feedback-url').val(),
+                headers: {
+                    'X-CSRFTOKEN': $('#csrf-token').val(),
+                },
+                data: {
+                    path: page_path,
+                    rating: $('input[name=feedback-rating]:checked').val(),
+                    message: $('#feedback-message').val(),
+                },
+            }).done(function(data) {
+                addSiteMessage('success', 'Thank you for sending us your feedback!');
+                $('#feedback-modal').modal('hide');
+            });
+        });
+    });
+</script>

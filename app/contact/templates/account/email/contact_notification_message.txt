@@ -1,0 +1,20 @@
+{% extends "account/email/base_message.txt" %}
+{% load account %}
+{% load i18n %}
+
+{% block content %}{% autoescape off %}New Contact:
+---------------------------------------------------------------------
+{% if user %}
+Full name:    {{ user.first_name }} {{ user.last_name }}
+Timezone:     {{ user.timezone }}
+Email:        {{ user.email }}
+{% else %}
+Full Name:  {{ name }}
+Email:      {{ email }}
+{% endif %}
+Sent:       {{ created }}
+---------------------------------------------------------------------
+{{ subject }}
+---------------------------------------------------------------------
+{{ message }}
+{% endautoescape %}{% endblock content %}

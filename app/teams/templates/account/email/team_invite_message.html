@@ -1,0 +1,331 @@
+{% load account %}
+{% load i18n %}
+
+{% user_display user as user_display %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain team_name=team.name %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>Nexical AI</title>
+
+  <style type="text/css" data-inline="true">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      border: 0px;
+      display: block;
+    }
+
+    .oldwebkit {
+      max-width: 570px;
+    }
+
+    td.vb-outer {
+      padding-left: 9px;
+      padding-right: 9px;
+    }
+
+    table.vb-container,
+    table.vb-row,
+    table.vb-content {
+      border-collapse: separate;
+    }
+
+    table.vb-row {
+      border-spacing: 9px;
+    }
+
+    table.vb-row.halfpad {
+      border-spacing: 0;
+      padding-left: 9px;
+      padding-right: 9px;
+    }
+
+    table.vb-row.fullwidth {
+      border-spacing: 0;
+      padding: 0;
+    }
+
+    table.vb-container {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    table.vb-container.fullpad {
+      border-spacing: 18px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    table.vb-container.halfpad {
+      border-spacing: 9px;
+      padding-left: 9px;
+      padding-right: 9px;
+    }
+
+    table.vb-container.fullwidth {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  </style>
+  <style type="text/css">
+    /* yahoo, hotmail */
+    .ExternalClass,
+    .ExternalClass p,
+    .ExternalClass span,
+    .ExternalClass font,
+    .ExternalClass td,
+    .ExternalClass div {
+      line-height: 100%;
+    }
+
+    .yshortcuts a {
+      border-bottom: none !important;
+    }
+
+    .vb-outer {
+      min-width: 0 !important;
+    }
+
+    .RMsgBdy,
+    .ExternalClass {
+      width: 100%;
+      background-color: #3f3f3f;
+      background-color: #3f3f3f
+    }
+
+    /* outlook */
+    table {
+      mso-table-rspace: 0pt;
+      mso-table-lspace: 0pt;
+    }
+
+    #outlook a {
+      padding: 0;
+    }
+
+    img {
+      outline: none;
+      text-decoration: none;
+      border: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    a img {
+      border: none;
+    }
+
+    @media screen and (max-device-width: 600px),
+    screen and (max-width: 600px) {
+
+      table.vb-container,
+      table.vb-row {
+        width: 95% !important;
+      }
+
+      .mobile-hide {
+        display: none !important;
+      }
+
+      .mobile-textcenter {
+        text-align: center !important;
+      }
+
+      .mobile-full {
+        float: none !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+      }
+
+      img.mobile-full {
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+      }
+
+
+    }
+  </style>
+  <style type="text/css" data-inline="true">
+    #ko_preheader_1 .links-color a,
+    #ko_preheader_1 .links-color a:link,
+    #ko_preheader_1 .links-color a:visited,
+    #ko_preheader_1 .links-color a:hover {
+      text-decoration: underline
+    }
+
+    #ko_titulotextocta_4 .links-color a,
+    #ko_titulotextocta_4 .links-color a:link,
+    #ko_titulotextocta_4 .links-color a:visited,
+    #ko_titulotextocta_4 .links-color a:hover {
+      text-decoration: underline
+    }
+
+    #ko_legales_1 .links-color a,
+    #ko_legales_1 .links-color a:link,
+    #ko_legales_1 .links-color a:visited,
+    #ko_legales_1 .links-color a:hover {
+      text-decoration: underline
+    }
+  </style>
+</head>
+
+<body alink="#cccccc" bgcolor="#bfbfbf" style="margin: 0; padding: 0; background-color: #bfbfbf; color: #919191;" text="#919191" vlink="#cccccc">
+
+  <center>
+
+    <table bgcolor="#bfbfbf" border="0" cellpadding="0" cellspacing="0" class="vb-outer" id="ko_header2_1" style="background-color: #bfbfbf;" width="100%">
+      <tbody>
+        <tr>
+          <td align="center" bgcolor="#bfbfbf" class="vb-outer" style="padding-left: 9px; padding-right: 9px; background-color: #bfbfbf;" valign="top">
+            <!--[if (gte mso 9)|(lte ie 8)]><table align="center" border="0" cellspacing="0" cellpadding="0" width="600"><tr><td align="center" valign="top"><![endif]-->
+            <div class="oldwebkit" style="max-width: 600px;">
+              <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="10" class="vb-row fullpad" style="border-collapse: separate; border-spacing: 10px; width: 100%; max-width: 600px; background-color: #ffffff; padding-right: 0px; padding-left: 0px;border-bottom: 2px solid #1B1D52" width="600">
+                <tbody>
+                  <tr>
+                    <td align="center" style="font-size: 0;" valign="top">
+                      <!--[if (gte mso 9)|(lte ie 8)]><table align="center" border="0" cellspacing="0" cellpadding="0" width="580"><tr><![endif]-->
+                      <!--[if (gte mso 9)|(lte ie 8)]><td align="left" valign="top" width="580"><![endif]-->
+                      <div class="mobile-full" style="display: inline-block; max-width: 580px; vertical-align: top; width: 100%;">
+                        <table align="left" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="10" class="vb-content" style="border-collapse: separate; width: 100%; padding-left: 0px;background-color: #ffffff;background: #ffffff;" width="580">
+                          <tbody>
+                            <tr>
+                              <td align="left" class="links-color" style="padding-bottom: 0px;" width="30%"><img alt="Nexical" class="" src="https://{{ site_domain }}/static/images/logos/nexical-logo-full-light.png" style="border: 0px; display: inline-block; vertical-align: top; padding-bottom: 0px; width: 100%; height: auto; max-width: 196px;" />
+                              </td>
+                              <td valign="middle" width="70%" style="vertical-align:middle; font-family:  Arial, Helvetica, sans-serif;color: #1B1D52;font-size: 18px;text-align: left;padding-left: 10px;">
+                                Nexical Explorer
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--[if (gte mso 9)|(lte ie 8)]></td><![endif]-->
+                      <!--[if (gte mso 9)|(lte ie 8)]></tr></table><![endif]-->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--[if (gte mso 9)|(lte ie 8)]></td></tr></table><![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table bgcolor="#bfbfbf" border="0" cellpadding="0" cellspacing="0" class="vb-outer" id="ko_titulotextocta_4" style="background-color: #bfbfbf;" width="100%">
+      <tbody>
+        <tr>
+          <td align="center" bgcolor="#bfbfbf" class="vb-outer" style="padding-left: 9px; padding-right: 9px; background-color: #bfbfbf;" valign="top">
+            <!--[if (gte mso 9)|(lte ie 8)]><table align="center" border="0" cellspacing="0" cellpadding="0" width="600"><tr><td align="center" valign="top"><![endif]-->
+
+            <div class="oldwebkit" style="max-width: 600px;">
+              <table bgcolor="#f7f7f7" border="0" cellpadding="0" cellspacing="10" class="vb-container fullpad" style="border-collapse: separate; border-spacing: 10px; padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px; width: 100%; max-width: 600px; background-color: #f7f7f7;" width="600">
+                <tbody>
+                  <tr>
+                    <td>
+                      <table align="left" border="0" cellpadding="0" cellspacing="10" width="100%">
+                        <tbody>
+
+                          <tr>
+                            <td align="left" class="long-text links-color" style="text-align: left; font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: #333333; line-height: 23px; padding-bottom: 0px;">
+
+                              <table align="center" cellpadding="12" cellspacing="0" style="width: 100%; margin: 0 auto; min-width: 100%; " width="100%">
+                                <tbody>
+                                  <tr>
+                                    <td width="100%" style="font-size: 16px; font-family:  Arial, sans-serif; color: #1B1D52;vertical-align: top">
+                                      <p>
+                                        <span style="font-size: 23px;color: #1B1D52">Hello from <strong>{{ site_name }}</strong>!</span>
+                                      </p>
+                                      <hr />
+                                      <p>
+                                        You're receiving this email because <strong>{{ user_display }}</strong>
+                                        has given your email address to register an account and join team <b>{{ team_name }}</b> on <a href="https://{{ site_domain }}/" style="color:#024BFF">{{ site_domain }}</a>.
+                                      </p>
+                                      <p style="margin-top: 40px;margin-bottom: 40px;">
+                                        <strong>Click the following confirm button to join:</strong>
+                                        <br />
+                                        <a href="{{ activate_url }}" style="display: inline-block;text-decoration: none;border-radius: 25px;padding: 10px 20px 10px 20px;background-color: #024BFF;color: #ffffff;margin-top: 10px;margin-bottom: 10px;">Confirm</a>
+                                      </p>
+                                      <p>
+                                        Thank you for using <a href="https://{{ site_domain }}/" style="color:#024BFF">{{ site_name }}</a>! <br />
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--[if (gte mso 9)|(lte ie 8)]>
+                                    </td>
+                                  </tr>
+                              </table>
+                              <![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table bgcolor="#bfbfbf" border="0" cellpadding="0" cellspacing="0" class="vb-outer" id="ko_legales_1" style="background-color: #bfbfbf;" width="100%">
+      <tbody>
+        <tr>
+          <td align="center" bgcolor="#bfbfbf" class="vb-outer" style="padding-left: 9px; padding-right: 9px; background-color: #bfbfbf;" valign="top">
+            <!--[if (gte mso 9)|(lte ie 8)]>
+                              <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                <tr>
+                                  <td align="center" valign="top">
+                                    <![endif]-->
+
+            <div class="oldwebkit" style="max-width: 600px;">
+              <table bgcolor="#191919" border="0" cellpadding="0" cellspacing="20" class="vb-container halfpad" style="border-top: 1px solid #1B1D52;border-collapse: separate; border-spacing: 20px; padding-left: 0px; padding-right: 0px; width: 100%; max-width: 600px; background-color: #191919;" width="600">
+                <tbody>
+                  <tr>
+                    <td align="center" bgcolor="#191919" style="background-color: #191919; font-size: 14px; font-family: Arial, Helvetica, sans-serif; text-align: left; line-height: 20px; color: #ffffff;">
+                      <p><a href="%unsubscribe_url%" style="color: #ffffff;">Unsubscribe from all emails</a></p>
+                      <p><a href="https://{{ site_domain }}/tos/" style="color: #ffffff;margin-top: 20px;margin-bottom: 40px;">Terms of Service</a>&nbsp;&nbsp;
+                        | &nbsp;&nbsp;<a href="https://{{ site_domain }}/privacy/" style="color: #ffffff;margin-top: 20px;margin-bottom: 40px;">Privacy Policy</a></p>
+                      <table cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
+                        <tr>
+                          <td style="border-top: 1px solid #565655;padding-top: 10px;padding-bottom: 20px;background-color: #191919; font-size: 14px; font-family: Arial, Helvetica, sans-serif; text-align: left; line-height: 20px; color: #ffffff;">
+                            <p>
+                              © 2024 Fractal Synapse Labs LCA PBC. All Rights Reserved.</p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!--[if (gte mso 9)|(lte ie 8)]>
+                                  </td>
+                                </tr>
+                              </table>
+                              <![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- footerBlock -->
+    <!-- /footerBlock -->
+  </center>
+</body>
+</html>
+{% endblocktrans %}

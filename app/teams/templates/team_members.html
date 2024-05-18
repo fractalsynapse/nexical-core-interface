@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load render_table from django_tables2 %}
+
+{% block title %}
+  Manage Teams
+{% endblock title %}
+{% block content %}
+  <div class="container rounded-45">
+    <div class="row bg-white rounded-5">
+      <div class="container p-5">
+        <div class="col">
+          <a id="btn-back"
+             href="{% url 'teams:list' %}"
+             class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex">
+            <i class="bx bx-chevron-left"></i>
+            <span>Back to list</span>
+          </a>
+          <div id="team-members" class="container-fluid">
+            <h1>
+              Team: <strong>{{ team.name }}</strong>
+            </h1>
+            <div class="row">
+              <div class="col d-flex align-items-stretch">
+                {% if membership_list %}
+                  <div class="card w-100">
+                    <div class="card-header d-flex align-items-center gap-1">
+                      <i class="bx bx-group text-primary"></i><strong>Members</strong>
+                    </div>
+                    <div class="card-body">
+                      <div id="team-membership-list">{% render_table membership_list %}</div>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

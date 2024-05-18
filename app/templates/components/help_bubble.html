@@ -1,0 +1,322 @@
+{% load static i18n %}
+
+<!-- START Feedback Modal -->
+<style>
+  .rating .form-check-label,
+  .rating .form-check-input {
+    text-align: center !important;
+  }
+
+  .rating .form-check-input {
+    background-image: url("{% static 'images/icons/star-off.svg' %}");
+    width: 42px;
+    height: 42px;
+    margin-bottom: 1rem;
+    border: none !important
+  }
+
+  .rating .form-check-input:checked[type=radio],
+  .rating .form-check-input.checked {
+    background-image: url("{% static 'images/icons/star-on.svg' %}") !important;
+    --bs-form-check-bg-image: url("{% static 'images/icons/star-on.svg' %}") !important;
+    background-color: transparent !important
+  }
+
+  .rating .form-check-input:focus {
+    box-shadow: none !important;
+  }
+
+  #help-bar.active {
+    bottom: 0px !important;
+    height: 90%;
+    display: block;
+  }
+
+  @media (min-width: 480px) {
+    #help-bar {
+      width: 320px !important;
+      max-height: 400px !important;
+    }
+  }
+
+  #how-to-modal {
+    z-index: 6000;
+  }
+
+  @media (min-width: 768px) {
+    #how-to-modal .modal-dialog {
+      max-width: 60% !important;
+    }
+  }
+
+  #help-bar {
+    /* display: none; */
+    z-index: 5000;
+    position: fixed;
+    bottom: -70px;
+    right: 25px;
+    height: 50px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+  }
+
+  #help-bar h2 {
+    font-size: 1.2rem !important;
+    font-weight: 600;
+    padding-left: .8rem !important;
+  }
+
+  #help-bar .close:hover,
+  #help-bar .close:focus {
+    outline: 1px solid #fff;
+    outline-offset: 1px;
+  }
+
+  #btn-help-bubble {
+    z-index: 8888;
+    display: block;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 1;
+    padding: 0;
+    cursor: pointer;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+  }
+
+  #btn-help-bubble:hover {
+    outline: 2px solid #024bff !important;
+    outline-offset: 1px !important;
+  }
+
+  .tooltip .tooltip-inner,
+  .tooltip .tooltip-arrow {
+    --bs-tooltip-bg: #024bff !important;
+    --bs-tooltip-color: #fff !important;
+  }
+
+  /* Hidding Chat button floater */
+  .zsiq_floatmain {
+    display: none !important;
+  }
+
+  #zsiq_float {
+    z-index: 9000;
+  }
+</style>
+<!-- START Modal Feedback -->
+<div class="modal fade" id="feedback-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form name="feedback-form">
+          <!-- START Question 1 -->
+          <div id="container">
+            <p class="lead mt-4">How would you rate your satisfaction with our contract discovery platform?</p>
+            <div class="py-3">
+              <div class="row rating">
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star1" value="1" />
+                    <label class="form-check-label" for="star1">1</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star2" value="2" />
+                    <label class="form-check-label" for="star2">2</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star3" value="3" />
+                    <label class="form-check-label" for="star3">3</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star4" value="4" />
+                    <label class="form-check-label" for="star4">4</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class=" d-flex flex-column justify-content-between">
+                    <input class="form-check-input align-self-center" type="radio" name="feedback-rating" id="star5" value="5" />
+                    <label class="form-check-label" for="star5">5</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">Very disatisfied</div>
+                <div class="col d-flex justify-content-end">Very satisfied</div>
+              </div>
+              <div id="rating-warning" class="alert alert-danger mt-3 d-none" role="alert">Please rate our platform.</div>
+            </div>
+          </div>
+          <!-- END Question 1 -->
+          <hr />
+          <!-- START Question 2 -->
+          <div id="container">
+            <p class="lead mt-4">What could we do to make this platform more useful?</p>
+            <div class="py-3">
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="feedback-message" class="form-label">Please describe (Optional)</label>
+                    <textarea class="form-control" id="feedback-message" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Question 2 -->
+          <input type="hidden" id="feedback-url" value="{% url 'feedback:send' %}" />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="send-feedback" type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Modal Feedback -->
+{% if help_title and help_body %}
+  <!-- START Modal How To for this particular section -->
+  <div class="modal fade w-70" id="how-to-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        {% autoescape off %}
+          <div class="modal-header d-flex justify-content-between align-items-center">
+            <h1 class="modal-title fs-5 pb-0">{{ help_title }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">{{ help_body }}</div>
+        {% endautoescape %}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+<!-- END Modal How To for this particular section -->
+<!-- START Help Window Container -->
+<div id="help-bar" role="dialog" tabindex="-1" class="rounded-top">
+  <div class="help-bar-header bg-medium-blue d-flex justify-content-between p-2 align-items-center rounded-top">
+    <h2 class="ml-2 pl-2 pb-0 pt-0" tabindex="-1">Help / Assistance</h2>
+    <button class="btn close float-right pull-right d-flex align-items-center justify-content-center"
+            data-dismiss="alert"
+            id="btn-close-help-bar"
+            title="Close Help / Assistance"
+            type="button">
+      <i class="bx bx-x" style="color: white !important;"></i>
+    </button>
+  </div>
+  <div class="p-3 d-flex flex-column gap-2">
+    {% if help_title and help_body %}
+      <a id="how-to-button" href="#" onclick="return false;" class="btn btn-outline-primary"><strong>How to?</strong></a>
+    {% endif %}
+    <a id="feedback-button" href="#" onclick="return false;" class="btn btn-outline-primary"><strong>Feedback</strong></a>
+    <a id="chat-button"
+       href="#"
+       onclick="return false;"
+       class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-1"><i class="bx bx-chat"></i><strong>Chat with us</strong></a>
+  </div>
+</div>
+<!-- END Help Window Container -->
+<!-- START Floating button -->
+<button id="btn-help-bubble"
+        title="Show help tools"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-title="Need help?"
+        aria-expanded="false"
+        class="btn btn-primary d-flex align-items-center justify-content-center">
+  <i class="bx bx-help-circle bx-lg"></i>
+  <!-- <i class="bx bx-message-alt-dots bx-md"></i> -->
+  <span class="visually-hidden">Show help tools</span>
+</button>
+<!-- END Floating button -->
+<script>
+    $(function() {
+
+
+        $('.rating .form-check-input').click(function() {
+            $('#rating-warning').addClass('d-none');
+            for (var i = 1; i < 6; i++) {
+                if (i <= $(this).val()) {
+                    $('#star' + i).addClass('checked');
+                } else {
+                    $('#star' + i).removeClass('checked');
+                }
+            }
+        });
+
+        $('#how-to-button').click(function() {
+            $('#how-to-modal').modal('show');
+        });
+
+        $('#feedback-button').click(function() {
+            $('input[name=feedback-rating]').prop('checked', false);
+            $('#feedback-message').val('');
+            $('#feedback-modal').modal('show');
+        });
+
+        $('#chat-button').click(function() {
+            $("#zsiq_float").trigger("click");
+            $("#help-bar").removeClass("active");
+            $('#btn-help-bubble').removeClass('d-none');
+        });
+
+        $('#btn-close-help-bar').click(function() {
+            $("#help-bar").removeClass("active");
+            $('#btn-help-bubble').removeClass('d-none');
+        });
+
+        $('#btn-help-bubble').click(function() {
+            $("#help-bar").addClass("active");
+            $(this).addClass('d-none');
+        });
+
+        $('#send-feedback').click(function() {
+            var page_path = window.location.pathname + window.location.hash + window.location.search;
+
+            if (!$('input[name=feedback-rating]:checked').val()) {
+                $('#rating-warning').removeClass('d-none');
+                return;
+            }
+            // Submit form
+            $.ajax({
+                method: 'POST',
+                url: $('#feedback-url').val(),
+                headers: {
+                    'X-CSRFTOKEN': $('#csrf-token').val(),
+                },
+                data: {
+                    path: page_path,
+                    rating: $('input[name=feedback-rating]:checked').val(),
+                    message: $('#feedback-message').val(),
+                },
+            }).done(function(data) {
+                addSiteMessage('success', 'Thank you for sending us your feedback!');
+                $('#feedback-modal').modal('hide');
+            });
+        });
+    });
+</script>

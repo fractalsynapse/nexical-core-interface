@@ -1,0 +1,98 @@
+{% load static i18n site_urls user_perms team_select %}
+
+{% is_business_team_member request.user as business_team_member %}
+{% if request.user.is_authenticated %}
+  <div class="l-navbar">
+    <nav class="l-navbar-nav">
+      <div>
+        <a href="{% ui_url %}" class="nav_logo">
+          <img class="brand" src="{% static 'images/logos/nexical-logo-white.svg' %}" alt="nexical logo" />
+        </a>
+        <div class="nav_list border-top pt-4">
+          {% if business_team_member %}
+            <a id="lnk-teams" href="{% ui_url 'teams' %}" class="nav_link text-decoration-none">
+              <i class="bx bx-shape-polygon bx-rotate-90"></i>
+              <span class="nav_name">{% translate 'My Teams' %}</span>
+            </a>
+            <a id="lnk-documents" href="{% ui_url 'documents' %}" class="nav_link text-decoration-none">
+              <i class="bx bx-folder"></i>
+              <span class="nav_name">{% translate 'Document Collections' %}</span>
+            </a>
+            <a id="lnk-explorer" href="{% ui_url 'research' %}" class="nav_link text-decoration-none">
+              <i class="bx bx-file-find xbx-rotate-90"></i>
+              <span class="nav_name">{% translate 'Research' %}</span>
+            </a>
+            <a id="lnk-api-docs" href="{% ui_url 'api/docs' %}" class="nav_link text-decoration-none">
+              <i class="bx bx-cloud-download"></i>
+              <span class="nav_name">{% translate 'API Documentation' %}</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="pt-3 border-top">
+        <div class="accordion accordion-flush" id="accordionAccount">
+          <div class="accordion-item">
+            <a id="lnk-account"
+               title="{% translate 'My Account' %}"
+               class="nav_link text-decoration-none accordion-button collapsed"
+               data-bs-toggle="collapse"
+               href="#collapseAccount"
+               rdata-bs-toggle="collapse"
+               data-bs-target="#flush-collapseAccount"
+               aria-expanded="false"
+               aria-controls="flush-collapseAccount">
+              <i class="bx bx-user"></i>
+              <span class="nav_name">{% translate 'My Account' %}</span>
+            </a>
+            <div id="flush-collapseAccount" class="accordion-collapse collapse" data-bs-parent="#accordionAccount">
+              <div class="accordion-body">
+                <a id="lnk-profile"
+                   href="{% url 'users:update' %}"
+                   title="{% translate 'My Profile' %}"
+                   class="nav_link text-decoration-none">
+                  <span class="nav_name">{% translate 'My Profile' %}</span>
+                </a>
+                <a id="lnk-emails"
+                   href="{% url 'account_email' %}"
+                   title="{% translate 'My E-mails' %}"
+                   class="nav_link text-decoration-none">
+                  <span class="nav_name">{% translate 'My E-mails' %}</span>
+                </a>
+                <a id="lnk-pass"
+                   href="{% url 'account_change_password' %}"
+                   title="{% translate 'Change Password' %}"
+                   class="nav_link text-decoration-none">
+                  <span class="nav_name">{% translate 'Change Password' %}</span>
+                </a>
+                {% if business_team_member %}
+                  <a id="lnk-token"
+                     href="{% url 'users:token' %}"
+                     title="{% translate 'API Token' %}"
+                     class="nav_link text-decoration-none">
+                    <span class="nav_name">{% translate 'API Token' %}</span>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pt-3 border-top">
+          <a id="lnk-contact"
+             href="{% ui_url 'contact' %}"
+             title="{% translate 'Contact Us' %}"
+             class="nav_link text-decoration-none">
+            <i class="bx bx-envelope"></i>
+            <span class="nav_name">{% translate 'Contact Us' %}</span>
+          </a>
+          <a id="lnk-logout"
+             href="{% ui_url 'accounts/logout' %}"
+             title="{% translate 'Sign Out' %}"
+             class="nav_link text-decoration-none">
+            <i class="bx bx-log-out"></i>
+            <span class="nav_name">{% translate 'Sign Out' %}</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+{% endif %}

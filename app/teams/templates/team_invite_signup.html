@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Join: {{ invite.team.name }}
+{% endblock title %}
+{% block content %}
+  <div class="container rounded-45">
+    <div class="row bg-white rounded-5">
+      <div class="container p-5">
+        <div class="col">
+          <div id="membership-signup-form" class="container">
+            <h1>Confirm invite to team: {{ invite.team.name }}</h1>
+            <form class="form-horizontal" method="post">
+              {% csrf_token %}
+              <div class="form-fields">
+                <div class="form-names row">
+                  <div class="name col">{{ form.first_name|as_crispy_field }}</div>
+                  <div class="name col">{{ form.last_name|as_crispy_field }}</div>
+                </div>
+                <hr />
+                <div class="form-email row">{{ form.email|as_crispy_field }}</div>
+                <div class="form-passwords row">
+                  <div class="password col">{{ form.password|as_crispy_field }}</div>
+                  <div class="password col">{{ form.confirm_password|as_crispy_field }}</div>
+                </div>
+              </div>
+              <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Join Team</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

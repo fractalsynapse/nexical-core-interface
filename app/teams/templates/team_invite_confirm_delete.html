@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Revoke: {{ object.email }}?
+{% endblock title %}
+{% block content %}
+  <div class="container rounded-45">
+    <div class="row bg-white rounded-5">
+      <div class="container p-5">
+        <div class="col">
+          <form method="post">
+            {% csrf_token %}
+            <h2>Are you sure you want to revoke invitation to "{{ object.team.name }}" for "{{ object.email }}"?</h2>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

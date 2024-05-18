@@ -1,0 +1,86 @@
+name: CI
+
+# Enable Buildkit and let compose use it to speed up image building
+env:
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+
+on:
+  pull_request:
+    branches: ['main']
+
+  push:
+    branches: ['main']
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.1
+
+  pytest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Create .secret environment file
+        run: touch .env/.secret
+
+      - name: Build the Stack
+        run: docker compose build
+
+      - name: Run DB Migrations
+        run: docker compose run --rm ui python manage.py migrate
+
+      - name: Run Django UI Tests
+        run: docker compose run ui pytest --ds=config.settings.local.ui -o 'python_files=test_ui_*.py'
+
+      - name: Run Django API Tests
+        run: docker compose run api pytest --ds=config.settings.local.api -o 'python_files=test_api_*.py'
+
+      - name: Tear down the Stack
+        run: docker compose down
+
+#   build_and_push:
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+#     needs: ['linter', 'pytest']
+#     env:
+#       REGISTRY: 'registry.digitalocean.com/prod-nexical-core'
+#       IMAGE_NAME: 'nexical-core'
+
+#     steps:
+#       - name: Checkout Code Repository
+#         uses: actions/checkout@v4
+
+#       - name: Set version
+#         run: |
+#           echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
+#       - name: Build container image
+#         run: docker build -t $REGISTRY/$IMAGE_NAME:$VERSION -f compose/production/django/Dockerfile .
+
+#       - name: Install doctl
+#         uses: digitalocean/action-doctl@v2
+#         with:
+#           token: ${{ secrets.DO_TOKEN }}
+
+#       - name: Log in to DigitalOcean Container Registry with short-lived credentials
+#         run: doctl registry login --expiry-seconds 600
+
+#       - name: Push image to DigitalOcean Container Registry
+#         run: docker push $REGISTRY/$IMAGE_NAME:$VERSION

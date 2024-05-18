@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+export DJANGO_SETTINGS_MODULE=config.settings.local.api
+
+python manage.py migrate
+python manage.py init_roles
+python manage.py init_schedule
+exec python manage.py runserver_plus 0.0.0.0:8000

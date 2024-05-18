@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+export DJANGO_SETTINGS_MODULE=config.settings.production.ui
+
+exec /usr/local/bin/gunicorn config.wsgi \
+    --bind="0.0.0.0:5000" \
+    --chdir=/app \
+    --cert-reqs=0 \
+    --limit-request-field_size=0 \
+    --limit-request-fields=0 \
+    --limit-request-line=0 \
+    --log-level=${GUNICORN_LOG_LEVEL:-info} \
+    --access-logformat="[gunicorn] %(h)s '%(t)s' %(U)s '%(q)s' %(s)s %(b)s '%(f)s' '%(a)s'" \
+    --access-logfile=- \
+    --error-logfile=- \
+    --timeout=${GUNICORN_TIMEOUT:-14400} \
+    --workers=${GUNICORN_WORKERS:-4} \
+    --worker-connections=${GUNICORN_CONNECTIONS:-100} \
+    --backlog=${GUNICORN_MAX_PENDING_CONNECTIONS:-3000}

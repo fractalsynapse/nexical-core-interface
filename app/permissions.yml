@@ -1,0 +1,46 @@
+engine:
+  [
+    view_team,
+
+    # add_teamdocumentcollection,
+    # change_teamdocumentcollection,
+    # delete_teamdocumentcollection,
+    # view_teamdocumentcollection,
+    # add_teamdocument,
+    # change_teamdocument,
+    # delete_teamdocument,
+    # view_teamdocument,
+
+    # change_researchsummary,
+    # view_researchsummary,
+
+    add_event,
+    change_event,
+    view_event,
+  ]
+business_team_member:
+  [
+    add_team,
+    change_team,
+    delete_team,
+    view_team,
+
+    # add_teamdocumentcollection,
+    # change_teamdocumentcollection,
+    # delete_teamdocumentcollection,
+    # view_teamdocumentcollection,
+    # delete_teamdocument,
+    # view_teamdocument,
+
+    # add_researchsummary,
+    # delete_researchsummary,
+    # view_researchsummary,
+
+    # add_researchnote,
+    # change_researchnote,
+    # delete_researchnote,
+    # view_researchnote,
+
+    add_event,
+    change_event,
+  ]

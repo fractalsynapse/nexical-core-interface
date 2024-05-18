@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Member Signup
+{% endblock title %}
+{% block content %}
+  <div class="container">
+    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
+      <div class="container">
+        <div class="col">
+          <div id="user-signup-form" class="container">
+            <h1>Create an account to get started...</h1>
+            <form class="form-horizontal" method="post">
+              {% csrf_token %}
+              <div class="form-fields">
+                <div class="form-names row">
+                  <div class="name col">{{ form.first_name|as_crispy_field }}</div>
+                  <div class="name col">{{ form.last_name|as_crispy_field }}</div>
+                </div>
+                <hr />
+                <div class="form-email row">{{ form.email|as_crispy_field }}</div>
+                <div class="form-passwords row">
+                  <div class="password col">{{ form.password|as_crispy_field }}</div>
+                  <div class="password col">{{ form.confirm_password|as_crispy_field }}</div>
+                </div>
+                <div class="invite-info row">
+                  <div class="invite-code col">{{ form.invite_code|as_crispy_field }}</div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">Join Now</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

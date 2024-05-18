@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="${BASH_SOURCE[0]}" # bash
+if [[ -z "$SCRIPT_PATH" ]]; then
+    SCRIPT_PATH="${(%):-%N}" # zsh
+fi
+SCRIPT_PATH="$(cd "$(dirname "${SCRIPT_PATH}")" && pwd)"
+
+(cd "$SCRIPT_PATH/.." && docker compose run ui python manage.py "$@")

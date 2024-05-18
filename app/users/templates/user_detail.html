@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Member: {{ object.first_name }} {{ object.last_name }}
+{% endblock title %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="page-wrapper d-flex justify-content-center">
+      {% if object == request.user %}
+        <div id="user-detail-page" class="container">
+          <div class="row">
+            <div class="col">
+              <h1>Welcome {{ object.first_name }}!</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                <a class="btn align-middle btn-outline-primary" href="{% url 'users:update' %}" role="button"><span>Update my
+                Profile</span></a>
+                <a class="btn align-middle btn-outline-primary" href="{% url 'account_email' %}" role="button"><span>Update my
+                E-Mails</span></a>
+                <a class="btn align-middle btn-outline-primary" href="{% url 'account_change_password' %}" role="button"><span>Update my
+                Password</span></a>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="my-3 p-3 border rounded-4 bg-white">{{ field_table }}</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}

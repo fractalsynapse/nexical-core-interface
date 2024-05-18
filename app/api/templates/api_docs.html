@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static i18n site_urls %}
+
+{% block title %}
+  API Documentation
+{% endblock title %}
+{% block javascript %}
+  {{ block.super }}
+  <script src="{% static 'js/iframe-resizer-parent-min.js' %}"></script>
+{% endblock javascript %}
+{% block inline_javascript %}
+  <script>
+      iFrameResize({
+          log: false
+      });
+  </script>
+{% endblock inline_javascript %}
+{% block content %}
+  <div class="api-docs-wrapper container-fluid wide-page">
+    <div class="page-wrapper d-flex justify-content-center">
+      <iframe id="api-docs" src="{% api_url %}"></iframe>
+    </div>
+  </div>
+{% endblock content %}

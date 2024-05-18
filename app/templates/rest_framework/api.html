@@ -1,0 +1,15 @@
+{% extends "rest_framework/base.html" %}
+
+{% load static i18n %}
+
+{% block title %}
+  {% if name %}{{ name }} -{% endif %}
+  Nexical API
+{% endblock title %}
+{% block meta %}
+  {{ block.super }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nexical Explorer" />
+  <meta name="author" content="Nexical AI" />
+  <link rel="icon" href="{% static 'images/icons/favicon.ico' %}" />
+{% endblock meta %}

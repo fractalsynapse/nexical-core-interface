@@ -1,0 +1,22 @@
+{% load site_filters %}
+
+<script>
+    window.addSiteMessage = function addSiteMessage(type, message) {
+        $('.messages-container').append(
+            '<div class="alert alert-dismissible alert-' + type + ' d-flex align-items-center justify-content-between">' +
+            message +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+            '</div>'
+        );
+    }
+</script>
+<div class="messages-container container">
+  {% for message in messages|unique_values %}
+    <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %} d-flex align-items-center justify-content-between">
+      {% autoescape off %}
+        {{ message }}
+      {% endautoescape %}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+</div>

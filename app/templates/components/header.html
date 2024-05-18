@@ -1,0 +1,75 @@
+{% load static i18n site_urls user_perms team_select %}
+
+{% if request.user.is_authenticated %}
+  <header>
+    <div class="container py-3 pr-4">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex">
+            <div class="flex-shrink-1 d-block d-md-none">
+              <a href="javascript: return false;" id="btn-menu"><span class="invisible">Menu</span></a>
+            </div>
+            <div class="w-100">
+              <span class="fs-5">Document Research Assistant</span>
+            </div>
+          </div>
+        </div>
+        {% is_business_team_member request.user as business_team_member %}
+        {% if business_team_member %}
+          <div class="col">
+            {% with active_team=request.user.settings.active_team %}
+              {% user_member_teams request.user as current_user_member_teams %}
+              <div class="d-md-flex justify-content-end align-items-center">
+                <label for="team-selector" class="form-label mb-0">Team:</label>
+                <select id="team-selector" class="form-select">
+                  {% if not active_team %}<option value="" selected>Select Team</option>{% endif %}
+                  {% for team in current_user_member_teams %}
+                    <option id="team-{{ team.id }}"
+                            value="{{ team.id }}"
+                            data-url="{% ui_url 'teams/~set' team.id %}"
+                            {% if active_team and team.id|stringformat:"s" == active_team %}selected{% endif %}>
+                      {{ team.name }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endwith %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+{% else %}
+  <header id="page-header">
+    {% include 'components/announcement.html' %}
+    <div class="container py-3">
+      <div class="d-flex flex-column flex-lg-row align-items-center pt-3">
+        <a href="{% ui_url %}" class="d-flex flex-column flex-lg-row link-body-emphasis text-decoration-none">
+          <img src="{% static 'images/logos/nexical-logo.svg' %}" alt="nexical logo" />
+          <span class="fs-4 text-nowrap">Document Research Assistant</span>
+        </a>
+        <nav class="navbar navbar-expand navbar-light d-inline-flex mt-3 mt-lg-0 ms-lg-auto border">
+          <div class="container-fluid">
+            <div id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item m-3 m-lg-1">
+                  {# URL provided by django-allauth/account/urls.py #}
+                  <a class="me-3 py-2 link-body-emphasis text-decoration-none text-nowrap" href="{% ui_url 'accounts/login' %}">
+                    <i class="mx-2 bx bx-log-in align-middle"></i>
+                    <span class="align-middle">{% translate "Sign In" %}</span>
+                  </a>
+                </li>
+                <li class="nav-item m-3 m-lg-1 d-none d-xl-block">
+                  <a class="me-3 py-2 link-body-emphasis text-decoration-none text-nowrap" href="{% ui_url 'contact' %}">
+                    <i class="mx-2 bx bx-envelope align-middle"></i>
+                    <span class="align-middle">{% translate "Contact" %}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+{% endif %}

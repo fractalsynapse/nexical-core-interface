@@ -1,0 +1,63 @@
+{% extends "base_min.html" %}
+
+{% load static i18n site_urls crispy_forms_tags %}
+
+{% block title %}
+  Manage API Token: {{ user.first_name }} {{ user.last_name }}
+{% endblock title %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'js/user-token-page.min.js' %}"></script>
+  <script src="{% static 'js/iframe-resizer-child-min.js' %}"></script>
+{% endblock javascript %}
+{% block feedback %}
+{% endblock feedback %}
+{% block content %}
+  <div id="user-token-form" class="container">
+    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
+      <div class="token-wrapper container">
+        <h1>Manage my API Token</h1>
+        <div class="api-docs">
+          <a href="{% url 'api-docs' %}" class="api-doc-link">
+            <i class="bx bx-cloud-download"></i>
+            <span>{% translate 'API Documentation' %}</span>
+          </a>
+        </div>
+        <div class="my-3 border rounded-4 p-md-3">
+          {% if token %}
+            <div class="api-token row border-bottom p-2 mb-3">
+              <div id="token-value" class="col-10 p-3 ">{{ token }}</div>
+              <div class="col-2 p-3">
+                <a id="token-copy" href="#" class="token-op text-decoration-none d-flex align-items-center gap-1" title="Copy">
+                  <i class="bx bx-copy bx-sm"></i> <span>Copy</span>
+                </a>
+              </div>
+            </div>
+          {% else %}
+            <div class="alert alert-warning d-flex flex-row gap-1">
+              <i class="bx bx-error"></i>
+              <div>
+                <strong>No Token registered in your account.</strong>
+                <p>Please click the "Generate Token" button.</p>
+              </div>
+            </div>
+          {% endif %}
+          <div class="form-buttonsx">
+            <button type="button" class="token-button btn btn-primary mb-5" data-url="{% url 'users:generate_token' %}">
+              {% if token %}
+                Regenerate Token
+              {% else %}
+                Generate Token
+              {% endif %}
+            </button>
+            {% if token %}
+              <button type="button" class="token-button btn btn-primary mb-5" data-url="{% url 'users:revoke_token' %}">
+                Revoke
+              </button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags crispy_forms_field %}
+{% load render_table from django_tables2 %}
+
+{% block title %}
+  Manage Teams
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock css %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'js/team-page.min.js' %}"></script>
+{% endblock javascript %}
+{% block inline_javascript %}
+  {{ form.media.js }}
+{% endblock inline_javascript %}
+{% block content %}
+  {% if team_count > 0 %}
+    <div class="mt-1 mb-0 mx-5">
+      <a id="btn-back"
+         href="{% url 'teams:list' %}"
+         class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex">
+        <i class="bx bx-chevron-left"></i>
+        <span>Back to list</span>
+      </a>
+    </div>
+  {% endif %}
+  <div class="container rounded-45">
+    <div class="row bg-white rounded-5">
+      <div class="container p-5">
+        <div class="col">
+          <div id="team-form" class="container">
+            <h1>
+              {% if operation == 'create' %}
+                Create a new team
+              {% else %}
+                Update team
+              {% endif %}
+            </h1>
+            <form class="form-horizontal" method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              {% if operation == 'update' %}
+                <div class="row">
+                  <div class="col-md-6 d-flex align-items-stretch">
+                    {% if membership_list %}
+                      <div class="card w-100">
+                        <div class="card-header d-flex align-items-center gap-1">
+                          <i class="bx bx-group text-primary"></i><strong>Members</strong>
+                        </div>
+                        <div class="card-body">
+                          <div id="team-membership-list">{% render_table membership_list %}</div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                  <div class="col-md-6 d-flex align-items-stretch">
+                    <div class="card w-100">
+                      <div class="card-header d-flex align-items-center gap-1">
+                        <i class="bx bx-mail-send text-primary"></i><strong>Invites</strong>
+                      </div>
+                      <div class="card-body">
+                        {% if invite_list %}
+                          <div id="team-invite-list" class="container">{% render_table invite_list %}</div>
+                        {% endif %}
+                        <div class="invite-form text-left">
+                          {% if object %}
+                            <label for="invite-email" class="form-label">Email Address</label>
+                            <input type="email" name="invite-email" id="invite-email" class="email-field form-control" value="" />
+                            <button type="button" id="invite-button" class="btn btn-outline-primary my-3" disabled>Send Invitation</button>
+                            <input id="invite-url" class="d-none" value="{% url 'teams:invite_send' object.id %}" />
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              <div class="control-group">
+                <div class="py-3">
+                  <button type="submit" class="btn btn-primary">
+                    {% if operation == 'create' %}
+                      Create
+                    {% else %}
+                      Update
+                    {% endif %}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
