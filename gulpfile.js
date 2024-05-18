@@ -30,8 +30,6 @@ function pathsConfig(appName) {
     vendorsJs: [
       `${vendorsRoot}/@popperjs/core/dist/umd/popper.js`,
       `${vendorsRoot}/bootstrap/dist/js/bootstrap.js`,
-      `${vendorsRoot}/datatables.net/js/dataTables.js`,
-      `${vendorsRoot}/datatables.net-dt/js/dataTables.dataTables.js`,
     ],
     app: this.app,
     templates: `${this.app}/templates`,

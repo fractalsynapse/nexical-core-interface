@@ -1,5 +1,5 @@
 {
-  "name": "nexical_core",
+  "name": "app",
   "version": "0.1.0",
   "devDependencies": {
     "@popperjs/core": "^2.10.2",
