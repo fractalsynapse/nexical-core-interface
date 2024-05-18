@@ -1,5 +1,4 @@
-engine:
-  [
+engine: [
     view_team,
 
     # add_teamdocumentcollection,
@@ -18,8 +17,7 @@ engine:
     change_event,
     view_event,
   ]
-business_team_member:
-  [
+business_team_member: [
     add_team,
     change_team,
     delete_team,

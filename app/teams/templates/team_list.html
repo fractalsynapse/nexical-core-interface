@@ -17,9 +17,8 @@
         <div class="col">
           <h1>Teams</h1>
           <a id="btn-add-team"
-            href="{% url 'teams:form_create' %}"
-            class="btn btn-outline-primary my-3 float-end d-flex align-items-center"><i class="bx bx-plus"></i>Create Team</a>
-
+             href="{% url 'teams:form_create' %}"
+             class="btn btn-outline-primary my-3 float-end d-flex align-items-center"><i class="bx bx-plus"></i>Create Team</a>
           {% render_table teams %}
         </div>
       </div>

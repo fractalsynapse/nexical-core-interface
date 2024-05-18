@@ -22,6 +22,7 @@ if READ_DOT_ENV_FILE:
 # HELPER FUNCTIONS
 # ------------------------------------------------------------------------------
 
+
 def get_redis_url(database_num):
     if re.match(r"^rediss://", env("REDIS_BASE_URL")):
         return f"{env('REDIS_BASE_URL')}/{database_num}?ssl_cert_reqs=none"

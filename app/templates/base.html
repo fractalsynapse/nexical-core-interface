@@ -76,7 +76,7 @@
     </script>
     {% if request.user.is_authenticated %}
       <script>
-    aa      $zoho.salesiq.ready = function() {
+          aa $zoho.salesiq.ready = function() {
               $zoho.salesiq.visitor.id("{{ request.user.id }}");
               $zoho.salesiq.visitor.email("{{ request.user.email }}");
               $zoho.salesiq.visitor.name("{{ request.user.first_name }} {{ request.user.last_name }}");

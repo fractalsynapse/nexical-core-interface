@@ -7,7 +7,6 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 from app.api import views
 from app.api.swagger import SwaggerView
 
-
 if settings.DEBUG:
     router = DefaultRouter()
 else:

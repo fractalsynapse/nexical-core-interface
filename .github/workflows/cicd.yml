@@ -54,7 +54,6 @@ jobs:
 
       - name: Tear down the Stack
         run: docker compose down
-
 #   build_and_push:
 #     runs-on: ubuntu-latest
 #     if: github.ref == 'refs/heads/main' && github.event_name == 'push'

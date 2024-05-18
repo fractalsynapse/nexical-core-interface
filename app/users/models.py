@@ -1,7 +1,6 @@
 from allauth.account.models import EmailAddress
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from timezone_field import TimeZoneField
 
@@ -13,6 +12,7 @@ from app.utils.models import BaseUUIDModel, BaseUUIDModelMixin
 def get_user_by_email(email):
     user = User.objects.filter(email=email)
     return user[0] if user else None
+
 
 def check_verified_email(email):
     addresses = EmailAddress.objects.filter(email=email, verified=True)
@@ -32,17 +32,13 @@ class User(BaseUUIDModelMixin, AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
-
     objects = UserManager()
-
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.email})"
 
-
     def check_member(self, *groups):
         return self.groups.filter(name__in=groups).exists()
-
 
     @property
     def emails(self):

@@ -35,7 +35,7 @@ class TestUserUpdateView:
         request.user = user
 
         view.request = request
-        assert view.get_success_url() == f"/users/me/"
+        assert view.get_success_url() == "/users/me/"
 
     def test_get_object(self, user: User, rf: RequestFactory):
         view = UpdateFormView()
@@ -74,7 +74,7 @@ class TestUserRedirectView:
         request.user = user
 
         view.request = request
-        assert view.get_redirect_url() == f"/users/me/"
+        assert view.get_redirect_url() == "/users/me/"
 
 
 class TestUserDetailView:
