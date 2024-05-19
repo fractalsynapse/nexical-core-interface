@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags crispy_forms_field %}
+
+{% block title %}
+  Manage Team Projects
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock css %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'js/project-page.min.js' %}"></script>
+{% endblock javascript %}
+{% block inline_javascript %}
+  {{ form.media.js }}
+{% endblock inline_javascript %}
+{% block content %}
+  {% if project_count > 0 %}
+    <div class="mt-1 mb-0 mx-5">
+      <a id="btn-back"
+         href="{% url 'projects:list' %}"
+         class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-chevron-left"></i><span>Back to list</span></a>
+    </div>
+  {% endif %}
+  <div class="container">
+    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
+      <div class="container">
+        <div class="col">
+          <div id="project-form">
+            <h2>
+              {% if operation == 'create' %}
+                Create a new Project
+              {% else %}
+                Update Project
+              {% endif %}
+            </h2>
+            {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+                </div>
+              {% endfor %}
+            {% endif %}
+            <form class="form-horizontal" method="post">
+              {% csrf_token %} {{ form|crispy }}
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    {% if operation == 'create' %}
+                      Create
+                    {% else %}
+                      Update
+                    {% endif %}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

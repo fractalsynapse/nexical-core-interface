@@ -49,11 +49,9 @@ class TeamOwnershipMixin(BusinessTeamAccessMixin):
 
 
 class TeamTable(django_tables2.Table):
-    name = django_tables2.Column(orderable=True, attrs={"th": {"class": "team-name"}, "td": {"class": "team-name"}})
-    owner = django_tables2.Column(orderable=True, attrs={"th": {"class": "team-owner"}, "td": {"class": "team-owner"}})
-    operations = django_tables2.Column(
-        orderable=False, empty_values=(), verbose_name="", attrs={"td": {"class": "team-ops col-action"}}
-    )
+    name = django_tables2.Column(orderable=True)
+    owner = django_tables2.Column(orderable=True)
+    operations = django_tables2.Column(orderable=False, empty_values=(), verbose_name="")
 
     class Meta:
         model = models.Team

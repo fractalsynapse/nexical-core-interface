@@ -51,26 +51,26 @@ def clear_active_team(user):
 
 
 def team_file_access(private_file):
-    # from app.documents.models import TeamDocumentCollection
+    from app.documents.models import TeamDocumentCollection
 
-    # user = private_file.request.user
-    # if user.is_authenticated:
-    #     try:
-    #         name_components = private_file.relative_name.split("/")
-    #         instance_type = name_components[1]
-    #         instance_id = name_components[2]
-    #     except Exception:
-    #         return False
+    user = private_file.request.user
+    if user.is_authenticated:
+        try:
+            name_components = private_file.relative_name.split("/")
+            instance_type = name_components[1]
+            instance_id = name_components[2]
+        except Exception:
+            return False
 
-    #     if instance_type == "doc":
-    #         try:
-    #             instance = TeamDocumentCollection.objects.get(id=instance_id)
-    #         except TeamDocumentCollection.DoesNotExist:
-    #             return False
+        if instance_type == "doc":
+            try:
+                instance = TeamDocumentCollection.objects.get(id=instance_id)
+            except TeamDocumentCollection.DoesNotExist:
+                return False
 
-    #     team = get_active_team(user)
-    #     if team and team.id == instance.team.id:
-    #         return True
+        team = get_active_team(user)
+        if team and team.id == instance.team.id:
+            return True
     return False
 
 

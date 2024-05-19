@@ -116,6 +116,8 @@ LOCAL_APPS = [
     "app.contact",
     "app.users",
     "app.teams",
+    "app.projects",
+    "app.documents",
     "app.feedback",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -199,7 +201,7 @@ MEDIA_URL = "/media/"
 
 PRIVATE_STORAGE_ROOT = str(APPS_DIR / "private_media")
 PRIVATE_STORAGE_AUTH_FUNCTION = "app.teams.models.team_file_access"
-PRIVATE_STORAGE_MAX_FILE_SIZE = 104857600  # 100MB
+PRIVATE_STORAGE_MAX_FILE_SIZE = env.int("PRIVATE_STORAGE_MAX_FILE_SIZE", default=104857600)  # 100MB
 
 # TEMPLATES
 # ------------------------------------------------------------------------------

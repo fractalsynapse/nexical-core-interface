@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="document-progress" data-url="{{ progress_url }}">
+  <i class="document-time-icon bx bx-time-five {% if not processed_time %}d-none{% endif %}"
+     title="Last processed: {{ processed_time }}"></i>
+  <img class="document-processing {% if processed_time %}d-none{% endif %}"
+       src="{% static 'images/loading.gif' %}"
+       title="Processing..."
+       alt="Processing..." />
+</div>

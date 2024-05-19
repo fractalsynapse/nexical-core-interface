@@ -1,15 +1,11 @@
 function setActiveMenu(url) {
   $('.l-navbar a').removeClass('active');
-  if (url.indexOf('/memberships/start') > -1) {
-    $('#lnk-start').addClass('active');
-  } else if (url.indexOf('/teams') > -1) {
+  if (url.indexOf('/teams') > -1) {
     $('#lnk-teams').addClass('active');
+  } else if (url.indexOf('/projects') > -1) {
+    $('#lnk-projects').addClass('active');
   } else if (url.indexOf('/documents') > -1) {
     $('#lnk-documents').addClass('active');
-  } else if (url.indexOf('/scanners') > -1) {
-    $('#lnk-scanners').addClass('active');
-  } else if (url.indexOf('/solicitations/notices') > -1) {
-    $('#lnk-explorer').addClass('active');
   } else if (url.indexOf('/api/docs') > -1) {
     $('#lnk-api-docs').addClass('active');
   } else if (url.indexOf('/users/update') > -1) {
@@ -24,18 +20,6 @@ function setActiveMenu(url) {
   } else if (url.indexOf('/users/token') > -1) {
     $('#lnk-token').addClass('active');
     $('#lnk-account').addClass('active');
-  } else if (url.indexOf('/memberships/overview') > -1) {
-    $('#lnk-subscription-overview').addClass('active');
-    $('#lnk-subscription').addClass('active');
-  } else if (url.indexOf('/memberships/manage') > -1) {
-    $('#lnk-subscription-manage').addClass('active');
-    $('#lnk-subscription').addClass('active');
-  } else if (url.indexOf('/memberships/complete') > -1) {
-    $('#lnk-payment-method').addClass('active');
-    $('#lnk-subscription').addClass('active');
-  } else if (url.indexOf('/memberships/payment_method') > -1) {
-    $('#lnk-payment-method').addClass('active');
-    $('#lnk-subscription').addClass('active');
   } else if (url.indexOf('/contact') > -1) {
     $('#lnk-contact').addClass('active');
   } else if (url.indexOf('/accounts/logout') > -1) {

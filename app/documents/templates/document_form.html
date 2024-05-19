@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags crispy_forms_field %}
+
+{% block title %}
+  Manage Team Documents
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock css %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'js/document-page.min.js' %}"></script>
+{% endblock javascript %}
+{% block inline_javascript %}
+  {{ form.media.js }}
+{% endblock inline_javascript %}
+{% block content %}
+  {% if collection_count > 0 %}
+    <div class="mt-1 mb-0 mx-5">
+      <a id="btn-back"
+         href="{% url 'documents:list' %}"
+         class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-chevron-left"></i><span>Back to list</span></a>
+    </div>
+  {% endif %}
+  <div class="container">
+    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
+      <div class="container">
+        <div class="col">
+          <div id="document-form">
+            <h2>
+              {% if operation == 'create' %}
+                Create a new Document Collection
+              {% else %}
+                Update Document Collection
+              {% endif %}
+            </h2>
+            {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+                </div>
+              {% endfor %}
+            {% endif %}
+            {% if files.errors %}
+              {% for field in files %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                    <strong>{{ error|escape|title }} error</strong>
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              {% for error in files.non_form_errors %}
+                <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+                </div>
+              {% endfor %}
+            {% endif %}
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+              {% csrf_token %} {{ form|crispy }}
+              <div class="files-form-wrapper inline-form-wrapper">
+                <h4>Files</h4>
+                <br />
+                <div class="alert alert-info d-flex flex-row gap-1">
+                  <div class="mx-3 my-auto">
+                    <i class="bx bx-info-circle"></i>
+                  </div>
+                  <div class="mx-3">
+                    <strong>Select up to 5 PDF, DOCX, or TXT files</strong>
+                  </div>
+                  <p class="mb-0">
+                    Document collections can be used to help scanners filter solicitations and to
+                    combine with solicitation notice information for use in the AI summarization engine
+                  </p>
+                </div>
+                {{ files.management_form }}
+                <table id="file-form-table" class="inline-form-table">
+                  {% for file_form in files.forms %}
+                    <tr class="file-form" data-basename="files-{{ forloop.counter0 }}">
+                      <td class="file-input form-field">{{ file_form.id }} {{ file_form.file|as_crispy_field }}</td>
+                      <td class="file-delete delete">
+                        <div class="delete-button">
+                          <span class="material-symbols-outlined">delete</span>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  <tr id="file-empty-form" class="d-none">
+                    <td class="file-input form-field">{{ files.empty_form.file|as_crispy_field }}</td>
+                    <td class="file-delete delete">
+                      <div class="delete-button">
+                        <span class="material-symbols-outlined">delete</span>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <div class="file-add-wrapper inline-form-controls">
+                  <button type="button" id="add-files" class="add-inline-form-button">
+                    <span class="material-symbols-outlined">add_circle</span>
+                  </button>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    {% if operation == 'create' %}
+                      Create
+                    {% else %}
+                      Update
+                    {% endif %}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
