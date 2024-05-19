@@ -51,54 +51,44 @@ class TeamOwnershipMixin(BusinessTeamAccessMixin):
 class TeamTable(django_tables2.Table):
     name = django_tables2.Column(orderable=True, attrs={"th": {"class": "team-name"}, "td": {"class": "team-name"}})
     owner = django_tables2.Column(orderable=True, attrs={"th": {"class": "team-owner"}, "td": {"class": "team-owner"}})
-    members = django_tables2.Column(
-        orderable=False, empty_values=(), verbose_name="", attrs={"td": {"class": "team-members col-action"}}
-    )
-    edit = django_tables2.Column(
-        orderable=False, empty_values=(), verbose_name="", attrs={"td": {"class": "team-edit col-action"}}
-    )
-    remove = django_tables2.Column(
-        orderable=False, empty_values=(), verbose_name="", attrs={"td": {"class": "team-remove col-action"}}
+    operations = django_tables2.Column(
+        orderable=False, empty_values=(), verbose_name="", attrs={"td": {"class": "team-ops col-action"}}
     )
 
     class Meta:
         model = models.Team
-        template_name = "django_tables2/bootstrap5-responsive.html"
-        fields = ["name", "owner", "members", "edit", "remove"]
+        fields = ["name", "owner", "operations"]
 
     def __init__(self, user, **kwargs):
         super().__init__(**kwargs)
         self.user = user
 
-    def render_members(self, value, record):
+    def render_operations(self, value, record):
+        operations = ['<div class="text-center">']
+
         if self.user.id != record.owner.id and record.members.filter(user=self.user):
             members_url = reverse("teams:members", kwargs={"pk": record.id})
-            return format_html(
+            operations.append(
                 f'<a class="btn btn-outline-primary " title="Members" href="{members_url}">'
                 + '<i class="bx bx-group"></i>'
                 + "</a>"
             )
-        return ""
-
-    def render_edit(self, value, record):
         if self.user.id == record.owner.id:
             update_url = reverse("teams:form_update", kwargs={"pk": record.id})
-            return format_html(
+            operations.append(
                 f'<a class="btn btn-outline-primary " title="Edit" href="{update_url}">'
                 + '<i class="bx bx-edit"></i>'
                 + "</a>"
             )
-        return ""
-
-    def render_remove(self, value, record):
-        if self.user.id == record.owner.id:
             remove_url = reverse("teams:remove", kwargs={"pk": record.id})
-            return format_html(
+            operations.append(
                 f'<a class="btn btn-outline-primary ms-2" title="Remove" href="{remove_url}">'
                 + '<i class="bx bx-trash-alt"></i>'
                 + "</a>"
             )
-        return ""
+
+        operations.append("</div>")
+        return format_html("".join(operations))
 
 
 class TeamMembershipTable(django_tables2.Table):

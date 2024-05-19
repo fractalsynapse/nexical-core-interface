@@ -290,6 +290,9 @@ h4,
   transition: $speed-transition;
 }
 
+.group-btn {
+}
+
 .btn-outline-primary {
   border-color: $color-dark-blue;
   color: $color-dark-blue;
@@ -1492,6 +1495,19 @@ footer {
 // Home Page //
 ///////////////
 
+//////////////////
+// User Actions //
+//////////////////
+
+.table-label {
+  background-color: $offwhite !important;
+  border: 1px solid $light-grey;
+}
+
+.table-value {
+  border: 1px solid $light-grey;
+}
+
 /////////////////////
 // Account Profile //
 /////////////////////
@@ -1714,54 +1730,54 @@ footer {
 // Team Management //
 /////////////////////
 
-#team-list {
-  margin: 50px 20px;
-  padding: 0;
-  width: 90%;
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+// #team-list {
+//     margin: 50px 20px;
+//     padding: 0;
+//     width: 90%;
+//     height: 100vh;
+//     overflow-y: auto;
+//     overflow-x: hidden;
+// }
 
-#team-list th {
-  background: transparent;
-  border: 1px solid $dark-grey;
-  color: $white;
-  font-weight: bold;
-}
+// #team-list .table-header {
+//     background: transparent;
+//     border: 1px solid $dark-grey;
+//     color: $white;
+//     font-weight: bold;
+// }
 
-#team-list tr {
-  border: 1px solid $light-grey;
-}
+// #team-list .table-body .row {
+//     border: 1px solid $light-grey;
+// }
 
-#team-list td {
-  font-size: 1.2em;
-  background: linear-gradient($white, $offwhite);
-  color: $dark-blue;
-}
+// #team-list col {
+//     font-size: 1.2em;
+//     background: linear-gradient($white, $offwhite);
+//     color: $dark-blue;
+// }
 
-#team-list td.team-name {
-  min-width: 200px;
-  padding: 25px;
-}
+// #team-list div.team-name {
+//     min-width: 200px;
+//     padding: 25px;
+// }
 
-#team-list td.team-edit {
-  text-align: center;
-}
+// #team-list div.team-edit {
+//     text-align: center;
+// }
 
-#team-list td.team-edit span {
-  padding: 25px 10px;
-  font-size: 1.2em;
-}
+// #team-list div.team-edit span {
+//     padding: 25px 10px;
+//     font-size: 1.2em;
+// }
 
-#team-list td.team-remove {
-  text-align: center;
-}
+// #team-list div.team-remove {
+//     text-align: center;
+// }
 
-#team-list td.team-remove span {
-  padding: 25px 10px;
-  font-size: 1.2em;
-}
+// #team-list div.team-remove span {
+//     padding: 25px 10px;
+//     font-size: 1.2em;
+// }
 
 #team-form .team-membership-info {
   margin: 20px 0;

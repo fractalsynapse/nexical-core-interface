@@ -15,5 +15,4 @@ REDIS_PASSWORD=""
 
 # Mailgun
 # ------------------------------------------------------------------------------
-MAILGUN_DOMAIN="nexical.email"
 MAILGUN_API_URL="https://api.mailgun.net/v3"

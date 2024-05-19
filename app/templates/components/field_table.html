@@ -1,0 +1,14 @@
+<div id="{{ id }}" class="{{ classes }} table field-table p-5">
+  <div class="table-body border">
+    {% for row in data %}
+      <div class="row mx-auto {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
+        {% autoescape off %}
+          <div class="col-md-4 table-label px-1 py-3 text-break text-wrap text-center">{{ row.0 }}</div>
+          <div class="col-md-8 table-value px-2 py-3 text-break text-wrap text-center">
+            <b>{{ row.1 }}</b>
+          </div>
+        {% endautoescape %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

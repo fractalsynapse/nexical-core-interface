@@ -11,15 +11,23 @@
   <script defer src="{% static 'js/team-page.min.js' %}"></script>
 {% endblock javascript %}
 {% block content %}
-  <div class="container rounded-45">
+  <div class="container">
     <div class="row bg-white rounded-5">
       <div class="container p-5">
         <div class="col">
           <h1>Teams</h1>
-          <a id="btn-add-team"
-             href="{% url 'teams:form_create' %}"
-             class="btn btn-outline-primary my-3 float-end d-flex align-items-center"><i class="bx bx-plus"></i>Create Team</a>
-          {% render_table teams %}
+          <div class="row">
+            <div class="col">
+              <a id="btn-add-team"
+                 href="{% url 'teams:form_create' %}"
+                 class="btn btn-outline-primary my-3 mr-5 float-end d-flex align-items-center">
+                <i class="bx bx-plus"></i>Create Team
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col pt-3">{% render_table teams %}</div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static i18n site_urls crispy_forms_tags %}
+{% load static i18n site_urls crispy_forms_tags user_perms %}
 
 {% block title %}
   Manage API Token: {{ user.first_name }} {{ user.last_name }}
@@ -11,47 +11,83 @@
 {% endblock javascript %}
 {% block content %}
   <div id="user-token-form" class="container">
-    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
-      <div class="token-wrapper container">
-        <h1>Manage my API Token</h1>
-        <div class="api-docs">
-          <a href="{% url 'api:docs' %}" class="api-doc-link">
-            <i class="bx bx-cloud-download"></i>
-            <span>{% translate 'API Documentation' %}</span>
-          </a>
+    <div class="page-wrapper d-flex justify-content-center">
+      {% is_business_team_member request.user as business_team_member %}
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1>Welcome {{ request.user.first_name }}!</h1>
+          </div>
         </div>
-        <div class="my-3 border rounded-4 p-md-3">
-          {% if token %}
-            <div class="api-token row border-bottom p-2 mb-3">
-              <div id="token-value" class="col-10 p-3 ">{{ token }}</div>
-              <div class="col-2 p-3">
-                <a id="token-copy" href="#" class="token-op text-decoration-none d-flex align-items-center gap-1" title="Copy">
-                  <i class="bx bx-copy bx-sm"></i> <span>Copy</span>
-                </a>
-              </div>
-            </div>
-          {% else %}
-            <div class="alert alert-warning d-flex flex-row gap-1">
-              <i class="bx bx-error"></i>
-              <div>
-                <strong>No Token registered in your account.</strong>
-                <p>Please click the "Generate Token" button.</p>
-              </div>
-            </div>
-          {% endif %}
-          <div class="form-buttonsx">
-            <button type="button" class="token-button btn btn-primary mb-5" data-url="{% url 'users:generate_token' %}">
-              {% if token %}
-                Regenerate Token
-              {% else %}
-                Generate Token
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="user-actions" role="group" aria-label="User Actions">
+              <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                 href="{% url 'users:me' %}"
+                 role="button"><span>Account Home</span></a>
+              <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                 href="{% url 'users:update' %}"
+                 role="button"><span>Update
+              Profile</span></a>
+              <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                 href="{% url 'account_email' %}"
+                 role="button"><span>Update
+              E-Mails</span></a>
+              <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                 href="{% url 'account_change_password' %}"
+                 role="button"><span>Update
+              Password</span></a>
+              {% if business_team_member %}
+                <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline active"
+                   href="{% url 'users:token' %}"
+                   role="button"><span>Update
+                Token</span></a>
               {% endif %}
-            </button>
-            {% if token %}
-              <button type="button" class="token-button btn btn-primary mb-5" data-url="{% url 'users:revoke_token' %}">
-                Revoke
-              </button>
-            {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col my-3 p-5 border rounded-4 bg-white">
+            <div class="api-docs">
+              <a href="{% url 'api:docs' %}" class="api-doc-link">
+                <i class="bx bx-cloud-download"></i>
+                <span>{% translate 'API Documentation' %}</span>
+              </a>
+            </div>
+            <div class="my-3 border rounded-4 p-md-3">
+              {% if token %}
+                <div class="api-token row border-bottom p-2 mb-3">
+                  <div id="token-value" class="col-10 p-3 ">{{ token }}</div>
+                  <div class="col-2 p-3">
+                    <a id="token-copy" href="#" class="token-op text-decoration-none d-flex align-items-center gap-1" title="Copy">
+                      <i class="bx bx-copy bx-sm"></i> <span>Copy</span>
+                    </a>
+                  </div>
+                </div>
+              {% else %}
+                <div class="alert alert-warning d-flex flex-row gap-1">
+                  <i class="bx bx-error"></i>
+                  <div>
+                    <strong>No Token registered in your account.</strong>
+                    <p>Please click the "Generate Token" button.</p>
+                  </div>
+                </div>
+              {% endif %}
+              <div class="form-buttonsx">
+                <button type="button" class="token-button btn btn-primary mb-5" data-url="{% url 'users:generate_token' %}">
+                  {% if token %}
+                    Regenerate Token
+                  {% else %}
+                    Generate Token
+                  {% endif %}
+                </button>
+                {% if token %}
+                  <button type="button" class="token-button btn btn-primary mb-5" data-url="{% url 'users:revoke_token' %}">
+                    Revoke
+                  </button>
+                {% endif %}
+              </div>
+            </div>
           </div>
         </div>
       </div>

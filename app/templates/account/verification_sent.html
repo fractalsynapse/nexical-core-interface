@@ -6,8 +6,14 @@
   {% translate "Verify Your E-mail Address" %}
 {% endblock head_title %}
 {% block inner %}
-  <h1>{% translate "Verify Your E-mail Address" %}</h1>
-  <p>
-    {% blocktranslate %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktranslate %}
-  </p>
+  <div class="container">
+    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
+      <div id="login-page" class="container">
+        <h1 class="h3 mb-3 fw-normal">{% translate "Verify Your E-mail Address" %}</h1>
+        <p>
+          {% blocktranslate %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktranslate %}
+        </p>
+      </div>
+    </div>
+  </div>
 {% endblock inner %}

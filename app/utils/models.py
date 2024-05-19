@@ -154,7 +154,7 @@ def get_reverse_relations(model):
     return fields
 
 
-def render_field_table(instance, *field_names, id=None, classes=None, names=None):
+def render_field_table(instance, *field_names, id=None, classes=None):
     field_map = {field.name: field for field in get_direct_fields(instance.__class__)}
     data = []
 
@@ -172,7 +172,14 @@ def render_field_table(instance, *field_names, id=None, classes=None, names=None
         if value is not None:
             data.append([field_map[name].verbose_name, value])
 
-    return render_to_string("components/table.html", {"names": names, "data": data, "id": id, "classes": classes})
+    return render_to_string(
+        "components/field_table.html",
+        {
+            "id": id,
+            "classes": classes,
+            "data": data,
+        },
+    )
 
 
 class BaseModelMixin(models.Model):

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% load static user_perms %}
 
 {% block title %}
   Member: {{ object.first_name }} {{ object.last_name }}
@@ -9,24 +9,42 @@
   <div class="container-fluid">
     <div class="page-wrapper d-flex justify-content-center">
       {% if object == request.user %}
-        <div id="user-detail-page" class="container">
+        {% is_business_team_member object as business_team_member %}
+        <div class="container">
           <div class="row">
             <div class="col">
               <h1>Welcome {{ object.first_name }}!</h1>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-                <a class="btn align-middle btn-outline-primary" href="{% url 'users:update' %}" role="button"><span>Update my
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <div class="user-actions" role="group" aria-label="User Actions">
+                <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline active"
+                   href="{% url 'users:me' %}"
+                   role="button"><span>Account Home</span></a>
+                <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                   href="{% url 'users:update' %}"
+                   role="button"><span>Update
                 Profile</span></a>
-                <a class="btn align-middle btn-outline-primary" href="{% url 'account_email' %}" role="button"><span>Update my
+                <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                   href="{% url 'account_email' %}"
+                   role="button"><span>Update
                 E-Mails</span></a>
-                <a class="btn align-middle btn-outline-primary" href="{% url 'account_change_password' %}" role="button"><span>Update my
+                <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                   href="{% url 'account_change_password' %}"
+                   role="button"><span>Update
                 Password</span></a>
+                {% if business_team_member %}
+                  <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline"
+                     href="{% url 'users:token' %}"
+                     role="button"><span>Update
+                  Token</span></a>
+                {% endif %}
               </div>
             </div>
-            <div class="col-lg-8">
+          </div>
+          <div class="row mt-4">
+            <div class="col">
               <div class="my-3 p-3 border rounded-4 bg-white">{{ field_table }}</div>
             </div>
           </div>

@@ -1,0 +1,79 @@
+{% load django_tables2 %}
+{% load i18n l10n %}
+
+<div class="table-container">
+  <div class="table" {% render_attrs table.attrs %}>
+    {% if table.show_header %}
+      <div class="row table-header" {{ table.attrs.thead.as_html }}>
+        {% for column in table.columns %}
+          <div class="col text-nowrap align-items-end" {{ column.attrs.th.as_html }}>
+            {% if column.orderable %}
+              <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a>
+            {% else %}
+              {{ column.header }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="table-body" {{ table.attrs.tbody.as_html }}>
+      <hr />
+      {% for row in table.paginated_rows %}
+        <div class="row" {{ row.attrs.as_html }}>
+          {% for column, cell in row.items %}
+            <div class="col text-nowrap" {{ column.attrs.td.as_html }}>
+              {% if column.localize == None %}
+                {{ cell }}
+              {% else %}
+                {% if column.localize %}
+                  {{ cell|localize }}
+                {% else %}
+                  {{ cell|unlocalize }}
+                {% endif %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% empty %}
+        {% if table.empty_text %}
+          <div class="row">
+            <div class="col text-nowrap" colspan="{{ table.columns|length }}">{{ table.empty_text }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if table.has_footer %}
+      <div class="row" {{ table.attrs.tfoot.as_html }}>
+        {% for column in table.columns %}
+          <div class="col text-nowrap" {{ column.attrs.tf.as_html }}>{{ column.footer }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  {% if table.page and table.paginator.num_pages > 1 %}
+    <ul class="pagination">
+      {% if table.page.has_previous %}
+        <li class="previous">
+          <a href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}">{% trans 'previous' %}</a>
+        </li>
+      {% endif %}
+      {% if table.page.has_previous or table.page.has_next %}
+        {% for p in table.page|table_page_range:table.paginator %}
+          <li {% if p == table.page.number %}class="active"{% endif %}>
+            {% if p == '...' %}
+              <a href="#">{{ p }}</a>
+            {% else %}
+              <a href="{% querystring table.prefixed_page_field=p %}">{{ p }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      {% endif %}
+      {% if table.page.has_next %}
+        <li class="next">
+          <a href="{% querystring table.prefixed_page_field=table.page.next_page_number %}">{% trans 'next' %}</a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</div>
