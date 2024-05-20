@@ -1,5 +1,5 @@
-from nexical_contracts.teams.models import TeamTag
-from nexical_contracts.utils.python import get_identifier
+from app.teams.models import TeamTag
+from app.utils.python import get_identifier
 
 from .models import ProjectSummary
 
