@@ -118,6 +118,7 @@ LOCAL_APPS = [
     "app.teams",
     "app.projects",
     "app.documents",
+    "app.research",
     "app.feedback",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

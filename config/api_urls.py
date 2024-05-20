@@ -16,11 +16,11 @@ else:
 router.register("event", views.EventViewSet)
 router.register("user", views.UserViewSet)
 router.register("team", views.TeamViewSet)
-router.register("team_project", views.TeamProjectViewSet)
-router.register("team_document_collection", views.TeamDocumentCollectionViewSet)
-router.register("team_document", views.TeamDocumentViewSet)
-# router.register("team_summary", views.TeamSummaryViewSet)
-# router.register("team_note", views.TeamNoteViewSet)
+router.register("project", views.TeamProjectViewSet)
+router.register("library", views.TeamDocumentCollectionViewSet)
+router.register("document", views.TeamDocumentViewSet)
+router.register("summary", views.ProjectSummaryViewSet)
+router.register("note", views.ProjectNoteViewSet)
 router.register("feedback", views.FeedbackViewSet)
 
 

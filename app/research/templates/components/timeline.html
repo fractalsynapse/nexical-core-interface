@@ -1,0 +1,99 @@
+{% load static %}
+
+<div class="timeline-wrapper container">
+  {% if active_tag or timeline %}
+    <div class="row">
+      <div class="timeline-topic-selector-label col-auto">
+        <h4>Topic</h4>
+      </div>
+      <div class="timeline-topic-selector col">
+        <div class="tag-selector-wrapper">
+          <select id="tag-selector" class="selector">
+            <option value="">all</option>
+            {% for tag in tags %}
+              <option value="{{ tag.name }}" {% if active_tag and active_tag == tag.name %}selected{% endif %}>
+                {{ tag.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="scroller">
+      {% for instance in timeline %}
+        <div class="button-wrapper">
+          {% if instance.type == "note" %}
+            <button type="button"
+                    id="timeline-{{ instance.model.id }}"
+                    class="timeline-card note-card"
+                    title="Click to load Note"
+                    data-url="{% url 'research:note' instance.model.id %}">
+              <a href="#"
+                 class="timeline-remove-link note-remove-link text-decoration-none float-end d-flex align-items-top"
+                 title="Remove"
+                 data-url="{% url 'research:remove_note' instance.model.id %}">
+                <i class="bx bx-message-square-minus"></i>
+              </a>
+              <div class="row">
+                <div class="col-auto">
+                  <div>
+                    <i class="timeline-note-icon bx bx-edit"></i>
+                  </div>
+                  <div>
+                    <i class="timeline-time-icon bx bx-time-five" title="{{ instance.model.updated }}"></i>
+                  </div>
+                </div>
+                <div class="title note-title col">{{ instance.model.message|truncatewords:10 }}</div>
+              </div>
+              <span class="tags">
+                {% for tag in instance.model.tags.all %}<span class="tag" title="Filter on Tag">{{ tag.name }}</span>{% endfor %}
+              </span>
+            </button>
+          {% elif instance.type == "summary" %}
+            <button type="button"
+                    id="timeline-{{ instance.model.id }}"
+                    class="timeline-card summary-card {% if not instance.model.processed_time %}summary-processing{% endif %}"
+                    title="Click to load Summary"
+                    data-id="{{ instance.model.id }}"
+                    data-url="{% url 'research:summary' instance.model.id %}">
+              <a href="#"
+                 class="timeline-remove-link summary-remove-link text-decoration-none float-end d-flex align-items-top"
+                 title="Remove"
+                 data-url="{% url 'research:remove_summary' instance.model.id %}">
+                <i class="bx bx-message-square-minus"></i>
+              </a>
+              <div class="row">
+                <div class="col-auto">
+                  {% if instance.model.processed_time %}
+                    <div>
+                      <i class="timeline-summary-icon bx bx-message-alt-detail"></i>
+                    </div>
+                    <div>
+                      <i class="timeline-time-icon bx bx-time-five" title="{{ instance.model.updated }}"></i>
+                    </div>
+                  {% else %}
+                    <div>
+                      <img class="timeline-summary-loading" src="{% static 'images/loading.gif' %}" alt="Loading..." />
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="title summary-title col">{{ instance.model.prompt|truncatewords:10 }}</div>
+              </div>
+              <span class="tags">
+                {% for tag in instance.model.tags.all %}<span class="tag" title="Filter on Tag">{{ tag.name }}</span>{% endfor %}
+              </span>
+            </button>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info d-flex flex-row gap-1 col-md-6">
+      <i class="bx bx-info-circle"></i>
+      <div class="d-flex flex-column">
+        <strong> This section will display a filterable timeline of generated project notes and AI summaries as you start researching document topics.</strong>
+        <p class="mb-0 d-block">This will help the AI engine summarize documents.</p>
+      </div>
+    </div>
+  {% endif %}
+</div>

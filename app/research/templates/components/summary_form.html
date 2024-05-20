@@ -1,0 +1,56 @@
+{% load static %}
+
+<div class="summarize-form container">
+  <div id="summary-container" class="summary-empty">
+    <img class="summary-loading" src="{% static 'images/loading.gif' %}" alt="Loading..." />
+    <div class="summary-loading summary-time">
+      <h4>Analyzing documents and summarizing results</h4>
+      <br />
+      <b><i>This might take a few minutes</i></b>
+      <br />
+      <br />
+      It is safe to navigate away from this page
+    </div>
+    <div class="row">
+      <div class="col-11">
+        <div class="summary-text"></div>
+        <div class="summary-references"></div>
+      </div>
+      <div class="col-1">
+        <a id="summary-expand" href="#" class="expand-link text-decoration-none" title="Expand">
+          <i class="bx bx-expand"></i>
+        </a>
+        <a id="summary-shrink" href="#" class="expand-link text-decoration-none" title="Shrink">
+          <i class="bx bx-exit-fullscreen"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <form id="summary-form" class="form-horizontal">
+    <div class="summary-form-fields">
+      <label for="summary-prompt">
+        <b>Ask a question or type an instruction:</b> <i>The more detail the better</i>
+      </label>
+      <textarea autofocus required id="summary-prompt"></textarea>
+      <label for="summary-tags">
+        <b>Tag this summary:</b>
+      </label>
+      <select id="summary-tags" class="form-control" multiple="multiple">
+        {% for tag in tags %}<option value="{{ tag.name }}">{{ tag.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <button type="button" id="summary-reset-form-button" class="btn btn-primary">Reset Form</button>
+        <button type="button" id="summary-summarize-form-button" class="btn btn-primary">Summarize</button>
+      </div>
+    </div>
+    <input type="hidden" id="summary-id" value="" />
+    <input type="hidden" id="summary-save-url" value="{% url 'research:save_summary' %}" />
+  </form>
+  <div class="summary-notice">
+    <b>AI generated summarization is an experimental feature</b> and may generate inaccurate information.
+    This can be used to generate ideas and understand the project in broader terms to gauge interest.
+    When responding to opportunities, AI generated summaries are no substitute for reading through the official documents.
+  </div>
+</div>

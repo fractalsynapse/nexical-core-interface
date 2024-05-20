@@ -285,7 +285,7 @@ $(function () {
         'X-CSRFTOKEN': $('#csrf-token').val(),
       },
       data: {
-        solicitation_id: $('#solicitation-id').val(),
+        project_id: $('#project-id').val(),
         prompt: $('#summary-prompt').val(),
         tags: tags.join(','),
         document_ids: documents.join(','),
@@ -338,7 +338,7 @@ $(function () {
       },
       data: {
         note_id: $('#note-id').val(),
-        solicitation_id: $('#solicitation-id').val(),
+        project_id: $('#project-id').val(),
         message: $('#note-message').val(),
         tags: tags.join(','),
       },

@@ -1,0 +1,15 @@
+<div class="research-panel container-fluid wide-page">
+  <div class="page-wrapper d-flex justify-content-center justify-content-between">
+    <h1>
+      <i>Research:</i> {{ project.name }}
+    </h1>
+  </div>
+  <div class="research-wrapper wait-for-load">
+    <div class="research row">
+      <div class="history col-4">{% include 'components/timeline.html' %}</div>
+      <div class="forms col-8">{% include 'components/research_forms.html' %}</div>
+    </div>
+  </div>
+</div>
+<input type="hidden" id="project-id" value="{{ project.id }}" />
+<input type="hidden" id="timeline-url" value="{% url 'research:timeline' project.id %}" />

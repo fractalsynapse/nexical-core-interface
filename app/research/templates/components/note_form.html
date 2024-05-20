@@ -1,0 +1,34 @@
+{% load static %}
+
+<div class="note-form container">
+  <form id="note-form" class="form-horizontal">
+    <div class="note-form-fields">
+      <div class="float-end d-flex align-items-top">
+        <a id="note-expand" href="#" class="expand-link text-decoration-none" title="Expand">
+          <i class="bx bx-expand"></i>
+        </a>
+        <a id="note-shrink" href="#" class="expand-link text-decoration-none" title="Shrink">
+          <i class="bx bx-exit-fullscreen"></i>
+        </a>
+      </div>
+      <label for="note-message">
+        <b>Create a project note:</b>
+      </label>
+      <textarea autofocus required id="note-message" class="form-control" rows="6"></textarea>
+      <label for="note-tags">
+        <b>Tag this note:</b>
+      </label>
+      <select id="note-tags" class="form-control" multiple="multiple">
+        {% for tag in tags %}<option value="{{ tag.name }}">{{ tag.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <button type="button" id="note-reset-form-button" class="btn btn-primary">Reset Form</button>
+        <button type="button" id="note-save-form-button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+    <input type="hidden" id="note-id" value="" />
+    <input type="hidden" id="note-save-url" value="{% url 'research:save_note' %}" />
+  </form>
+</div>
