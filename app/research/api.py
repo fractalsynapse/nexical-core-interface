@@ -13,7 +13,7 @@ from . import models
 # Access Permissions Checks
 #
 def validate_summary(self, validated_data):
-    validated_data = serializers.validate_team_membership(self, validated_data)
+    validated_data = serializers.validate_team_membership(self, validated_data, field="project__team")
 
     if not self.instance:
         validated_data["id"] = get_identifier(
@@ -40,7 +40,7 @@ def validate_summary(self, validated_data):
 
 
 def validate_note(self, validated_data):
-    validated_data = serializers.validate_team_membership(self, validated_data)
+    validated_data = serializers.validate_team_membership(self, validated_data, field="project__team")
 
     if not self.instance:
         validated_data["id"] = get_identifier(
