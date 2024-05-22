@@ -74,6 +74,11 @@ class FormMixin(TeamOwnershipMixin):
     model = models.TeamProject
     form_class = forms.ProjectForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["team"] = self.team
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 

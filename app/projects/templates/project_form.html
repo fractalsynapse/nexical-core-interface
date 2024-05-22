@@ -52,7 +52,37 @@
               {% endfor %}
             {% endif %}
             <form class="form-horizontal" method="post">
-              {% csrf_token %} {{ form|crispy }}
+              {% csrf_token %}
+              {{ form.name|as_crispy_field }}
+              <div class="classification-form-wrapper inline-form-wrapper">
+                <h4>AI Summarization Configuration</h4>
+                <br />
+                <div class="alert alert-info d-flex flex-row gap-1">
+                  <div class="mx-3 my-auto">
+                    <i class="bx bx-info-circle"></i>
+                  </div>
+                  <p class="mx-3 mb-0">These settings configure the AI research engine</p>
+                </div>
+                {{ form.summary_model|as_crispy_field }}
+                {{ form.summary_persona|as_crispy_field }}
+                {{ form.format_prompt|as_crispy_field }}
+              </div>
+              <div class="document-form-wrapper inline-form-wrapper">
+                <h4>Document Collections</h4>
+                <br />
+                <div class="alert alert-info d-flex flex-row gap-1">
+                  <div class="mx-3 my-auto">
+                    <i class="bx bx-info-circle"></i>
+                  </div>
+                  <div class="mx-3">
+                    <strong>Select up to 10 document collections</strong>
+                  </div>
+                  <p class="mb-0">
+                    The AI research engine will reference material in the following document collections when conducting research
+                  </p>
+                </div>
+                {{ form.documents|as_crispy_field }}
+              </div>
               <div class="control-group">
                 <div class="controls">
                   <button type="submit" class="btn btn-primary btn-lg">

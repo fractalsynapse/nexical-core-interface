@@ -3,6 +3,7 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
+from app.documents.models import TeamDocumentCollection
 from app.events.models import Event
 from app.teams.models import Team, get_team_settings, update_team_settings
 from app.utils.models import BaseUUIDModel
@@ -41,6 +42,8 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
     """.strip(),
     )
 
+    documents = models.ManyToManyField(TeamDocumentCollection, related_name="projects", blank=True)
+
     def __str__(self):
         return self.name
 
@@ -56,6 +59,7 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
                 "summary_model": self.summary_model,
                 "summary_persona": self.summary_persona,
                 "format_prompt": self.format_prompt,
+                "documents": [str(id) for id in self.documents.values_list("id", flat=True)],
             },
         )
         if operation != "delete":

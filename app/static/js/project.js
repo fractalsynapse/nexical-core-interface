@@ -6,6 +6,8 @@ function setActiveMenu(url) {
     $('#lnk-projects').addClass('active');
   } else if (url.indexOf('/documents') > -1) {
     $('#lnk-documents').addClass('active');
+  } else if (url.indexOf('/research') > -1) {
+    $('#lnk-research').addClass('active');
   } else if (url.indexOf('/api/docs') > -1) {
     $('#lnk-api-docs').addClass('active');
   } else if (url.indexOf('/users/update') > -1) {
