@@ -63,7 +63,6 @@ class SummaryView(BaseAjaxSummaryView):
                 "project_id": str(summary.project.id),
                 "id": summary.id,
                 "prompt": summary.prompt,
-                "format": summary.format,
                 "summary": summary.summary,
                 "tags": tag_options,
                 "processed_time": summary.processed_time,
@@ -111,9 +110,9 @@ class SummarySaveView(BaseAjaxSummaryView):
             format="{}. Generate the response in HTML format.".format(project.format_prompt.strip().removesuffix(".")),
             endings=["</html>", "</div>", "</p>"],
             persona=project.summary_persona,
-            temperature=0.1,
-            top_p=0.9,
-            repetition_penalty=0.9,
+            temperature=project.temperature,
+            top_p=project.top_p,
+            repetition_penalty=project.repetition_penalty,
         )
         if not summary:
             return JsonResponse({"error": "Error creating summary"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -123,7 +122,6 @@ class SummarySaveView(BaseAjaxSummaryView):
                 "project_id": str(summary.project.id),
                 "id": summary.id,
                 "prompt": summary.prompt,
-                "format": summary.format,
                 "summary": summary.summary,
                 "tags": list(summary.tags.values_list("name", flat=True)),
                 "references": get_summary_references(summary),
@@ -139,7 +137,7 @@ class SummaryRemoveView(BaseAjaxSummaryView):
         if error:
             return error
 
-        ProjectSummary.objects.filter(team=team, id=self.kwargs["pk"]).delete()
+        ProjectSummary.objects.filter(project__team=team, id=self.kwargs["pk"]).delete()
         return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -185,7 +183,7 @@ class NoteSaveView(BaseAjaxNoteView):
         if error:
             return error
 
-        error = self.validate_params(team, project_id, message)
+        error = self.validate_params(project_id, message)
         if error:
             return error
 
@@ -204,7 +202,7 @@ class NoteRemoveView(BaseAjaxNoteView):
         if error:
             return error
 
-        ProjectNote.objects.filter(team=team, id=self.kwargs["pk"]).delete()
+        ProjectNote.objects.filter(project__team=team, id=self.kwargs["pk"]).delete()
         return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -223,14 +221,14 @@ class TimelineListView(BusinessTeamAccessMixin, TemplateView):
         context["project"] = project
         context["tags"] = TeamTag.objects.filter(team=team).order_by("name")
 
-        if self.request.GET.get("tag", None):
+        if self.request.GET.get("tag", None) and self.request.GET["tag"]:
             context["active_tag"] = self.request.GET["tag"]
             timeline = ProjectResearchBase.objects.filter(
-                project=project, team=team, tags__name=self.request.GET["tag"]
+                project=project, tags__name=self.request.GET["tag"]
             ).order_by("-updated")
         else:
             context["active_tag"] = ""
-            timeline = ProjectResearchBase.objects.filter(project=project, team=team).order_by("-updated")
+            timeline = ProjectResearchBase.objects.filter(project=project).order_by("-updated")
 
         context["timeline"] = []
         for instance in timeline:

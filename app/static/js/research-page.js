@@ -265,7 +265,6 @@ $(function () {
         project_id: $('#project-id').val(),
         prompt: $('#summary-prompt').val(),
         tags: tags.join(','),
-        document_ids: documents.join(','),
       },
     }).done(function (data) {
       if ('references' in data && data['references']) {
@@ -328,5 +327,5 @@ $(function () {
     });
   });
 
-  //load_timeline();
+  load_timeline();
 });

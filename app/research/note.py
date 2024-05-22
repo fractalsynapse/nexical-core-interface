@@ -10,7 +10,7 @@ from .models import ProjectNote
 
 def get_note(response_class, team, note_id):
     try:
-        note = ProjectNote.objects.get(team=team, id=note_id)
+        note = ProjectNote.objects.get(project__team=team, id=note_id)
     except ProjectNote.DoesNotExist:
         return response_class(
             {"error": "Project note does not exist within team"},
@@ -32,12 +32,12 @@ def save_note(response_class, project, note_id, message, tags):
     tags = [tag.lower() for tag in tags]
 
     try:
-        note = ProjectNote.objects.get(id=note_id, team=project.team)
+        note = ProjectNote.objects.get(id=note_id, project=project)
         note.message = message
         note.save()
 
     except ProjectNote.DoesNotExist:
-        note = ProjectNote.objects.create(id=note_id, project_id=project.id, message=message)
+        note = ProjectNote.objects.create(id=note_id, project=project, message=message)
 
     note.tags.clear()
     for tag in tags:

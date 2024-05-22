@@ -29,6 +29,7 @@
             <div class="forms col-8">{% include 'components/research_forms.html' %}</div>
           </div>
         </div>
+        <input type="hidden" id="project-id" value="{{ active_project.id }}" />
         <input type="hidden" id="timeline-url" value="{% url 'research:timeline' active_project.id %}" />
       {% endif %}
     </div>
