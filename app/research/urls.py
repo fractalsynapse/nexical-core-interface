@@ -14,5 +14,5 @@ urlpatterns = [
     path("~note/<str:pk>/", ajax_views.NoteView.as_view(), name="note"),
     # Project research displays
     path("~modal/<str:pk>/", views.ModalPanelView.as_view(), name="panel_modal"),
-    path("<str:pk>/", views.PanelView.as_view(), name="panel"),
+    path("", views.PanelView.as_view(), name="panel"),
 ]

@@ -1,15 +1,36 @@
+{% load i18n site_urls %}
+
 <div class="research-panel container-fluid wide-page">
   <div class="page-wrapper d-flex justify-content-center justify-content-between">
-    <h1>
-      <i>Research:</i> {{ project.name }}
-    </h1>
-  </div>
-  <div class="research-wrapper wait-for-load">
-    <div class="research row">
-      <div class="history col-4">{% include 'components/timeline.html' %}</div>
-      <div class="forms col-8">{% include 'components/research_forms.html' %}</div>
+    <div class="research-header-wrapper row w-100">
+      <div class="project-selector col-md-6">
+        <h1>Project Research</h1>
+      </div>
+      <div class="project-selector col-md-6">
+        <div class="d-md-flex justify-content-end align-items-center">
+          <label for="project-selector" class="form-label mb-0 pr-3">Project:</label>
+          <select id="project-selector" class="form-select">
+            {% if not active_project %}<option value="" selected>Select Project</option>{% endif %}
+            {% for project in projects %}
+              <option id="project-{{ project.id }}"
+                      value="{{ project.id }}"
+                      data-url="{% ui_url 'projects/~set' project.id %}"
+                      {% if active_project and project.id|stringformat:"s" == active_project.id %}selected{% endif %}>
+                {{ project.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      {% if active_project %}
+        <div class="research-wrapper wait-for-load">
+          <div class="row">
+            <div class="timeline col-4">{% include 'components/timeline.html' %}</div>
+            <div class="forms col-8">{% include 'components/research_forms.html' %}</div>
+          </div>
+        </div>
+        <input type="hidden" id="timeline-url" value="{% url 'research:timeline' active_project.id %}" />
+      {% endif %}
     </div>
   </div>
 </div>
-<input type="hidden" id="project-id" value="{{ project.id }}" />
-<input type="hidden" id="timeline-url" value="{% url 'research:timeline' project.id %}" />

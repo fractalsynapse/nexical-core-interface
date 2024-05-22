@@ -18,7 +18,7 @@ def validate_document(self, validated_data):
 # Query Scope
 #
 def get_document_queryset(self):
-    return views.get_team_queryset(self, "collection__team")
+    return views.get_team_queryset(self, "team_document_collection__team")
 
 
 #
@@ -33,12 +33,12 @@ def field_file_content(self, instance):
 # Update Handler
 #
 def create_document_collection_event(self, instance):
-    if not self.context["request"].user.check_member("publisher"):
+    if not self.context["request"].user.check_member("engine"):
         instance.create_event()
 
 
 def create_document_event(self, instance):
-    if not self.context["request"].user.check_member("publisher"):
+    if not self.context["request"].user.check_member("engine"):
         instance.collection.create_event()
 
 

@@ -110,7 +110,7 @@ class SummarySaveView(BaseAjaxSummaryView):
             prompt=prompt,
             format="{}. Generate the response in HTML format.".format(project.format_prompt.strip().removesuffix(".")),
             endings=["</html>", "</div>", "</p>"],
-            persona=project.summary_prompt,
+            persona=project.summary_persona,
             temperature=0.1,
             top_p=0.9,
             repetition_penalty=0.9,

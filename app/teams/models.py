@@ -78,14 +78,6 @@ class Team(BaseUUIDModel):
     name = models.CharField(_("Team Name"), blank=False, max_length=255)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ownership")
 
-    summary_prompt = models.TextField(_("Summarization instructions"), default="")
-    format_prompt = models.TextField(
-        _("Format instructions"),
-        default="""
-Generate an engaging summary on the topic with appropriate headings, subheadings, paragraphs, and bullet points.
-    """,
-    )
-
     def __str__(self):
         return f"[ {self.id} ]: {self.name}"
 
@@ -100,9 +92,9 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
             type="team",
             data={
                 "operation": operation,
-                "team_id": str(self.id),
-                "team_name": self.name,
-                "team_owner": str(self.owner.id),
+                "id": str(self.id),
+                "name": self.name,
+                "owner": str(self.owner.id),
             },
         )
 

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import ajax_views, views
 
 app_name = "projects"
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path("create/", view=views.CreateFormView.as_view(), name="form_create"),
     path("<uuid:pk>/", view=views.UpdateFormView.as_view(), name="form_update"),
     path("remove/<uuid:pk>/", view=views.RemoveView.as_view(), name="remove"),
+    path("~set/<uuid:pk>/", view=ajax_views.SetActiveView.as_view(), name="set_active_project"),
 ]

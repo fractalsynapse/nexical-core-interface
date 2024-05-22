@@ -89,6 +89,10 @@ class FormMixin(TeamOwnershipMixin):
 
         self.object = form.save()
         self.object.create_event()
+
+        if not models.get_active_project(self.request.user):
+            models.set_active_project(self.request.user, self.object.id)
+
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):

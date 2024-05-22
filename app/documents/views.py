@@ -13,7 +13,7 @@ from . import forms, models
 
 
 class DocumentCollectionTable(django_tables2.Table):
-    processed = django_tables2.Column(orderable=False, empty_values=())
+    processed = django_tables2.Column(orderable=False, empty_values=(), verbose_name="")
     name = django_tables2.Column(orderable=False)
     operations = django_tables2.Column(orderable=False, empty_values=(), verbose_name="")
 

@@ -220,7 +220,7 @@ h1 {
   margin: 0;
   padding-bottom: 20px;
   border-bottom: 1px solid $light-grey;
-  color: $dark-blue;
+  color: $black;
   font-size: 2rem !important;
 
   @media (max-width: 640px) {
@@ -232,7 +232,7 @@ h2 {
   margin: 0;
   padding-bottom: 20px;
   border-bottom: 1px solid $light-grey;
-  color: $dark-blue;
+  color: $black;
   font-size: 1.7rem !important;
 
   @media (max-width: 640px) {
@@ -348,50 +348,6 @@ h4,
 
 .icon-button:hover {
   color: $orange;
-}
-
-.icon-bookmark {
-  color: $color-primary !important;
-  text-decoration: none !important;
-}
-
-.icon-bookmark:hover {
-  color: $dark-blue !important;
-}
-
-.icon-bookmark i.bx {
-  font-size: 1.1em !important;
-}
-
-.icon-unbookmark {
-  color: $color-primary !important;
-  text-decoration: none !important;
-}
-
-.icon-unbookmark:hover {
-  color: $dark-blue !important;
-}
-
-.icon-unbookmark i.bx {
-  font-size: 1.1em !important;
-}
-
-.icon-hide {
-  color: $red !important;
-  text-decoration: none !important;
-}
-
-.icon-hide:hover {
-  color: $orange !important;
-}
-
-.icon-show {
-  color: $logo-green !important;
-  text-decoration: none !important;
-}
-
-.icon-show:hover {
-  color: $dark-green !important;
 }
 
 .user-icon {
@@ -923,7 +879,7 @@ select {
 
 header {
   background-color: #fff;
-  border-bottom: 2px solid $dark-green;
+  border-bottom: 2px solid $black;
 }
 
 header select {
@@ -937,7 +893,7 @@ header select {
   z-index: 999;
   width: 100%;
   margin: 0 !important;
-  border-bottom: 2px solid $dark-blue;
+  border-bottom: 2px solid $black;
 }
 
 #page-header .nexical-logo {
@@ -1256,7 +1212,7 @@ body.anonymous #main-content {
   left: -30%;
   width: 68px;
   height: 100vh;
-  background-color: $color-dark-blue;
+  background-color: $black;
   padding: 0.5rem 1rem 1rem 0;
   transition: 0.5s;
   z-index: 100;
@@ -1511,53 +1467,6 @@ footer {
 /////////////////////
 // Account Profile //
 /////////////////////
-
-#user-detail-page .subscription-started {
-  margin-top: 50px;
-  padding: 50px;
-  text-align: center;
-  background-color: $med-blue;
-  color: $white;
-  border: 1px solid $dark-blue;
-  border-radius: 30px;
-}
-
-#user-detail-page .subscription-started .reminder-message {
-  padding: 0 25px 50px 25px;
-  font-size: 2em;
-}
-
-#user-detail-page .subscription-started .button {
-  min-width: 350px;
-  width: 25%;
-  margin: 0 auto;
-  display: inline-block;
-  text-decoration: none;
-}
-
-#user-detail-page .subscription-started .complete-registration {
-  padding: 25px !important;
-  background-color: $light-green;
-  border-color: $dark-green !important;
-  font-size: 1.5em;
-}
-
-#user-detail-page .subscription-started .complete-registration:hover {
-  background-color: $dark-green;
-  border-color: $light-green !important;
-}
-
-#user-detail-page .subscription-started .pricing-page {
-  padding: 25px !important;
-  background-color: $light-blue;
-  border-color: $dark-blue !important;
-  font-size: 1.5em;
-}
-
-#user-detail-page .subscription-started .pricing-page:hover {
-  background-color: $dark-blue;
-  border-color: $light-blue !important;
-}
 
 #user-detail-page .profile {
   padding: 50px;
@@ -1964,6 +1873,19 @@ td.documents-remove span {
 //////////////
 // Explorer //
 //////////////
+
+#project-selector {
+  margin: 0 15px;
+  padding-right: 35px !important;
+  height: 90%;
+  min-width: 200px;
+  max-width: 500px;
+  // text-align: right;
+  // appearance: listbox;
+  color: $dark-blue;
+  border: 1px solid $dark-blue;
+  border-radius: 2rem !important;
+}
 
 .nav-link {
   background-color: $offwhite;

@@ -214,33 +214,10 @@ function set_active_note() {
 }
 
 $(function () {
-  // Bookmarks
-  $('a.icon-bookmark').on('click', function (event) {
-    event.preventDefault();
-    $.get($(this).attr('bookmark-href'), function (data) {
-      $.get($('a.icon-show').attr('show-href')).done(function (data) {
-        location.reload();
-      });
-    });
-  });
-  $('a.icon-unbookmark').on('click', function (event) {
-    event.preventDefault();
-    $.get($(this).attr('unbookmark-href'), function (data) {
-      location.reload();
-    });
-  });
-
-  // Visibility
-  $('a.icon-show').on('click', function (event) {
-    event.preventDefault();
-    $.get($(this).attr('show-href')).done(function (data) {
-      location.reload();
-    });
-  });
-  $('a.icon-hide').on('click', function (event) {
-    event.preventDefault();
-    $.get($(this).attr('hide-href')).done(function (data) {
-      location.reload();
+  $('#project-selector').on('change', function () {
+    var project = $(this).val();
+    $.get($(`option#project-${project}`).attr('data-url'), function (data) {
+      window.location.reload();
     });
   });
 
@@ -351,5 +328,5 @@ $(function () {
     });
   });
 
-  load_timeline();
+  //load_timeline();
 });

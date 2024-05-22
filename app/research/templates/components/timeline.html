@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="timeline-wrapper container">
+<div class="timeline-wrapper container border">
   {% if active_tag or timeline %}
     <div class="row">
       <div class="timeline-topic-selector-label col-auto">
@@ -88,8 +88,8 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="alert alert-info d-flex flex-row gap-1 col-md-6">
-      <i class="bx bx-info-circle"></i>
+    <div class="alert alert-info d-flex flex-row m-3">
+      <i class="bx bx-info-circle mx-3"></i>
       <div class="d-flex flex-column">
         <strong> This section will display a filterable timeline of generated project notes and AI summaries as you start researching document topics.</strong>
         <p class="mb-0 d-block">This will help the AI engine summarize documents.</p>

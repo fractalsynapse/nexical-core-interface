@@ -43,6 +43,7 @@ class TeamDocumentCollection(BaseUUIDModel):
             data={
                 "operation": operation,
                 "team_id": str(self.team.id),
+                "team_name": self.team.name,
                 "id": str(self.id),
                 "name": self.name,
                 "files": files,
