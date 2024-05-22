@@ -42,6 +42,10 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
     """.strip(),
     )
 
+    temperature = models.FloatField(_("Summary Temperature"), blank=False, default=0.1)
+    top_p = models.FloatField(_("Summary Top-P"), blank=False, default=0.9)
+    repetition_penalty = models.FloatField(_("Summary Repetition Penalty"), blank=False, default=0.9)
+
     documents = models.ManyToManyField(TeamDocumentCollection, related_name="projects", blank=True)
 
     def __str__(self):
@@ -59,6 +63,9 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
                 "summary_model": self.summary_model,
                 "summary_persona": self.summary_persona,
                 "format_prompt": self.format_prompt,
+                "temperature": self.temperature,
+                "top_p": self.top_p,
+                "repetition_penalty": self.repetition_penalty,
                 "documents": [str(id) for id in self.documents.values_list("id", flat=True)],
             },
         )

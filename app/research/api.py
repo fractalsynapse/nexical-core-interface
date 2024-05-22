@@ -20,12 +20,7 @@ def validate_summary(self, validated_data):
             {
                 "project_id": str(validated_data["project"].id),
                 "prompt": validated_data["prompt"],
-                "format": validated_data["format"],
                 "endings": validated_data["endings"],
-                "persona": validated_data.get("persona", ""),
-                "temperature": validated_data.get("temperature", 0),
-                "top_p": validated_data.get("top_p", 0),
-                "repetition_penalty": validated_data.get("repetition_penalty", 0),
             }
         )
         tags = []
@@ -92,11 +87,6 @@ views.generate(
     filter_fields={
         "id": "id",
         "prompt": "long_text",
-        "persona": "long_text",
-        "format": "long_text",
-        "temperature": "number",
-        "top_p": "number",
-        "repetition_penalty": "number",
         "summary": "long_text",
         "created": "date_time",
         "updated": "date_time",
@@ -108,19 +98,14 @@ views.generate(
     validator=validate_summary,
     get_queryset=views.get_team_queryset,
     ordering_fields=["-updated"],
-    search_fields=["prompt", "persona", "format", "summary"],
+    search_fields=["prompt", "summary"],
     relation_prefix="Project",
     view_fields=[
         "id",
         "created",
         "updated",
         "prompt",
-        "persona",
-        "format",
         "endings",
-        "temperature",
-        "top_p",
-        "repetition_penalty",
         "token_count",
         "processing_time",
         "processed_time",
@@ -130,12 +115,7 @@ views.generate(
     ],
     create_fields=[
         "prompt",
-        "persona",
-        "format",
         "endings",
-        "temperature",
-        "top_p",
-        "repetition_penalty",
         "project",
         ("tags", {"read_only": True}),
     ],

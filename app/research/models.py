@@ -17,12 +17,7 @@ class ProjectResearchBase(BaseHashedModel):
 
 class ProjectSummary(ProjectResearchBase):
     prompt = models.TextField(_("Summary Prompt"), blank=False)
-    persona = models.TextField(_("Summary Persona"), blank=True, default="")
-    format = models.TextField(_("Summary Format"), blank=True, default="")
     endings = ListField(_("Summary allowed endings"), blank=True, default=[".", "?", "!"])
-    temperature = models.FloatField(_("Summary Temperature"), blank=False, default=0.1)
-    top_p = models.FloatField(_("Summary Top-P"), blank=False, default=0.9)
-    repetition_penalty = models.FloatField(_("Summary Repetition Penalty"), blank=False, default=0.9)
     summary = models.TextField(_("Summary"), blank=True, null=True)
     token_count = models.IntegerField(_("Summary Token Count"), blank=True, null=True)
     processing_time = models.FloatField(_("Summary Processing Time"), blank=True, null=True)
@@ -35,16 +30,10 @@ class ProjectSummary(ProjectResearchBase):
             data={
                 "operation": operation,
                 "id": str(self.id),
-                "project_id": str(self.project.id),
                 "team_id": str(self.project.team.id),
+                "project_id": str(self.project.id),
                 "prompt": self.prompt,
-                "persona": self.persona,
-                "format": self.format,
                 "endings": self.endings,
-                "temperature": self.temperature,
-                "top_p": self.top_p,
-                "repetition_penalty": self.repetition_penalty,
-                "documents": [str(id) for id in self.project.documents.values_list("id", flat=True)],
             },
         )
         if operation != "delete":
