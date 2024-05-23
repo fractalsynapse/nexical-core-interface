@@ -20,6 +20,7 @@ def validate_summary(self, validated_data):
             {
                 "project_id": str(validated_data["project"].id),
                 "prompt": validated_data["prompt"],
+                "format": validated_data["format"],
                 "endings": validated_data["endings"],
             }
         )
@@ -98,13 +99,14 @@ views.generate(
     validator=validate_summary,
     get_queryset=views.get_team_queryset,
     ordering_fields=["-updated"],
-    search_fields=["prompt", "summary"],
+    search_fields=["prompt", "format", "summary"],
     relation_prefix="Project",
     view_fields=[
         "id",
         "created",
         "updated",
         "prompt",
+        "format",
         "endings",
         "token_count",
         "processing_time",
@@ -115,6 +117,7 @@ views.generate(
     ],
     create_fields=[
         "prompt",
+        "format",
         "endings",
         "project",
         ("tags", {"read_only": True}),

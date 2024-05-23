@@ -23,25 +23,31 @@ def get_note(response_class, team, note_id):
     for tag in TeamTag.objects.filter(team=team):
         tag_options.append({"name": tag.name, "active": tag.name in tags})
 
-    return response_class({"id": note.id, "message": note.message, "tags": tag_options}, status=status.HTTP_200_OK)
+    return response_class(
+        {"id": note.id, "name": note.name, "message": note.message, "tags": tag_options}, status=status.HTTP_200_OK
+    )
 
 
-def save_note(response_class, project, note_id, message, tags):
+def save_note(response_class, project, note_id, name, message, tags):
     if not note_id:
         note_id = get_identifier({"project_id": str(project.id), "timestamp": time.time_ns()})
+
     tags = [tag.lower() for tag in tags]
 
     try:
         note = ProjectNote.objects.get(id=note_id, project=project)
+        note.name = name
         note.message = message
         note.save()
 
     except ProjectNote.DoesNotExist:
-        note = ProjectNote.objects.create(id=note_id, project=project, message=message)
+        note = ProjectNote.objects.create(id=note_id, project=project, name=name, message=message)
 
     note.tags.clear()
     for tag in tags:
         (tag, created) = TeamTag.objects.get_or_create(name=tag.lower(), team=project.team)
         note.tags.add(tag)
 
-    return response_class({"id": note.id, "message": note.message, "tags": tags}, status=status.HTTP_200_OK)
+    return response_class(
+        {"id": note.id, "name": note.name, "message": note.message, "tags": tags}, status=status.HTTP_200_OK
+    )

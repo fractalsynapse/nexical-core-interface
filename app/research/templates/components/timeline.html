@@ -43,7 +43,7 @@
                     <i class="timeline-time-icon bx bx-time-five" title="{{ instance.model.updated }}"></i>
                   </div>
                 </div>
-                <div class="title note-title col">{{ instance.model.message|truncatewords:10 }}</div>
+                <div class="title note-title col">{{ instance.model.name }}</div>
               </div>
               <span class="tags">
                 {% for tag in instance.model.tags.all %}<span class="tag" title="Filter on Tag">{{ tag.name }}</span>{% endfor %}
@@ -77,7 +77,11 @@
                     </div>
                   {% endif %}
                 </div>
-                <div class="title summary-title col">{{ instance.model.prompt|truncatewords:10 }}</div>
+                {% if instance.model.name %}
+                  <div class="title summary-title col">{{ instance.model.name }}</div>
+                {% else %}
+                  <div class="title summary-title col">{{ instance.model.prompt|truncatewords:10 }}</div>
+                {% endif %}
               </div>
               <span class="tags">
                 {% for tag in instance.model.tags.all %}<span class="tag" title="Filter on Tag">{{ tag.name }}</span>{% endfor %}

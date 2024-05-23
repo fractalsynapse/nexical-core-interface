@@ -28,12 +28,20 @@
   </div>
   <form id="summary-form" class="form-horizontal">
     <div class="summary-form-fields">
-      <label for="summary-prompt">
-        <b>Ask a question or type an instruction:</b> <i>The more detail the better</i>
-      </label>
+      <div class="row">
+        <div class="col-9 summary-prompt-label-wrapper mb-3">
+          <b>Ask a question or type an instruction:</b>
+          <br />
+          <i>The more detail the better</i>
+        </div>
+        <div class="col-3 summary-name-wrapper d-flex justify-content-end">
+          <button type="button" id="summary-name-toggle-button" class="btn btn-light px-5 summary-name-button">Name</button>
+        </div>
+      </div>
+      <input type="text" id="summary-name" class="form-control" minlength="4" maxlength="250" placeholder="Name" />
       <textarea autofocus required id="summary-prompt"></textarea>
       <label for="summary-tags">
-        <b>Tag this summary:</b>
+        <b>Tags:</b>
       </label>
       <select id="summary-tags" class="form-control" multiple="multiple">
         {% for tag in tags %}<option value="{{ tag.name }}">{{ tag.name }}</option>{% endfor %}

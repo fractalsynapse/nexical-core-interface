@@ -3,6 +3,10 @@ function sleep(ms = 0) {
 }
 
 function initialize_timeline() {
+  $('textarea').each(function () {
+    $(this).height(0);
+    $(this).height(this.scrollHeight);
+  });
   // Timeline tag selection updates
   $('#tag-selector').on('change', function (e) {
     load_timeline($('#tag-selector').val());
@@ -54,6 +58,7 @@ function initialize_timeline() {
     reset_note_form();
     $.get($(this).attr('data-url')).done(function (data) {
       $('#note-id').val(data['id']);
+      $('#note-name').val(data['name']);
       $('#note-message').val(data['message']);
       $('#note-message').removeClass('note-empty').addClass('note-saved');
 
@@ -94,6 +99,7 @@ function load_timeline(tag = '') {
 function set_summary_form(data) {
   reset_summary_form();
   $('#summary-id').val(data['id']);
+  $('#summary-name').val(data['name']);
   $('#summary-prompt').val(data['prompt']);
 
   if ('processed_time' in data && data['processed_time']) {
@@ -167,6 +173,7 @@ function set_summary_references(references) {
 
 function reset_summary_form() {
   $('#summary-id').val('');
+  $('#summary-name').val('');
   $('#summary-prompt').val('');
   $('#summary-container .summary-text').html('');
   $('#summary-container .summary-references').html('');
@@ -194,6 +201,7 @@ function set_active_summary() {
 
 function reset_note_form() {
   $('#note-id').val('');
+  $('#note-name').val('');
   $('#note-message').val('');
   $('#note-message').addClass('note-empty').removeClass('note-saved');
 
@@ -214,6 +222,17 @@ function set_active_note() {
 }
 
 $(function () {
+  $('textarea').on('keyup keypress', function () {
+    $(this).height(0);
+    $(this).height(this.scrollHeight);
+  });
+  $('#note-tab, #summary-tab').on('click', function () {
+    $('textarea').each(function () {
+      $(this).height(0);
+      $(this).height(this.scrollHeight);
+    });
+  });
+
   $('#project-selector').on('change', function () {
     var project = $(this).val();
     $.get($(`option#project-${project}`).attr('data-url'), function (data) {
@@ -225,6 +244,10 @@ $(function () {
   $('#summary-tags').select2({
     tags: true,
     allowClear: false,
+  });
+
+  $('#summary-name-toggle-button').on('click', function () {
+    $('#summary-name').toggle();
   });
 
   $('a#summary-expand').on('click', function () {
@@ -263,6 +286,7 @@ $(function () {
       },
       data: {
         project_id: $('#project-id').val(),
+        name: $('#summary-name').val(),
         prompt: $('#summary-prompt').val(),
         tags: tags.join(','),
       },
@@ -315,6 +339,7 @@ $(function () {
       data: {
         note_id: $('#note-id').val(),
         project_id: $('#project-id').val(),
+        name: $('#note-name').val(),
         message: $('#note-message').val(),
         tags: tags.join(','),
       },

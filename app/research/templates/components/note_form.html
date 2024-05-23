@@ -11,12 +11,16 @@
           <i class="bx bx-exit-fullscreen"></i>
         </a>
       </div>
+      <label for="note-name">
+        <b>Name:</b>
+      </label>
+      <input type="text" id="note-name" class="form-control" minlength="4" maxlength="255" />
       <label for="note-message">
-        <b>Create a project note:</b>
+        <b>Note:</b>
       </label>
       <textarea autofocus required id="note-message" class="form-control" rows="6"></textarea>
       <label for="note-tags">
-        <b>Tag this note:</b>
+        <b>Tags:</b>
       </label>
       <select id="note-tags" class="form-control" multiple="multiple">
         {% for tag in tags %}<option value="{{ tag.name }}">{{ tag.name }}</option>{% endfor %}

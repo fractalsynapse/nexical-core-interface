@@ -11,12 +11,14 @@ from app.utils.models import BaseHashedModel, BaseUUIDModel
 
 
 class ProjectResearchBase(BaseHashedModel):
+    name = models.CharField(_("Name"), blank=True, null=True, max_length=255)
     project = models.ForeignKey(TeamProject, on_delete=models.CASCADE, related_name="research_data", blank=False)
     tags = models.ManyToManyField(TeamTag, related_name="research_data", blank=True)
 
 
 class ProjectSummary(ProjectResearchBase):
     prompt = models.TextField(_("Summary Prompt"), blank=False)
+    format = models.TextField(_("Summary Format"), blank=True)
     endings = ListField(_("Summary allowed endings"), blank=True, default=[".", "?", "!"])
     summary = models.TextField(_("Summary"), blank=True, null=True)
     token_count = models.IntegerField(_("Summary Token Count"), blank=True, null=True)
@@ -30,9 +32,11 @@ class ProjectSummary(ProjectResearchBase):
             data={
                 "operation": operation,
                 "id": str(self.id),
+                "name": self.name,
                 "team_id": str(self.project.team.id),
                 "project_id": str(self.project.id),
                 "prompt": self.prompt,
+                "format": self.format,
                 "endings": self.endings,
             },
         )

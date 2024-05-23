@@ -1342,6 +1342,8 @@ body.anonymous #main-content {
 ////////////
 
 footer {
+  clear: both;
+
   background-color: $color-bg-footer;
   color: rgba(255, 255, 255, 0.6);
 
@@ -2066,9 +2068,22 @@ td.documents-remove span {
   margin: 0;
 }
 
+.summarize-form #summary-name {
+  display: none;
+  margin: 10px 0;
+  border: 2px solid $dark-grey !important;
+}
+
+.summarize-form .summary-name-button {
+  margin: 0 10px;
+  padding: auto 20px !important;
+  border: 1px solid $light-grey;
+  border-radius: 10px !important;
+}
+
 .summarize-form #summary-prompt {
   width: 100%;
-  margin: 5px auto;
+  margin: 10px auto;
   padding: 20px;
   font-size: 1.2em;
   border: 2px solid $dark-grey !important;
@@ -2081,8 +2096,21 @@ td.documents-remove span {
 
 .summarize-form .select2-container {
   width: 100% !important;
+  width: 100%;
+  margin: 5px auto;
+  padding: 0;
   border: 2px solid $dark-grey;
   border-radius: 5px;
+}
+
+.summarize-form .select2-selection__rendered {
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.summarize-form .select2-selection__choice__display {
+  padding: 10px !important;
+  font-size: 1.2em !important;
 }
 
 .summarize-form .summary-documents {
@@ -2111,8 +2139,8 @@ td.documents-remove span {
   margin: 0;
   padding: 30px;
   font-size: 1.2em;
-  border: 2px solid $light-green;
-  border-radius: 10px;
+  border: 2px solid $offwhite;
+  border-radius: 15px;
 }
 
 .summarize-form #summary-container #summary-expand {
@@ -2248,44 +2276,6 @@ td.documents-remove span {
   padding: 20px 0;
 }
 
-.summarize-form .membership-summary-usage {
-  text-align: center;
-}
-
-.summarize-form .membership-summary-usage .usage {
-  padding: 20px;
-  background-color: $light-green;
-  color: $dark-green;
-}
-
-.summarize-form .membership-summary-usage .credit-warning {
-  padding: 20px;
-  background-color: $yellow;
-  color: $black;
-}
-
-.summarize-form .membership-summary-usage .out-of-credits {
-  padding: 20px;
-  background-color: $pink;
-  color: $red;
-}
-
-.summarize-form .membership-summary-usage .membership-message {
-  padding: 20px;
-}
-
-.summarize-form .membership-summary-usage .membership-link a {
-  padding: 30px;
-  font-weight: bold;
-  background-color: $bright-blue;
-  color: $white;
-}
-
-.summarize-form .membership-summary-usage .membership-link a:hover {
-  background-color: $dark-blue;
-  color: $white;
-}
-
 .note-form {
   width: 100%;
   padding: 0;
@@ -2313,7 +2303,7 @@ td.documents-remove span {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   background-color: $offwhite !important;
 }
@@ -2336,6 +2326,15 @@ td.documents-remove span {
   margin: 0;
 }
 
+.note-form #note-name {
+  width: 100%;
+  margin: 5px auto;
+  padding: 10px;
+  font-size: 1.2em;
+  border: 2px solid $dark-grey !important;
+  border-radius: 5px;
+}
+
 .note-form #note-message {
   width: 100%;
   margin: 5px auto;
@@ -2346,7 +2345,7 @@ td.documents-remove span {
 }
 
 .note-form #note-message.note-saved {
-  border: 2px solid $light-green !important;
+  border: 2px solid $dark-green !important;
 }
 
 .note-form .tag-selector {
@@ -2355,8 +2354,21 @@ td.documents-remove span {
 
 .note-form .select2-container {
   width: 100% !important;
+  width: 100%;
+  margin: 5px auto;
+  padding: 0;
   border: 2px solid $dark-grey;
   border-radius: 5px;
+}
+
+.note-form .select2-selection__rendered {
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+.note-form .select2-selection__choice__display {
+  padding: 10px !important;
+  font-size: 1.2em !important;
 }
 
 .note-form .controls {
@@ -2389,10 +2401,10 @@ td.documents-remove span {
   width: 100%;
   font-size: 1.5em;
   font-weight: bold;
-  padding: 10px 25px;
-  background-color: $offwhite;
+  padding: 10px 35px 10px 20px !important;
+  background-color: $white;
   color: $black;
-  border-radius: 10px;
+  border-radius: 25px;
 }
 
 .timeline-wrapper .scroller {

@@ -62,6 +62,7 @@ class SummaryView(BaseAjaxSummaryView):
             {
                 "project_id": str(summary.project.id),
                 "id": summary.id,
+                "name": summary.name,
                 "prompt": summary.prompt,
                 "summary": summary.summary,
                 "tags": tag_options,
@@ -84,6 +85,7 @@ class SummarySaveView(BaseAjaxSummaryView):
     def post(self, request, *args, **kwargs):
         team = get_active_team(request.user)
         project_id = request.POST.get("project_id", None)
+        name = request.POST.get("name", None)
         prompt = request.POST.get("prompt", None)
 
         tags = request.POST.get("tags", [])
@@ -106,8 +108,9 @@ class SummarySaveView(BaseAjaxSummaryView):
         summary = summarize(
             project,
             tags=tags,
+            name=name,
             prompt=prompt,
-            format="{}. Generate the response in HTML format.".format(project.format_prompt.strip().removesuffix(".")),
+            format="Generate the response in HTML format.",
             endings=["</html>", "</div>", "</p>"],
             persona=project.summary_persona,
             temperature=project.temperature,
@@ -121,6 +124,7 @@ class SummarySaveView(BaseAjaxSummaryView):
             {
                 "project_id": str(summary.project.id),
                 "id": summary.id,
+                "name": summary.name,
                 "prompt": summary.prompt,
                 "summary": summary.summary,
                 "tags": list(summary.tags.values_list("name", flat=True)),
@@ -173,6 +177,7 @@ class NoteSaveView(BaseAjaxNoteView):
         team = get_active_team(request.user)
         note_id = request.POST.get("note_id", None)
         project_id = request.POST.get("project_id", None)
+        name = request.POST.get("name", None)
         message = request.POST.get("message", None)
 
         tags = request.POST.get("tags", [])
@@ -192,7 +197,7 @@ class NoteSaveView(BaseAjaxNoteView):
         except TeamProject.DoesNotExist:
             return JsonResponse({"error": "Project not found in active team"}, status=status.HTTP_400_BAD_REQUEST)
 
-        return save_note(JsonResponse, project, note_id, message, tags)
+        return save_note(JsonResponse, project, note_id, name, message, tags)
 
 
 class NoteRemoveView(BaseAjaxNoteView):

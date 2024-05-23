@@ -4,7 +4,7 @@ from app.utils.python import get_identifier
 from .models import ProjectSummary
 
 
-def summarize(project, prompt, tags, **config):
+def summarize(project, name, prompt, tags, **config):
     persona = config.get("persona", "")
     output_format = config.get("format", "")
     output_endings = config.get("endings", [".", "?", "!"])
@@ -31,7 +31,7 @@ def summarize(project, prompt, tags, **config):
     except ProjectSummary.DoesNotExist:
         try:
             summary = ProjectSummary.objects.create(
-                id=summary_id, project_id=project.id, prompt=prompt, endings=output_endings
+                id=summary_id, project_id=project.id, prompt=prompt, format=output_format, endings=output_endings
             )
             created = True
 
@@ -42,6 +42,9 @@ def summarize(project, prompt, tags, **config):
     for tag in [tag.lower() for tag in tags]:
         (tag, unused) = TeamTag.objects.get_or_create(name=tag, team=project.team)
         summary.tags.add(tag)
+
+    summary.name = name
+    summary.save()
 
     if created:
         summary.create_event()
