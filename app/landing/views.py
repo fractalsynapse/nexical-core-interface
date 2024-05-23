@@ -10,7 +10,7 @@ class HomeRedirectView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect("users:me")
-        return redirect("landing:home")
+        return redirect("users:signup")
 
 
 class HomeView(TemplateView):

@@ -1,17 +1,44 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
+{% load static i18n %}
 
 {% block title %}
-  Member Signup
+  Nexical Knowledge Explorer - Signup
 {% endblock title %}
 {% block content %}
-  <div class="container">
-    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
-      <div class="container">
-        <div class="col">
+  <div id="user-signup-page">
+    <div class="hero-banner d-flex justify-content-center py-5">
+      <div class="hero-banner-content row d-flex justify-content-center">
+        <div class="hero-info col-md-7 p-5 p-md-3 text-center text-lg-start">
+          <h1 class="display-6 fw-bold lh-1 mt-lg-5 mb-3 text-center">Effortless Integrated Research</h1>
+          <hr />
+          <p class="lead p-3 text-center">
+            Save a lot of time researching, analyzing, and generating relevant information
+            across your organization so you can focus on more strategic initiatives
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="page-wrapper d-flex justify-content-center">
+      <div class="container row">
+        <div class="col-6 d-flex justify-content-center">
+          <p class="lead p-5 text-center">
+            We're building an open AI platform that accelerates business productivity across your organization
+            focused on data privacy, auditability and security, research efficiwith your internal data and systems,
+            while being extremely cost effective and avoiding vendor lock-in.
+          </p>
+        </div>
+        <div class="col-5 bg-white rounded-5 page-wrapper d-flex justify-content-center">
           <div id="user-signup-form" class="container">
-            <h1>Create an account to get started...</h1>
+            <div class="text-center">
+              <h1>
+                Create a free account
+                <br />
+                to give it a try...
+              </h1>
+            </div>
+            <hr />
             <form class="form-horizontal" method="post">
               {% csrf_token %}
               <div class="form-fields">
@@ -36,6 +63,42 @@
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container py-4 d-flex justify-content-center">
+      <div class="security-privacy row mb-5">
+        <div class="feature col-10 px-md-5 m-auto text-center">
+          <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3 mt-5">
+            <img class="icon-shield" src="{% static 'images/icons/icon-shield.svg' %}" alt="" />
+          </div>
+          <h3 class="fs-2 text-body-emphasis mb-3">We value your privacy</h3>
+          <p class="lead mt-5">
+            Your profile information and all assets you share with the service are secured, never shared,
+            and are used <strong>ONLY</strong> by our AI assistants to recommend and research solicitations
+          </p>
+          <p class="lead mt-1">
+            <strong>We do not use your personal or business information and assets to train our AI models</strong>,
+            but we adjust the user experience and recommendation thresholds over time based on your preferences
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-section pt-5">
+      <div class="row d-flex justify-content-center">
+        <div class="container question-section col-lg-5 p-4 px-md-5 mx-auto text-center">
+          <h1 class="page-section-title my-3">Got Questions?  Get In Touch</h1>
+          <div class="row mt-6 p-2">
+            <div class="col-md-6 p-3">
+              <a href="{% url 'contact' %}" class="btn btn-primary btn-lg mt-4 p-4">Use Our Contact Form</a>
+            </div>
+            <div class="col-md-5 py-5 px-5">
+              <p>
+                <b>Or you can always chat with us</b> <i>(real humans)</i> through the chat launcher
+                located on the bottom right portion of the screen
+              </p>
+            </div>
           </div>
         </div>
       </div>

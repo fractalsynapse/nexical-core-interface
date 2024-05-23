@@ -5,11 +5,16 @@
 {% block title %}
   Nexical Explorer
 {% endblock title %}
-{% block css %}
-  {{ block.super }}
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
-{% endblock css %}
 {% block content %}
-  <div id="public-home-page"></div>
+  <div id="public-home-page">
+    <div class="hero-banner d-flex justify-content-center bg-black">
+      <div class="hero-banner-content row d-flex justify-content-center">
+        <div class="hero-info col-md-5 p-5 p-md-3 text-center text-lg-start">
+          <h1 class="display-6 fw-bold lh-1 mt-lg-5 mb-3"></h1>
+          <hr />
+          <p class="lead p-3"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}

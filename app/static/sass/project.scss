@@ -992,7 +992,7 @@ header select {
 //////////////////
 
 #page-announcement {
-  background-color: $dark-blue;
+  background-color: $black;
   color: $white;
   padding: 5px 0;
 }
@@ -1453,6 +1453,9 @@ footer {
 // Home Page //
 ///////////////
 
+#public-home-page {
+}
+
 //////////////////
 // User Actions //
 //////////////////
@@ -1464,6 +1467,37 @@ footer {
 
 .table-value {
   border: 1px solid $light-grey;
+}
+
+/////////////////
+// Signup Page //
+/////////////////
+
+#user-signup-page {
+}
+
+#user-signup-page .hero-banner {
+  color: $white;
+  background: linear-gradient($black, $dark-grey);
+}
+
+#user-signup-page .hero-banner h1 {
+  color: $white !important;
+  font-size: 3.5em !important;
+  font-weight: normal !important;
+}
+
+#user-signup-page .hero-banner .lead {
+  font-size: 1.5em !important;
+}
+
+#user-signup-page .contact-section {
+  background: linear-gradient($dark-grey, $black);
+  color: $white;
+}
+
+#user-signup-page .contact-section h1 {
+  color: $white !important;
 }
 
 /////////////////////

@@ -18,7 +18,11 @@ class SignupForm(forms.Form):
     password = forms.CharField(max_length=32, widget=forms.PasswordInput)
     confirm_password = forms.CharField(max_length=32, widget=forms.PasswordInput)
 
-    invite_code = forms.CharField(label="Invite code", max_length=100)
+    invite_code = forms.CharField(
+        label="Invite code",
+        max_length=100,
+        help_text="If you do not have an invite code <a href='/contact'>please contact us</a>",
+    )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
