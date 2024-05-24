@@ -18,7 +18,7 @@ def validate_document(self, validated_data):
 # Query Scope
 #
 def get_document_queryset(self):
-    return views.get_team_queryset(self, "team_document_collection__team")
+    return views.get_team_queryset(self, "collection__team")
 
 
 #
