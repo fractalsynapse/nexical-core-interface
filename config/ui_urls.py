@@ -10,6 +10,11 @@ from app.api import views as api_views
 from app.contact.views import ContactFormView
 from app.landing.views import HomeRedirectView
 
+admin.site.site_title = "Nexical Core"
+admin.site.site_header = "Nexical Core Administration"
+admin.site.index_title = "Administration"
+
+
 urlpatterns = [
     path("status/", api_views.Status.as_view(), name="status"),
     path("", HomeRedirectView.as_view(), name="home"),

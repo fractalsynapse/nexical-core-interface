@@ -2,6 +2,7 @@ from allauth.account.utils import send_email_confirmation
 from django import forms
 from django.contrib.auth import forms as admin_forms
 from django.contrib.auth import login
+from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
 from django.utils.translation import gettext_lazy as _
 
@@ -20,7 +21,7 @@ class SignupForm(forms.Form):
 
     invite_code = forms.CharField(
         label="Invite code",
-        max_length=100,
+        max_length=6,
         help_text="If you do not have an invite code <a href='/contact'>please contact us</a>",
     )
 
@@ -50,10 +51,10 @@ class SignupForm(forms.Form):
 
     def clean_invite_code(self):
         invite_code = self.cleaned_data.get("invite_code")
-        error_message = "You must specify a valid invite code to sign up through this form"
+        error_message = "You must specify a valid invite code to sign up for this site"
         error_code = "invalid_invite_code"
         try:
-            self.invite = UserInvite.objects.get(id=self.cleaned_data.get("invite_code"))
+            self.invite = UserInvite.objects.get(code=self.cleaned_data.get("invite_code"))
             if self.invite.email != self.cleaned_data.get("email"):
                 raise forms.ValidationError(error_message, code=error_code)
         except UserInvite.DoesNotExist:
@@ -68,6 +69,9 @@ class SignupForm(forms.Form):
             last_name=self.cleaned_data["last_name"],
             settings={},
         )
+        user.groups.add(Group.objects.get(name="business_team_member"))
+        user.save()
+
         (team, created) = Team.objects.get_or_create(owner=user, name="Personal")
         if not get_active_team(user):
             set_active_team(user, team.id)

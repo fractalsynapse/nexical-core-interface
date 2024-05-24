@@ -1,3 +1,6 @@
+import random
+import string
+
 from allauth.account.models import EmailAddress
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -17,6 +20,16 @@ def get_user_by_email(email):
 def check_verified_email(email):
     addresses = EmailAddress.objects.filter(email=email, verified=True)
     return addresses[0].user if addresses else None
+
+
+def generate_random_code():
+    while True:
+        code = "".join(random.choices(string.ascii_uppercase + string.digits, k=6))
+        try:
+            UserInvite.objects.get(code=code)
+        except UserInvite.DoesNotExist:
+            break
+    return code
 
 
 class User(BaseUUIDModelMixin, AbstractUser):
@@ -51,3 +64,7 @@ class User(BaseUUIDModelMixin, AbstractUser):
 
 class UserInvite(BaseUUIDModel):
     email = models.EmailField(_("Email Address"), unique=True)
+    code = models.CharField(_("Invite Code"), blank=True, editable=False, default=generate_random_code)
+
+    def __str__(self):
+        return f"{self.email} [ {self.code} ]"

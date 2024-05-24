@@ -1,6 +1,7 @@
 from allauth.account.models import EmailAddress
 from django import forms
 from django.contrib.auth import login
+from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
 
 from app.users.forms import SignupForm
@@ -76,6 +77,9 @@ class SignupForm(SignupForm):
             last_name=self.cleaned_data["last_name"],
             settings={},
         )
+        user.groups.add(Group.objects.get(name="business_team_member"))
+        user.save()
+
         models.set_active_team(user, self.invite.team.id)
         emailaddress, created = EmailAddress.objects.get_or_create(
             user=user,

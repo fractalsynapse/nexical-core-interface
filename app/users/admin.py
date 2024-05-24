@@ -50,4 +50,7 @@ class UserAdmin(auth_admin.UserAdmin):
 
 @admin.register(UserInvite)
 class UserInviteAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["email", "code", "created"]
+    readonly_fields = ["code", "created"]
+    search_fields = ["email"]
+    ordering = ["-created"]
