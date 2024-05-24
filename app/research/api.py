@@ -58,6 +58,13 @@ def validate_note(self, validated_data):
 
 
 #
+# Query Scope
+#
+def get_project_queryset(self):
+    return views.get_team_queryset(self, "project__team")
+
+
+#
 # Field Overrides
 #
 def get_tags_field(model, field_name):
@@ -97,7 +104,7 @@ views.generate(
         "project__team__name": "short_text",
     },
     validator=validate_summary,
-    get_queryset=views.get_team_queryset,
+    get_queryset=get_project_queryset,
     ordering_fields=["-updated"],
     search_fields=["prompt", "format", "summary"],
     relation_prefix="Project",
@@ -145,7 +152,7 @@ views.generate(
         "project__team__name": "short_text",
     },
     validator=validate_note,
-    get_queryset=views.get_team_queryset,
+    get_queryset=get_project_queryset,
     ordering_fields=["-updated"],
     search_fields=["message"],
     relation_prefix="Project",
