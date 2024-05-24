@@ -29,6 +29,9 @@ def generate_random_code():
             UserInvite.objects.get(code=code)
         except UserInvite.DoesNotExist:
             break
+        except Exception:
+            code = ""
+            break
     return code
 
 
