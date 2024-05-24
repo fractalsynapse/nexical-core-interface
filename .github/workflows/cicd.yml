@@ -54,32 +54,33 @@ jobs:
 
       - name: Tear down the Stack
         run: docker compose down
-#   build_and_push:
-#     runs-on: ubuntu-latest
-#     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-#     needs: ['linter', 'pytest']
-#     env:
-#       REGISTRY: 'registry.digitalocean.com/prod-nexical-core'
-#       IMAGE_NAME: 'nexical-core'
 
-#     steps:
-#       - name: Checkout Code Repository
-#         uses: actions/checkout@v4
+  build_and_push:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: ['linter', 'pytest']
+    env:
+      REGISTRY: 'registry.digitalocean.com/prod-nexical-core'
+      IMAGE_NAME: 'nexical-core'
 
-#       - name: Set version
-#         run: |
-#           echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
 
-#       - name: Build container image
-#         run: docker build -t $REGISTRY/$IMAGE_NAME:$VERSION -f compose/production/django/Dockerfile .
+      - name: Set version
+        run: |
+          echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
-#       - name: Install doctl
-#         uses: digitalocean/action-doctl@v2
-#         with:
-#           token: ${{ secrets.DO_TOKEN }}
+      - name: Build container image
+        run: docker build -t $REGISTRY/$IMAGE_NAME:$VERSION -f compose/production/django/Dockerfile .
 
-#       - name: Log in to DigitalOcean Container Registry with short-lived credentials
-#         run: doctl registry login --expiry-seconds 600
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_TOKEN }}
 
-#       - name: Push image to DigitalOcean Container Registry
-#         run: docker push $REGISTRY/$IMAGE_NAME:$VERSION
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push $REGISTRY/$IMAGE_NAME:$VERSION
