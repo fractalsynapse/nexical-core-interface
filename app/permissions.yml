@@ -11,8 +11,8 @@ engine:
     delete_teamdocument,
     view_teamdocument,
 
-    change_researchsummary,
-    view_researchsummary,
+    change_projectsummary,
+    view_projectsummary,
 
     add_event,
     change_event,
@@ -32,14 +32,14 @@ business_team_member:
     delete_teamdocument,
     view_teamdocument,
 
-    add_researchsummary,
-    delete_researchsummary,
-    view_researchsummary,
+    add_projectsummary,
+    delete_projectsummary,
+    view_projectsummary,
 
-    add_researchnote,
-    change_researchnote,
-    delete_researchnote,
-    view_researchnote,
+    add_projectnote,
+    change_projectnote,
+    delete_projectnote,
+    view_projectnote,
 
     add_event,
     change_event,
