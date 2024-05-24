@@ -60,8 +60,8 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: ['linter', 'pytest']
     env:
-      REGISTRY: 'registry.digitalocean.com/prod-nexical-core'
-      IMAGE_NAME: 'nexical-core'
+      REGISTRY: 'registry.digitalocean.com/prod-nexical-contracts'
+      IMAGE_NAME: 'nexical-core-interface'
 
     steps:
       - name: Checkout Code Repository
