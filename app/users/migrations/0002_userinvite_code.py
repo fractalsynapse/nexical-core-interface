@@ -13,8 +13,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="userinvite",
             name="code",
+            field=models.CharField(blank=True, default="", editable=False, verbose_name="Invite Code"),
+        ),
+        migrations.AlterField(
+            model_name="userinvite",
+            name="code",
             field=models.CharField(
-                blank=True, default=app.users.models.generate_random_code, editable=False, verbose_name="Invite Code"
+                blank=True,
+                editable=False,
+                default=app.users.models.generate_random_code,
+                max_length=6,
+                verbose_name="Invite Code",
             ),
         ),
     ]
