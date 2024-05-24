@@ -133,9 +133,6 @@ function set_summary_form(data) {
     allowClear: false,
   });
 
-  for (var document_id of data['documents']) {
-    $('#doc-' + document_id).prop('checked', true);
-  }
   $('#summary-tab').tab('show');
   set_active_summary();
 }
