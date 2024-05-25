@@ -45,8 +45,8 @@
         {% endblock wrapper %}
       </div>
       <input type="hidden" id="csrf-token" value="{{ csrf_token }}" />
-      <input type="hidden" id="user-settings-url" value="{% url 'users:settings' %}" />
-      <input type="hidden" id="user-settings-save-url" value="{% url 'users:save_settings' %}" />
+      {% comment %} <input type="hidden" id="user-settings-url" value="{% url 'users:settings' %}" />
+      <input type="hidden" id="user-settings-save-url" value="{% url 'users:save_settings' %}" /> {% endcomment %}
     </main>
     {% block modal %}
     {% endblock modal %}
