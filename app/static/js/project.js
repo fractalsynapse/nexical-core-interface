@@ -54,29 +54,29 @@ $(function () {
   setActiveMenu(url);
   window.setInterval(checkModal, 500);
 
-  //   $.get($('#user-settings-url').val(), function (data) {
-  //     $('.user-setting').each(function () {
-  //       var userSetting = $(this).attr('data-user-setting');
-  //       var userSettingValue = $(this).attr('data-user-value');
+  $.get($('#user-settings-url').val(), function (data) {
+    $('.user-setting').each(function () {
+      var userSetting = $(this).attr('data-user-setting');
+      var userSettingValue = $(this).attr('data-user-value');
 
-  //       if (userSetting in data && data[userSetting] == userSettingValue) {
-  //         $(this).tab('show');
-  //       }
-  //     });
-  //     $('.wait-for-load').show();
-  //   });
-  //   $('.user-setting').on('click', function () {
-  //     $.ajax({
-  //       method: 'POST',
-  //       url: $('#user-settings-save-url').val(),
-  //       headers: {
-  //         'X-CSRFTOKEN': $('#csrf-token').val(),
-  //       },
-  //       data: {
-  //         [$(this).attr('data-user-setting')]: $(this).attr('data-user-value'),
-  //       },
-  //     });
-  //   });
+      if (userSetting in data && data[userSetting] == userSettingValue) {
+        $(this).tab('show');
+      }
+    });
+    $('.wait-for-load').show();
+  });
+  $('.user-setting').on('click', function () {
+    $.ajax({
+      method: 'POST',
+      url: $('#user-settings-save-url').val(),
+      headers: {
+        'X-CSRFTOKEN': $('#csrf-token').val(),
+      },
+      data: {
+        [$(this).attr('data-user-setting')]: $(this).attr('data-user-value'),
+      },
+    });
+  });
 
   $('#team-selector').on('change', function () {
     var team = $(this).val();
