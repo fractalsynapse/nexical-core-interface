@@ -23,15 +23,11 @@ def check_verified_email(email):
 
 
 def generate_random_code():
-    while True:
-        code = "".join(random.choices(string.ascii_uppercase + string.digits, k=6))
-        try:
-            UserInvite.objects.get(code=code)
-        except UserInvite.DoesNotExist:
-            break
-        except Exception:
-            code = ""
-            break
+    code = "".join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    try:
+        UserInvite.objects.get(code=code)
+    except UserInvite.DoesNotExist:
+        pass
     return code
 
 
