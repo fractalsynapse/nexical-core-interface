@@ -13,11 +13,12 @@ exec /usr/local/bin/gunicorn config.wsgi \
     --limit-request-field_size=0 \
     --limit-request-fields=0 \
     --limit-request-line=0 \
-    --log-level=${GUNICORN_LOG_LEVEL:-info} \
+    --log-level=${GUNICORN_LOG_LEVEL:-debug} \
     --access-logformat="[gunicorn] %(h)s '%(t)s' %(m)s %(U)s '%(q)s' %(s)s %(b)s '%(f)s' '%(a)s'" \
     --access-logfile=- \
     --error-logfile=- \
     --timeout=${GUNICORN_TIMEOUT:-14400} \
     --workers=${GUNICORN_WORKERS:-4} \
     --worker-connections=${GUNICORN_CONNECTIONS:-100} \
-    --backlog=${GUNICORN_MAX_PENDING_CONNECTIONS:-3000}
+    --backlog=${GUNICORN_MAX_PENDING_CONNECTIONS:-3000} \
+    --capture-output

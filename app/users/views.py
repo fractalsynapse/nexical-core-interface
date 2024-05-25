@@ -78,7 +78,7 @@ class EmbeddedTokenFormView(BaseTokenFormView):
 
 
 class RedirectView(LoginRequiredMixin, RedirectView):
-    permanent = False
+    permanent = True
 
     def get_redirect_url(self):
         return reverse("users:me")
