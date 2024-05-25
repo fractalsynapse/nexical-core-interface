@@ -22,8 +22,8 @@ ADMIN_PATH = env("DJANGO_ADMIN_PATH")
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "https://nexical.ai",
-    "https://docs.nexical.ai",
-    "https://api.docs.nexical.ai",
+    "https://core.nexical.ai",
+    "https://api.core.nexical.ai",
     "https://www.googletagmanager.com",
     "https://salesiq.zohopublic.com",
 ]
