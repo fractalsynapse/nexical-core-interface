@@ -14,7 +14,7 @@ exec /usr/local/bin/gunicorn config.wsgi \
     --limit-request-fields=0 \
     --limit-request-line=0 \
     --log-level=${GUNICORN_LOG_LEVEL:-info} \
-    --access-logformat="[gunicorn] %(m)s %(h)s '%(t)s' %(U)s '%(q)s' %(s)s %(b)s '%(f)s' '%(a)s'" \
+    --access-logformat="[gunicorn] %(h)s '%(t)s' %(m)s %(U)s '%(q)s' %(s)s %(b)s '%(f)s' '%(a)s'" \
     --access-logfile=- \
     --error-logfile=- \
     --timeout=${GUNICORN_TIMEOUT:-14400} \
