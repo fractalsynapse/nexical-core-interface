@@ -34,7 +34,7 @@ def get_redis_url(database_num):
 BASE_UI_URL = env.str("BASE_UI_URL", default="")
 BASE_API_URL = env.str("BASE_API_URL", default="")
 
-SESSION_COOKIE_NAME = "nxcl_session_id"
+SESSION_COOKIE_NAME = "nxcl_core_session_id"
 
 domain = env.str("DOMAIN_NAME", default="")
 if domain:
