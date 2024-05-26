@@ -7,9 +7,9 @@ set -o nounset
 export DJANGO_SETTINGS_MODULE=config.settings.production.api
 
 if [ -z "${REDIS_PASSWORD}" ]; then
-    export REDIS_BASE_URL="rediss://${REDIS_HOST}:${REDIS_PORT}"
+    export REDIS_BASE_URL="redis://${REDIS_HOST}:${REDIS_PORT}"
 else
-    export REDIS_BASE_URL="rediss://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}"
+    export REDIS_BASE_URL="redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}"
 fi
 
 if [ -z "${POSTGRES_USER}" ]; then
