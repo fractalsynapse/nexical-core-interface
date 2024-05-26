@@ -4,7 +4,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-export DJANGO_SETTINGS_MODULE=config.settings.local.ui
+export DJANGO_SETTINGS_MODULE=config.settings.production.ui
 
 exec /usr/local/bin/gunicorn config.wsgi \
     --bind="0.0.0.0:5000" \
