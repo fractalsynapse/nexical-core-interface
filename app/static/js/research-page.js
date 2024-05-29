@@ -75,7 +75,7 @@ function initialize_timeline() {
       }
       $('#note-tags').select2({
         tags: true,
-        allowClear: false,
+        allowClear: true,
       });
 
       $('#note-tab').tab('show');
@@ -130,7 +130,7 @@ function set_summary_form(data) {
   }
   $('#summary-tags').select2({
     tags: true,
-    allowClear: false,
+    allowClear: true,
   });
 
   $('#summary-tab').tab('show');
@@ -220,14 +220,12 @@ function set_active_note() {
 
 function initialize_project_modals() {
   $('#create-project-link').on('click', function (event) {
-    console.log('Caught create click');
     event.preventDefault();
     $('#iframe-modal iframe').attr('src', $(this).attr('data-href'));
     $('#iframe-modal').modal('show');
     $('#iframe-modal').attr('data-reload', true);
   });
   $('#update-project-link').on('click', function (event) {
-    console.log('Caught update click');
     event.preventDefault();
     $('#iframe-modal iframe').attr('src', $(this).attr('data-href'));
     $('#iframe-modal').modal('show');
@@ -235,7 +233,6 @@ function initialize_project_modals() {
   });
 
   $('#iframe-modal .close').on('click', function () {
-    console.log('Caught close click');
     $('#iframe-modal').modal('hide');
     $('#iframe-modal iframe').attr('src', 'about:blank');
 
@@ -267,7 +264,7 @@ $(function () {
   // Summary form initialization
   $('#summary-tags').select2({
     tags: true,
-    allowClear: false,
+    allowClear: true,
   });
 
   $('#summary-name-toggle-button').on('click', function () {
@@ -335,7 +332,7 @@ $(function () {
   // Note form initialization
   $('#note-tags').select2({
     tags: true,
-    allowClear: false,
+    allowClear: true,
   });
 
   $('a#note-expand').on('click', function () {

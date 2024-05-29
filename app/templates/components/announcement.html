@@ -1,11 +1,13 @@
 {% load static i18n site_urls %}
 
-{% if not request.user.is_authenticated %}
-  <div id="page-announcement">
-    <div class="container">
-      <div class="row">
-        <div class="col p-1 px-md-4 text-sm text-center"></div>
+<div id="page-announcement">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col p-1 px-md-4 text-sm text-center">
+        <strong>This is an invite only demo environment for the Nexical Core AI Research Platform</strong>.
+        Any data you submit to this platform is governed by our <a href="{% ui_url 'privacy' %}">privacy policy</a>
       </div>
+      .
     </div>
   </div>
-{% endif %}
+</div>
