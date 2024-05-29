@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 class HomeRedirectView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("users:me")
+            return redirect("research:panel")
         return redirect("users:signup")
 
 
