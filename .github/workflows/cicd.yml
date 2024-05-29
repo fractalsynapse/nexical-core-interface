@@ -61,7 +61,7 @@ jobs:
     needs: ['linter', 'pytest']
     env:
       REGISTRY: 'registry.digitalocean.com/prod-nexical-core'
-      IMAGE_NAME: 'nexical-core'
+      IMAGE_NAME: 'nexical-core-interface'
 
     steps:
       - name: Checkout Code Repository
