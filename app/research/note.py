@@ -48,6 +48,8 @@ def save_note(response_class, project, note_id, name, message, tags):
         (tag, created) = TeamTag.objects.get_or_create(name=tag.lower(), team=project.team)
         note.tags.add(tag)
 
+    note.create_event()
+
     return response_class(
         {"id": note.id, "name": note.name, "message": note.message, "tags": tags}, status=status.HTTP_200_OK
     )

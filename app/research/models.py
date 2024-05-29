@@ -62,3 +62,21 @@ class SummaryDocument(BaseUUIDModel):
 
 class ProjectNote(ProjectResearchBase):
     message = models.TextField(_("Note Message"), blank=False)
+
+    def create_event(self, operation="update"):
+        Event.objects.create(
+            type="note",
+            data={
+                "operation": operation,
+                "id": str(self.id),
+                "name": self.name,
+                "team_id": str(self.project.team.id),
+                "project_id": str(self.project.id),
+                "message": self.message,
+            },
+        )
+
+
+@receiver(post_delete, sender=ProjectNote)
+def delete_note_hook(sender, instance, using, **kwargs):
+    instance.create_event("delete")
