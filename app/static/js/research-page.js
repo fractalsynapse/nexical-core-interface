@@ -218,6 +218,33 @@ function set_active_note() {
   }
 }
 
+function initialize_project_modals() {
+  $('#create-project-link').on('click', function (event) {
+    console.log('Caught create click');
+    event.preventDefault();
+    $('#iframe-modal iframe').attr('src', $(this).attr('data-href'));
+    $('#iframe-modal').modal('show');
+    $('#iframe-modal').attr('data-reload', true);
+  });
+  $('#update-project-link').on('click', function (event) {
+    console.log('Caught update click');
+    event.preventDefault();
+    $('#iframe-modal iframe').attr('src', $(this).attr('data-href'));
+    $('#iframe-modal').modal('show');
+    $('#iframe-modal').attr('data-reload', true);
+  });
+
+  $('#iframe-modal .close').on('click', function () {
+    console.log('Caught close click');
+    $('#iframe-modal').modal('hide');
+    $('#iframe-modal iframe').attr('src', 'about:blank');
+
+    if ($('#iframe-modal').attr('data-reload')) {
+      location.reload();
+    }
+  });
+}
+
 $(function () {
   $('textarea').on('keyup keypress', function () {
     $(this).height(0);
@@ -350,4 +377,5 @@ $(function () {
   });
 
   load_timeline();
+  initialize_project_modals();
 });

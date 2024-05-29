@@ -111,11 +111,45 @@ class CreateFormView(FormMixin, CreateView):
         return context
 
 
+class ModalCreateFormView(CreateFormView):
+    template_name = "modal_project_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["modal"] = True
+        return context
+
+    def render_to_response(self, context, **response_kwargs):
+        response = super().render_to_response(context, **response_kwargs)
+        response["Content-Security-Policy"] = "frame-ancestors 'self'"
+        return response
+
+    def get_success_url(self, **kwargs):
+        return reverse("projects:modal_form_update", kwargs={"pk": self.object.id})
+
+
 class UpdateFormView(FormMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["operation"] = "update"
         return context
+
+
+class ModalUpdateFormView(UpdateFormView):
+    template_name = "modal_project_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["modal"] = True
+        return context
+
+    def render_to_response(self, context, **response_kwargs):
+        response = super().render_to_response(context, **response_kwargs)
+        response["Content-Security-Policy"] = "frame-ancestors 'self'"
+        return response
+
+    def get_success_url(self, **kwargs):
+        return reverse("projects:modal_form_update", kwargs={"pk": self.object.id})
 
 
 class RemoveView(TeamOwnershipMixin, DeleteView):
