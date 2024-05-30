@@ -1496,6 +1496,48 @@ footer {
   border: 1px solid $light-grey;
 }
 
+//////////////////////////
+// Getting Started Page //
+//////////////////////////
+
+#getting-started-page {
+  padding: 0 50px;
+}
+
+#getting-started-page .hero-banner {
+  width: 100%;
+  color: $dark-grey;
+}
+
+#getting-started-page h1 {
+  color: $dark-green !important;
+}
+
+#getting-started-page .how-to-step {
+  margin: 40px 0;
+  padding: 20px;
+}
+
+#getting-started-page .how-to-title {
+  padding: 20px;
+  background: linear-gradient(to right, $light-green, $white);
+}
+
+#getting-started-page .how-to-link {
+  text-align: center;
+  width: 150px;
+  height: 150px;
+}
+
+#getting-started-page .how-to-link i {
+  vertical-align: middle;
+  font-size: 5em;
+}
+
+#getting-started-page .extra-step {
+  margin: 20px;
+}
+
 /////////////////
 // Signup Page //
 /////////////////

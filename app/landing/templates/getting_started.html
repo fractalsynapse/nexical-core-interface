@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% load static i18n %}
+
+{% block title %}
+  Getting Started
+{% endblock title %}
+{% block content %}
+  <div id="getting-started-page">
+    <div class="hero-banner d-flex justify-content-center mb-3">
+      <div class="hero-banner-content row d-flex justify-content-center">
+        <div class="hero-info col-md-9 text-center text-lg-start">
+          <h1 class="display-6 fw-bold lh-1 mt-lg-5 mb-3 text-center">Getting Started with the Nexical Knowledge Explorer</h1>
+          <hr />
+          <p class="lead p-3">
+            Nexical Core is an open AI platform that accelerates business productivity across your organization
+            focused on data privacy, auditability and security, and research efficiency with your internal data and systems,
+            while being cost effective and avoiding vendor lock-in.
+          </p>
+          <p class="lead p-3 text-center">
+            <strong>You can get started with Nexical in 4 easy steps</strong>...
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="how-to-step-wrapper">
+      <div class="row card how-to-step teams-section">
+        <h2 class="how-to-title">1. Create Teams</h2>
+        <hr />
+        <div class="row">
+          <div class="col-md-9 how-to-text p-3">
+            <p class="lead">The first step in using Nexical Knowledge Explorer is to set up one or more teams.</p>
+            <div class="border p-3">
+              <p>All documents, projects, and research material are accessible only to active team members.</p>
+              <p>
+                At any time you are active in a single team, which may be changed by selecting another team in the team selector at the top right of the page.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <a href="{% url 'teams:list' %}" class="how-to-link btn btn-primary mx-auto d-flex align-items-center"><i class="bx bx-caret-right-circle mx-auto"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row card how-to-step libraries-section">
+        <h2 class="how-to-title">2. Import Document Libraries</h2>
+        <hr />
+        <div class="row">
+          <div class="col-md-9 how-to-text p-3">
+            <p class="lead">The next step is to import business document libraries for use in integrated research activities.</p>
+            <div class="border p-3">
+              <p>When you upload documents to the Nexical engine they are processed and prepared for AI analysis over time.</p>
+              <p>
+                The core platform supports manual document uploads but bulk and automated imports can easily be added by our team.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <a href="{% url 'documents:list' %}" class="how-to-link btn btn-primary mx-auto d-flex align-items-center"><i class="bx bx-caret-right-circle mx-auto"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row card how-to-step projects-section border">
+        <h2 class="how-to-title">3. Manage Projects</h2>
+        <hr />
+        <div class="row">
+          <div class="col-md-9 how-to-text p-3">
+            <p class="lead">All AI research artifacts and human notes are grouped into projects.</p>
+            <div class="border p-3">
+              <p>Projects allow you to configure AI systems and link document libraries across all related research activities.</p>
+              <p>Projects when combined with tag filtering can provide a simple and streamlined knowledge management system.</p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <a href="{% url 'projects:list' %}" class="how-to-link btn btn-primary mx-auto d-flex align-items-center"><i class="bx bx-caret-right-circle mx-auto"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="how-to-research-wrapper mb-4">
+      <div class="row card how-to-step research-section">
+        <h2 class="how-to-title">4. Conduct Research</h2>
+        <hr />
+        <div class="row">
+          <div class="col-md-9 how-to-text p-3">
+            <p class="lead">Once we have a project we can start querying the referenced documents and taking notes.</p>
+            <div class="border p-3">
+              <p>
+                Nexical Core seeks to combine human research and machine research into a common searchable knowledge base over time.
+              </p>
+              <p>
+                As more AI generated artifacts and notes are added the AI incorporates that information for new research requests.
+              </p>
+              <p>
+                AI generated artifacts and information and team notes can be tagged and easily filtered within the currently active project.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex align-items-center">
+            <a href="{% url 'research:panel' %}" class="how-to-link btn btn-primary mx-auto d-flex align-items-center"><i class="bx bx-caret-right-circle mx-auto"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row how-to-extra-wrapper mt-4">
+      <div class="col-lg-6 row card how-to-step extra-step api-section">
+        <h2 class="how-to-title">Interface with the API</h2>
+        <hr />
+        <div class="row mb-2">
+          <div class="col-md-8 how-to-text p-3">
+            <p class="lead">
+              When you need more capabilities than our web interface or you need to integrate with external systems, you can build off our REST API.
+            </p>
+          </div>
+          <div class="col-md-4 d-flex align-items-start">
+            <a href="{% url 'api:docs' %}" class="how-to-link btn btn-primary mx-auto d-flex align-items-center"><i class="bx bx-caret-right-circle mx-auto"></i></a>
+          </div>
+        </div>
+        <div class="border p-3">
+          <p>
+            All Nexical Knowledge Explorer data and capabilities can be accessed and performed through an easy to use OpenAPI compatible REST API.
+          </p>
+          <p>
+            Our API is well documented and you can experiment with it through the Nexical Core Knowledge Explorer user interface.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-5 row card how-to-step extra-step account-section">
+        <h2 class="how-to-title">Manage your Account</h2>
+        <hr />
+        <div class="row mb-2">
+          <div class="col-md-7 how-to-text p-3">
+            <p class="lead">You can easily edit your profile information, verified emails, passwords, and API tokens.</p>
+          </div>
+          <div class="col-md-5 d-flex align-items-start">
+            <a href="{% url 'users:me' %}" class="how-to-link btn btn-primary mx-auto d-flex align-items-center"><i class="bx bx-caret-right-circle mx-auto"></i></a>
+          </div>
+        </div>
+        <div class="border p-3">
+          <p>
+            When you need to modify anything relating to your user account you can find all user actions in the sidebar menu on the left.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

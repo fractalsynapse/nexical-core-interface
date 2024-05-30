@@ -375,7 +375,7 @@ class InviteConfirmView(ParamFormView):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse("users:me")
+        return reverse("landing:start")
 
     def dispatch(self, request, *args, **kwargs):
         self.invite = get_object_or_404(models.TeamInvite, pk=self.kwargs["pk"])
@@ -385,7 +385,7 @@ class InviteConfirmView(ParamFormView):
                 raise PermissionDenied
 
             self._add_membership(self.request.user)
-            return redirect("users:me")
+            return redirect("teams:list")
 
         user = check_verified_email(self.invite.email)
         if user:
