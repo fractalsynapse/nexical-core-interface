@@ -10,6 +10,7 @@ from django.utils.html import format_html
 from django.utils.http import urlencode
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
 
+from app.projects.models import set_active_project
 from app.users.models import check_verified_email
 from app.utils.auth import BusinessTeamAccessMixin
 from app.utils.views import ParamFormView
@@ -362,8 +363,15 @@ class InviteConfirmView(ParamFormView):
         return context
 
     def form_valid(self, form):
+        team = self.invite.team
+        project = team.projects.all().first()
+
         form.signup(self.request)
+
         self._add_membership(self.request.user)
+        if project:
+            set_active_project(self.request.user, project.id)
+
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
