@@ -5,13 +5,16 @@
   <div class="l-navbar">
     <nav class="l-navbar-nav">
       <div>
-        <a href="{% ui_url %}" class="nav_logo">
-          <img class="brand" src="{% static 'images/logos/nexical-logo-white.svg' %}" alt="nexical logo" />
+        <a href="{% ui_url %}" id="nav-logo-icon" class="nav_logo">
+          <img width="32" height="32" src="{% static 'images/icons/favicon-32x32.png' %}" alt="nexical logo" />
+        </a>
+        <a href="{% ui_url %}" id="nav-logo-full" class="nav_logo d-none">
+          <img class="brand" src="{% static 'images/logos/nexical-logo-full-mix.png' %}" alt="nexical logo" />
         </a>
         <div class="nav_list border-top pt-4">
           {% if business_team_member %}
             <a id="lnk-teams" href="{% ui_url 'teams' %}" class="nav_link text-decoration-none">
-              <i class="bx bx-shape-polygon bx-rotate-90"></i>
+              <i class="bx bx-shape-polygon"></i>
               <span class="nav_name">{% translate 'Teams' %}</span>
             </a>
             <a id="lnk-documents" href="{% ui_url 'documents' %}" class="nav_link text-decoration-none">
@@ -33,7 +36,7 @@
           {% endif %}
         </div>
       </div>
-      <div class="pt-3 border-top">
+      <div class="account-nav pt-3 border-top">
         <div class="accordion accordion-flush" id="accordionAccount">
           <div class="accordion-item">
             <a id="lnk-account"

@@ -86,10 +86,14 @@ $(function () {
   });
 
   $('.l-navbar, .l-navbar a').on('mouseover', function () {
+    $('#nav-logo-icon').addClass('d-none');
+    $('#nav-logo-full').removeClass('d-none');
     $('body').addClass('show-left-nav');
     leftNavOpen = true;
   });
   $('.l-navbar').on('mouseout', function () {
+    $('#nav-logo-icon').removeClass('d-none');
+    $('#nav-logo-full').addClass('d-none');
     $('body').removeClass('show-left-nav');
     leftNavOpen = false;
   });
