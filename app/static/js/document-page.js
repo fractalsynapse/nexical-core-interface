@@ -3,7 +3,7 @@ function sleep(ms = 0) {
 }
 
 function update_file_add_button() {
-  if ($('.file-form:not(.d-none)').length == 5) {
+  if ($('.file-form:not(.d-none)').length == 10) {
     $('.file-add-wrapper').hide();
   } else {
     $('.file-add-wrapper').show();
