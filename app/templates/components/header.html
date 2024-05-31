@@ -5,7 +5,7 @@
     {% include 'components/announcement.html' %}
     <div class="container py-3 pr-4">
       <div class="row">
-        <div class="col">
+        <div class="col-md p-3">
           <div class="d-flex">
             <div class="flex-shrink-1 d-block d-md-none">
               <a href="javascript: return false;" id="btn-menu"><span class="invisible">Menu</span></a>
@@ -17,7 +17,7 @@
         </div>
         {% is_business_team_member request.user as business_team_member %}
         {% if business_team_member %}
-          <div class="col">
+          <div class="col-md p-3">
             {% with active_team=request.user.settings.active_team %}
               {% user_member_teams request.user as current_user_member_teams %}
               <div class="d-md-flex justify-content-end align-items-center">
@@ -37,6 +37,9 @@
             {% endwith %}
           </div>
         {% endif %}
+        <div class="col-md-2 p-3">
+          <a href="{% url 'landing:start' %}" class="btn btn-success w-100">Getting Started</a>
+        </div>
       </div>
     </div>
   </header>
