@@ -1,4 +1,5 @@
 import django_tables2
+from django.contrib import messages
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -100,6 +101,14 @@ class FormMixin(TeamOwnershipMixin):
 
         # context["help_title"] = "Document Collection Help"
         # context["help_body"] = render_to_string("document_help.html")
+
+        messages.warning(
+            self.request,
+            "This demo environment limits files in a collection to 10"
+            " but production platforms can contain unlimited files",
+        )
+        messages.warning(self.request, "Files can be added through the website upload forms or via the API")
+        messages.success(self.request, "We can add new file parsers and build custom importers on request")
         return context
 
     def form_valid(self, form):

@@ -31,15 +31,39 @@ class TeamProject(BaseUUIDModel):
     name = models.CharField(_("Project Name"), blank=False, max_length=255)
 
     summary_model = models.CharField(
-        _("Summarization Model"), max_length=60, choices=SUMMARY_MODELS, default="mixtral_di_7bx8"
+        _("Summarization AI Model"),
+        max_length=60,
+        choices=SUMMARY_MODELS,
+        default="mixtral_di_7bx8",
+        help_text="An AI summarization model is a type of artificial intelligence that can automatically create"
+        " a shorter version of a given text, while retaining its most important information."
+        " It uses natural language processing and understanding techniques to analyze the source text,"
+        " identify key concepts, and generate a coherent and concise summary."
+        " This AI summarization model is used for all AI summarization requests in this project.",
     )
-    summary_persona = models.TextField(_("Research Persona"), blank=True, default="")
+    summary_persona = models.TextField(
+        _("Research Persona"),
+        blank=True,
+        default="",
+        help_text="A persona in the context of an AI model refers to a detailed representation"
+        " of a specific user or user group, incorporating characteristics, behaviors, needs, and motivations."
+        " This persona aids in creating personalized and effective AI interactions,"
+        " tailoring responses and services to align with the user's preferences and expectations."
+        " By understanding the persona, AI models can deliver more contextually relevant and engaging"
+        " user experiences, ultimately fostering a stronger connection between the user and the AI system."
+        " This research persona is automatically included with all AI summarization requests in this project.",
+    )
     format_prompt = models.TextField(
         _("Format instructions"),
         blank=True,
         default="""
 Generate an engaging summary on the topic with appropriate headings, subheadings, paragraphs, and bullet points.
     """.strip(),
+        help_text="In the context of an AI model, a prompt is the initial input provided to the model"
+        " to generate a response. In the case of a format prompt, it is a specific type of prompt"
+        " that is used to instruct the AI model on the desired format or structure of the output."
+        " This can include details about the desired length, style, or content of the response."
+        " This format prompt is automatically included with all AI summarization requests in this project.",
     )
 
     temperature = models.FloatField(_("Summary Temperature"), blank=False, default=0.1)

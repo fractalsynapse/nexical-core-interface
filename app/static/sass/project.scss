@@ -726,6 +726,14 @@ select {
   color: $white;
 }
 
+.form-text {
+  color: $med-grey;
+}
+
+.form-help-text {
+  color: $med-grey;
+}
+
 ///////////
 // Cards //
 ///////////
@@ -1167,12 +1175,14 @@ body.anonymous #main-content {
 }
 
 #page-container .messages-container {
+  margin: 35px;
 }
 
 #page-container .messages-container .alert {
-  margin-bottom: 30px;
+  margin: 0;
   padding: 20px;
   font-size: 1.2em;
+  border: 1px solid $light-grey;
 }
 
 .messages-container .alert .btn-close {
@@ -2214,6 +2224,7 @@ td.documents-remove span {
 }
 
 .summarize-form .summary-notice {
+  margin-top: 20px;
   padding: 30px;
   border: 1px solid $light-grey;
   font-size: 0.8em;

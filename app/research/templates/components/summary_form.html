@@ -40,12 +40,23 @@
       </div>
       <input type="text" id="summary-name" class="form-control" minlength="4" maxlength="250" placeholder="Name" />
       <textarea autofocus required id="summary-prompt"></textarea>
+      <div class="form-help-text">
+        <p>To format a good AI prompt that provides accurate and helpful answers, follow these guidelines:</p>
+        <ul>
+          <li>Ask specific and unambiguous questions, focusing on one topic at a time.</li>
+          <li>Provide necessary context and background information, but avoid overwhelming details.</li>
+          <li>Ensure that the prompt is grammatically correct and concise.</li>
+        </ul>
+      </div>
       <label for="summary-tags">
         <b>Tags:</b>
       </label>
       <select id="summary-tags" class="form-control" multiple="multiple">
         {% for tag in tags %}<option value="{{ tag.name }}">{{ tag.name }}</option>{% endfor %}
       </select>
+      <div class="form-help-text">
+        <p>If you want to update tags later, just press the summarize button with the same prompt and different tags</p>
+      </div>
     </div>
     <div class="control-group">
       <div class="controls">
@@ -56,4 +67,10 @@
     <input type="hidden" id="summary-id" value="" />
     <input type="hidden" id="summary-save-url" value="{% url 'research:save_summary' %}" />
   </form>
+  <div class="summary-notice">
+    AI generated summarization may at times generate inaccurate information.
+    To mitigate this risk we run multiple AI systems and the document ranking produced can be used to reference the internal documents and materials used.
+    If your requests are generic the AI system might base it's response on an incorrrect understanding of what you want to understand.
+    We recommend reframing or adding more detail to your query in these cases, which will aid in search and summarization.
+  </div>
 </div>
