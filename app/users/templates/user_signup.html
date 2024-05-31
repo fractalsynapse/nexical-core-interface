@@ -8,65 +8,175 @@
 {% endblock title %}
 {% block content %}
   <div id="user-signup-page">
-    <div class="hero-banner d-flex justify-content-center py-5">
+    <div class="hero-banner d-flex justify-content-center py-5 mb-3">
       <div class="hero-banner-content row d-flex justify-content-center">
         <div class="hero-info col-md-7 p-5 p-md-3 text-center text-lg-start">
           <h1 class="display-6 fw-bold lh-1 mt-lg-5 mb-3 text-center">Effortless Integrated Research</h1>
           <hr />
           <p class="lead p-3 text-center">
-            Save a lot of time researching, analyzing, and generating relevant information
-            across your organization so you can focus on more strategic initiatives
+            <span class="emphasis">Save a lot of time</span> researching, analyzing, and generating relevant information
+            across your organization so you can focus on more strategic initiatives,
+            then <span class="emphasis">make that knowledge accessible</span>, and potentially <span class="emphasis">monetize it</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="value-prop pt-5">
+      <div class="text-center">
+        <h2>Our Value Proposition</h2>
+        <div class="row d-flex flex-type-column justify-content-center py-5">
+          <div class="col-md-3 d-flex flex-column justify-content-between">
+            <div class="mb-auto">
+              <div>
+                <i class="value-icon bx bx-book-reader"></i>
+              </div>
+              <hr />
+              <h4>Finding the information you need, when you need it</h4>
+            </div>
+            <div class="value-blurb mt-3">
+              Building on an open AI platform, integrating your documents, and extending to fit your needs,
+              we simplify research, knowledge generation, and sharing with your team or customers.
+            </div>
+          </div>
+          <div class="col-md-3 d-flex flex-column justify-content-between">
+            <div class="mb-auto">
+              <div>
+                <i class="value-icon bx bx-timer"></i>
+              </div>
+              <hr />
+              <h4>Saving you valuable time to focus on more impactful activities</h4>
+            </div>
+            <div class="value-blurb mt-3">
+              Using a private research platform with pluggable AI systems to connect with internal documents and data,
+              AI assistants can save your team hours parsing and analyzing information.
+            </div>
+          </div>
+          <div class="col-md-3 d-flex flex-column justify-content-between">
+            <div class="mb-auto">
+              <div>
+                <i class="value-icon bx bx-money-withdraw"></i>
+              </div>
+              <hr />
+              <h4>Making money from your data and knowledge instead of it draining your bank account</h4>
+            </div>
+            <div class="value-blurb mt-3">
+              We've developed an ecommerce system that plugs into our open research platform
+              to monetize knowledge, with membership tiers and usage based pricing.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-wrapper bg-white">
+      <div class="row container d-flex justify-content-center">
+        <div class="col-7">
+          <p class="lead text-center">
+            <strong>We're building an open AI platform</strong> that accelerates business productivity across your organization
+            focused on data privacy, auditability and security, and research efficiency with your internal data and systems,
+            while being extremely cost effective and avoiding vendor lock-in.
           </p>
         </div>
       </div>
     </div>
     <div class="page-wrapper d-flex justify-content-center">
       <div class="container row">
-        <div class="col-6 d-flex justify-content-center">
-          <p class="lead p-5 text-center">
-            We're building an open AI platform that accelerates business productivity across your organization
-            focused on data privacy, auditability and security, research efficiwith your internal data and systems,
-            while being extremely cost effective and avoiding vendor lock-in.
-          </p>
-        </div>
-        <div class="col-5 bg-white rounded-5 page-wrapper d-flex justify-content-center">
-          <div id="user-signup-form" class="container">
-            <div class="text-center">
-              <h1>
-                Create a free account
-                <br />
-                to give it a try...
-              </h1>
+        <div class="col-md-6 d-flex justify-content-center">
+          <div>
+            <h2 class="text-center">Our Advantage</h2>
+            <div class="advantage-card card">
+              <h3>Complete Data Privacy</h3>
+              <hr />
+              <ul>
+                <li>Full transparency and control over data handling and AI models</li>
+                <li>Deployed on-premises or in private clouds, allowing your tech team to maintain full control over your data</li>
+              </ul>
             </div>
-            <hr />
-            <form class="form-horizontal" method="post">
-              {% csrf_token %}
-              <div class="form-fields">
-                <div class="form-names row">
-                  <div class="name col">{{ form.first_name|as_crispy_field }}</div>
-                  <div class="name col">{{ form.last_name|as_crispy_field }}</div>
+            <div class="advantage-card card">
+              <h3>Integrated AI Models and Services</h3>
+              <hr />
+              <ul>
+                <li>Provide a diverse range of data and insights yielding comprehensive research outcomes</li>
+                <li>AI models can be scoped to projects based on purpose or security required</li>
+              </ul>
+            </div>
+            <div class="advantage-card card">
+              <h3>Knowledge Management</h3>
+              <hr />
+              <ul>
+                <li>Instead of building chatbots we're growing knowledge-bases and making them accessible</li>
+                <li>Generate organizational knowledge while ensuring accuracy to end users</li>
+              </ul>
+            </div>
+            <div class="advantage-card card">
+              <h3>Rapid Development</h3>
+              <hr />
+              <ul>
+                <li>Building on a developed core research platform we eliminate costly custom development across solutions</li>
+                <li>Instead of being locked into a closed SaaS you can craft your own platforms over time and link them</li>
+              </ul>
+            </div>
+            <div class="advantage-card card">
+              <h3>AI Assistant Development Framework and Hosting Environment</h3>
+              <hr />
+              <ul>
+                <li>Easy to develop and deploy specialized intelligent agents constantly working for your organization</li>
+                <li>Modular architecture that grows and evolves with your needs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 pt-5">
+          <div class=" bg-black rounded-5 p-4">
+            <div class="signup-disclaimer mt-4 rounded-top-5">
+              <p>
+                <strong>This is a demo environment of our Nexical Core AI Research platform</strong>, and is not meant as a production research platform itself.
+              </p>
+              <p>
+                We offer to provide you the code to self host in your IT environment or we can host a private instance for you.
+                We do not currently offer a shared production environment, for data privacy and security reasons.
+              </p>
+            </div>
+            <div class="container bg-white rounded-bottom-5 d-flex justify-content-center p-5">
+              <div id="user-signup-form" class="container">
+                <div class="text-center w-100">
+                  <h1>
+                    Create a free account
+                    <br />
+                    to give it a try...
+                  </h1>
                 </div>
                 <hr />
-                <div class="form-email row">{{ form.email|as_crispy_field }}</div>
-                <div class="form-passwords row">
-                  <div class="password col">{{ form.password|as_crispy_field }}</div>
-                  <div class="password col">{{ form.confirm_password|as_crispy_field }}</div>
-                </div>
-                <hr />
-                <div class="invite-info row">
-                  <div class="invite-code col">{{ form.invite_code|as_crispy_field }}</div>
-                </div>
+                <form class="form-horizontal" method="post">
+                  {% csrf_token %}
+                  <div class="form-fields">
+                    <div class="form-names row">
+                      <div class="name col">{{ form.first_name|as_crispy_field }}</div>
+                      <div class="name col">{{ form.last_name|as_crispy_field }}</div>
+                    </div>
+                    <hr />
+                    <div class="form-email row">{{ form.email|as_crispy_field }}</div>
+                    <div class="form-passwords row">
+                      <div class="password col">{{ form.password|as_crispy_field }}</div>
+                      <div class="password col">{{ form.confirm_password|as_crispy_field }}</div>
+                    </div>
+                    <hr />
+                    <div class="invite-info row">
+                      <div class="invite-code col">{{ form.invite_code|as_crispy_field }}</div>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" class="btn btn-primary">Join Now</button>
+                    </div>
+                  </div>
+                </form>
               </div>
-              <div class="control-group">
-                <div class="controls">
-                  <button type="submit" class="btn btn-primary">Join Now</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <hr />
     <div class="container py-4 d-flex justify-content-center">
       <div class="security-privacy row mb-5">
         <div class="feature col-10 px-md-5 m-auto text-center">
@@ -76,11 +186,11 @@
           <h3 class="fs-2 text-body-emphasis mb-3">We value your privacy</h3>
           <p class="lead mt-5">
             Your profile information and all assets you share with the service are secured, never shared,
-            and are used <strong>ONLY</strong> by our AI assistants to recommend and research solicitations
+            and are used <strong>ONLY</strong> by our AI assistants to respond to your instructions
           </p>
           <p class="lead mt-1">
-            <strong>We do not use your personal or business information and assets to train our AI models</strong>,
-            but we adjust the user experience and recommendation thresholds over time based on your preferences
+            On this site, <strong>we do not use your personal or business information and assets to train our AI models</strong>,
+            but the AI responses evolve over time based on your research
           </p>
         </div>
       </div>

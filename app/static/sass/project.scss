@@ -1551,13 +1551,53 @@ footer {
 }
 
 #user-signup-page .hero-banner h1 {
-  color: $white !important;
+  color: $light-blue !important;
   font-size: 3.5em !important;
   font-weight: normal !important;
 }
 
 #user-signup-page .hero-banner .lead {
   font-size: 1.5em !important;
+}
+
+#user-signup-page .hero-banner .emphasis {
+  color: $logo-green;
+  font-weight: bold;
+}
+
+#user-signup-page .value-prop h2 {
+  color: $dark-grey !important;
+  font-weight: bold !important;
+}
+
+#user-signup-page .value-prop h4 {
+  color: $dark-green !important;
+}
+
+#user-signup-page .value-prop .value-icon {
+  font-size: 7em;
+  color: $orange;
+}
+
+#user-signup-page .value-prop .value-blurb {
+  padding: 20px;
+  border: 1px solid $light-grey;
+}
+
+#user-signup-page .signup-disclaimer {
+  padding: 30px;
+  background-color: $yellow;
+  border-bottom: 2px solid $black;
+}
+
+#user-signup-page .advantage-card {
+  margin: 20px;
+  padding: 25px;
+  background: linear-gradient($white, $light-green);
+}
+
+#user-signup-page .advantage-card li {
+  padding: 5px;
 }
 
 #user-signup-page .contact-section {
