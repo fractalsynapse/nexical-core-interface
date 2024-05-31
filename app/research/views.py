@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.template.loader import render_to_string
+
+# from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 
 from app.projects.models import TeamProject, get_active_project
@@ -17,8 +18,8 @@ class BasePanelView(TeamOwnershipMixin, BusinessTeamAccessMixin, TemplateView):
         context["projects"] = TeamProject.objects.filter(team=self.team)
         context["tags"] = TeamTag.objects.filter(team=self.team)
 
-        context["help_title"] = "Research Help"
-        context["help_body"] = render_to_string("research_help.html")
+        # context["help_title"] = "Research Help"
+        # context["help_body"] = render_to_string("research_help.html")
         return context
 
 

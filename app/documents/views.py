@@ -61,8 +61,8 @@ class ListView(TeamOwnershipMixin, TemplateView):
         context["collection_count"] = kwargs["count"]
         context["collections"] = DocumentCollectionTable(queryset)
 
-        context["help_title"] = "Document Collection Help"
-        context["help_body"] = render_to_string("document_help.html")
+        # context["help_title"] = "Document Collection Help"
+        # context["help_body"] = render_to_string("document_help.html")
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -98,8 +98,8 @@ class FormMixin(TeamOwnershipMixin):
         queryset = self.get_queryset()
         context["collection_count"] = queryset.count()
 
-        context["help_title"] = "Document Collection Help"
-        context["help_body"] = render_to_string("document_help.html")
+        # context["help_title"] = "Document Collection Help"
+        # context["help_body"] = render_to_string("document_help.html")
         return context
 
     def form_valid(self, form):

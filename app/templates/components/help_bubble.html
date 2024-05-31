@@ -231,6 +231,8 @@
   <div class="p-3 d-flex flex-column gap-2">
     {% if help_title and help_body %}
       <a id="how-to-button" href="#" onclick="return false;" class="btn btn-outline-primary"><strong>How to?</strong></a>
+    {% else %}
+      <a id="how-to-button" href="{% url 'landing:start' %}" class="btn btn-outline-primary"><strong>How to?</strong></a>
     {% endif %}
     <a id="feedback-button" href="#" onclick="return false;" class="btn btn-outline-primary"><strong>Feedback</strong></a>
     <a id="chat-button"

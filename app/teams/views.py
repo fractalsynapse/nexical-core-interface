@@ -4,7 +4,8 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
-from django.template.loader import render_to_string
+
+# from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.http import urlencode
@@ -192,8 +193,8 @@ class ListView(BusinessTeamAccessMixin, TemplateView):
         context["team_count"] = kwargs["count"]
         context["teams"] = TeamTable(self.request.user, data=queryset)
 
-        context["help_title"] = "Team Help"
-        context["help_body"] = render_to_string("team_help.html")
+        # context["help_title"] = "Team Help"
+        # context["help_body"] = render_to_string("team_help.html")
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -216,8 +217,8 @@ class FormMixin(BusinessTeamAccessMixin):
         queryset = self.get_queryset().filter(owner=self.request.user)
         context["team_count"] = queryset.count()
 
-        context["help_title"] = "Team Help"
-        context["help_body"] = render_to_string("team_help.html")
+        # context["help_title"] = "Team Help"
+        # context["help_body"] = render_to_string("team_help.html")
         return context
 
 
@@ -316,8 +317,8 @@ class MemberListView(BusinessTeamAccessMixin, TemplateView):
             TeamMembershipTable(self.request.user, self.team, data=memberships) if memberships.exists() else None
         )
 
-        context["help_title"] = "Team Help"
-        context["help_body"] = render_to_string("team_help.html")
+        # context["help_title"] = "Team Help"
+        # context["help_body"] = render_to_string("team_help.html")
         return context
 
 

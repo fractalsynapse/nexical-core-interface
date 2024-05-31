@@ -1,7 +1,8 @@
 import django_tables2
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from django.template.loader import render_to_string
+
+# from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import format_html
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
@@ -50,8 +51,8 @@ class ListView(TeamOwnershipMixin, TemplateView):
         context["project_count"] = kwargs["count"]
         context["projects"] = ProjectTable(queryset)
 
-        context["help_title"] = "Project Help"
-        context["help_body"] = render_to_string("project_help.html")
+        # context["help_title"] = "Project Help"
+        # context["help_body"] = render_to_string("project_help.html")
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -85,8 +86,8 @@ class FormMixin(TeamOwnershipMixin):
         queryset = self.get_queryset()
         context["project_count"] = queryset.count()
 
-        context["help_title"] = "Project Help"
-        context["help_body"] = render_to_string("project_help.html")
+        # context["help_title"] = "Project Help"
+        # context["help_body"] = render_to_string("project_help.html")
         return context
 
     def form_valid(self, form):

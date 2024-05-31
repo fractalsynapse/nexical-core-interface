@@ -6,7 +6,8 @@ from django.conf import settings
 from django.core.management import call_command
 from django.db.models.query import prefetch_related_objects
 from django.http import JsonResponse
-from django.template.loader import render_to_string
+
+# from django.template.loader import render_to_string
 from django.views import View
 from django.views.generic import TemplateView
 from rest_framework import status, viewsets
@@ -46,8 +47,8 @@ class DocumentationView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["help_title"] = "API Help"
-        context["help_body"] = render_to_string("api_help.html")
+        # context["help_title"] = "API Help"
+        # context["help_body"] = render_to_string("api_help.html")
         return context
 
 
