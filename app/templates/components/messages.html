@@ -10,15 +10,17 @@
         );
     }
 </script>
-<div class="messages-container d-flex justify-content-center">
-  <div class="container">
-    {% for message in messages|unique_values %}
-      <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %} d-flex align-items-center justify-content-between">
-        {% autoescape off %}
-          {{ message }}
-        {% endautoescape %}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
+{% if messages %}
+  <div class="messages-container d-flex justify-content-center">
+    <div class="container">
+      {% for message in messages|unique_values %}
+        <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %} d-flex align-items-center justify-content-between">
+          {% autoescape off %}
+            {{ message }}
+          {% endautoescape %}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-</div>
+{% endif %}
