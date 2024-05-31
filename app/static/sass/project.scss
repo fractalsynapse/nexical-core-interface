@@ -1194,7 +1194,7 @@ body.anonymous #main-content {
   body.loggedin #page-container #main-content {
     padding-left: 3rem !important;
     margin: 0 2rem 0 2rem !important;
-    padding-top: 90px;
+    padding-top: 120px;
   }
 
   body.loggedin .container {
@@ -1550,6 +1550,10 @@ footer {
   background: linear-gradient($black, $dark-grey);
 }
 
+#user-signup-page .hero-banner-content {
+  max-width: 1700px;
+}
+
 #user-signup-page .hero-banner h1 {
   color: $light-blue !important;
   font-size: 3.5em !important;
@@ -1563,6 +1567,10 @@ footer {
 #user-signup-page .hero-banner .emphasis {
   color: $logo-green;
   font-weight: bold;
+}
+
+#user-signup-page .value-prop-inner {
+  max-width: 1700px;
 }
 
 #user-signup-page .value-prop h2 {
@@ -1607,6 +1615,10 @@ footer {
 
 #user-signup-page .contact-section h1 {
   color: $white !important;
+}
+
+#user-signup-page .question-section {
+  max-width: 1200px;
 }
 
 /////////////////////
