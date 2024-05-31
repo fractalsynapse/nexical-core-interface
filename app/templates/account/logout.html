@@ -6,11 +6,11 @@
   {% translate "Sign Out" %}
 {% endblock head_title %}
 {% block inner %}
-  <div id="logout-pagex" class="container">
+  <div id="logout-page" class="container">
     <div class="row page-wrapper d-flex justify-content-center">
       <div class="col">
         <h1>{% translate "Sign Out" %}</h1>
-        <div class="alert alert-warning my-5 col-lg-6 shadow rounded-4 text-center">
+        <div class="alert alert-warning shadow rounded-4 text-center">
           <strong class="lead">{% translate "Are you sure you want to sign out?" %}</strong>
           <form method="post" action="{% url 'account_logout' %}">
             {% csrf_token %}
