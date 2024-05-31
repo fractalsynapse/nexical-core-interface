@@ -1580,8 +1580,8 @@ footer {
 }
 
 #user-signup-page .value-prop .value-blurb {
-  padding: 20px;
-  border: 1px solid $light-grey;
+  padding: 30px;
+  background: linear-gradient($white, $light-green);
 }
 
 #user-signup-page .signup-disclaimer {
@@ -1593,7 +1593,7 @@ footer {
 #user-signup-page .advantage-card {
   margin: 20px;
   padding: 25px;
-  background: linear-gradient($white, $light-green);
+  background: linear-gradient($white, $light-blue);
 }
 
 #user-signup-page .advantage-card li {
