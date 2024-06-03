@@ -14,7 +14,7 @@ django==4.2.13  # pyup: < 5.0  # https://www.djangoproject.com/
 django-environ==0.11.2  # https://github.com/joke2k/django-environ
 django-timezone-field==6.1.0 # https://github.com/mfogel/django-timezone-field
 django-model-utils==4.5.1  # https://github.com/jazzband/django-model-utils
-django-allauth==0.63.2  # https://github.com/pennersr/django-allauth
+django-allauth==0.63.3  # https://github.com/pennersr/django-allauth
 django-private-storage==3.1.1  # https://github.com/edoburu/django-private-storage
 django-filter==24.2  # https://github.com/carltongibson/django-filter
 django-crispy-forms==2.1  # https://github.com/django-crispy-forms/django-crispy-forms
