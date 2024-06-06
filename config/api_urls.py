@@ -22,6 +22,7 @@ router.register("document", views.TeamDocumentViewSet)
 router.register("summary", views.ProjectSummaryViewSet)
 router.register("note", views.ProjectNoteViewSet)
 router.register("feedback", views.FeedbackViewSet)
+# router.register("message", views.MessageViewSet)
 
 
 # API URLS
@@ -32,6 +33,7 @@ urlpatterns = [
     path("schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path("accounts/", include("allauth.urls")),
     path("users/", include("app.users.urls", namespace="users")),
+    path("landing/", include("app.landing.urls", namespace="landing")),
     path("feedback/", include("app.feedback.urls", namespace="feedback")),
     path("private-media/", include(private_storage.urls)),
 ] + router.urls

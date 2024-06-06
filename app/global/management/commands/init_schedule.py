@@ -24,8 +24,7 @@ class Command(BaseCommand):
                 day_of_month=schedule_elements[3] if len(schedule_elements) > 3 else "*",
                 month_of_year=schedule_elements[4] if len(schedule_elements) > 4 else "*",
             )
-            (task, created) = PeriodicTask.objects.get_or_create(name=name)
-            task.crontab = schedule
+            (task, created) = PeriodicTask.objects.get_or_create(name=name, crontab=schedule)
             task.enabled = spec.get("enabled", True)
             task.task = spec["task"]
             task.args = json.dumps(spec.get("args", []))
