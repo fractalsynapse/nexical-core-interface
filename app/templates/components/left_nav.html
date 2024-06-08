@@ -1,6 +1,7 @@
 {% load static i18n site_urls user_perms team_select %}
 
 {% is_business_team_member request.user as business_team_member %}
+{% is_outreach_member request.user as outreach_member %}
 {% if request.user.is_authenticated %}
   <div class="l-navbar">
     <nav class="l-navbar-nav">
@@ -32,6 +33,12 @@
             <a id="lnk-api-docs" href="{% ui_url 'api/docs' %}" class="nav_link text-decoration-none">
               <i class="bx bx-cloud-download"></i>
               <span class="nav_name">{% translate 'API' %}</span>
+            </a>
+          {% endif %}
+          {% if outreach_member %}
+            <a id="lnk-outreach" href="{% ui_url 'outreach' %}" class="nav_link text-decoration-none">
+              <i class="bx bx-broadcast"></i>
+              <span class="nav_name">{% translate 'Outreach' %}</span>
             </a>
           {% endif %}
         </div>

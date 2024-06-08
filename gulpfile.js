@@ -73,22 +73,6 @@ function project_styles() {
     .pipe(dest(paths.css));
 }
 
-function admin_styles() {
-  return src(`${paths.sass}/admin.scss`)
-    .pipe(
-      sass({
-        importer: tildeImporter,
-        includePaths: [paths.sass],
-      }).on('error', sass.logError),
-    )
-    .pipe(plumber()) // Checks for errors
-    .pipe(postcss(processCss))
-    .pipe(dest(paths.css))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(postcss(minifyCss)) // Minifies the result
-    .pipe(dest(paths.css));
-}
-
 // Javascript minification
 function scripts() {
   return src([`${paths.js}/project.js`, `${paths.js}/*-page.js`])
@@ -145,7 +129,6 @@ function initBrowserSync() {
 // Watch
 function watchPaths() {
   watch(`${paths.sass}/*.scss`, project_styles);
-  watch(`${paths.sass}/*.scss`, admin_styles);
   watch(`${paths.templates}/**/*.html`).on('change', reload);
   watch([`${paths.js}/*.js`, `!${paths.js}/*.min.js`], scripts).on(
     'change',
@@ -154,12 +137,7 @@ function watchPaths() {
 }
 
 // Generate all assets
-const generateAssets = parallel(
-  project_styles,
-  admin_styles,
-  scripts,
-  vendorScripts,
-);
+const generateAssets = parallel(project_styles, scripts, vendorScripts);
 
 // Set up dev environment
 const dev = parallel(initBrowserSync, watchPaths);

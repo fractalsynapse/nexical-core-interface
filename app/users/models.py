@@ -60,6 +60,14 @@ class User(BaseUUIDModelMixin, AbstractUser):
     def verified_emails(self):
         return list(EmailAddress.objects.filter(user=self, verified=True).values_list("email", flat=True))
 
+    def export(self):
+        return {
+            "email": self.email,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "timezone": str(self.timezone),
+        }
+
 
 class UserInvite(BaseUUIDModel):
     email = models.EmailField(_("Email Address"), unique=True)

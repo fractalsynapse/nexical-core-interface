@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% load static i18n humanize %}
+{% load crispy_forms_tags crispy_forms_field %}
+
+{% block title %}
+  Nexical Explorer Outreach
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+{% endblock css %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'js/jquery.plugin-min.js' %}"></script>
+  <script defer src="{% static 'js/jquery-sortable-min.js' %}"></script>
+  <script defer src="{% static 'js/outreach-process-page.js' %}"></script>
+{% endblock javascript %}
+{% block content %}
+  <div id="outreach-manage" class="container-fluid">
+    <div class="page-wrapper">
+      <h1>Nexical Outreach Processing</h1>
+      <div class="align-items-center mx-auto">
+        <div id="message-banner" class="text-center">
+          There are <b>{{ message_count }}</b> messages waiting to be processed
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-end">
+          <a id="btn-edit-campaign"
+             href="{% url 'outreach:form_campaign_update' pk=campaign.id %}"
+             class="btn btn-outline-primary my-2 float-end d-flex align-items-center"><i class="bx bx-edit"></i>Edit Campaign</a>
+        </div>
+      </div>
+      <div id="outreach-wrapper" class="mt-4">
+        {% if message %}
+          <div class="row">
+            <div class="col-md-5 wrapper-column">
+              <div class="text-center">
+                <button class="btn btn-primary"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#contact-wrapper"
+                        aria-expanded="false"
+                        aria-controls="contact-wrapper">Contact Information</button>
+                <button class="btn btn-primary"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#organization-wrapper"
+                        aria-expanded="false"
+                        aria-controls="organization-wrapper">Organization Information</button>
+              </div>
+              <div id="organization-wrapper" class="collapse multi-collapse collapsed-value" data-bs-parent="#outreach-wrapper">
+                <div class="card card-body">
+                  <div class="row info-field text-center">
+                    <h3>{{ organization.name }}</h3>
+                  </div>
+                  <hr />
+                  <div class="row info-field text-center">
+                    <div class="value">
+                      <a href="{{ organization.link }}" target="_blank" class=" m-3 entity-link">Website</a>
+                      <a href="{{ organization.linkedin }}" target="_blank" class="m-3 entity-link">LinkedIn</a>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="table-fields">
+                    <div class="row info-field border">
+                      <div class="col-md label">Description</div>
+                      <div class="col-md value">{{ organization.description }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Industry</div>
+                      <div class="col-md value">{{ organization.industry }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Employees</div>
+                      <div class="col-md value">{{ organization.employees|intcomma }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Revenue</div>
+                      <div class="col-md value">${{ organization.revenue|floatformat:0|intcomma }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Total Funding</div>
+                      <div class="col-md value">${{ organization.total_funding|floatformat:0|intcomma }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Last Funding</div>
+                      <div class="col-md value">${{ organization.last_funding|floatformat:0|intcomma }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Last Funding Stage</div>
+                      <div class="col-md value">{{ organization.last_funding_stage }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Last Raised At</div>
+                      <div class="col-md value">{{ organization.last_raised_at|date:'M j, Y' }}</div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row info-field multi-value-field text-center mx-3">
+                    <button class="btn btn-secondary mb-2"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#org-keywords"
+                            aria-expanded="false"
+                            aria-controls="org-keywords">Keywords</button>
+                    <div id="org-keywords" class="collapse collapsed-value p-3">
+                      {% for keyword in organization.keywords %}<span class="m-2 p-3"><b>{{ keyword }}</b></span>{% endfor %}
+                    </div>
+                  </div>
+                  <div class="row info-field multi-value-field text-center mx-3">
+                    <button class="btn btn-secondary mb-2"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#org-technologies"
+                            aria-expanded="false"
+                            aria-controls="org-technologies">Technologies</button>
+                    <div id="org-technologies" class="collapse collapsed-value p-3">
+                      {% for technology in organization.technologies %}<span class="m-2 p-3"><b>{{ technology }}</b></span>{% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="contact-wrapper" class="collapse multi-collapse show collapsed-value" data-bs-parent="#outreach-wrapper">
+                <div class="card card-body">
+                  <div class="row info-field text-center">
+                    <div class="value">
+                      <b>{{ contact.first_name }} {{ contact.last_name }}</b>
+                    </div>
+                    <div class="value">
+                      <a href="mailto: {{ contact.email }}" class="entity-email-link entity-link">{{ contact.email }}</a>
+                    </div>
+                    {% if contact.linkedin %}
+                      <div class="value">
+                        <a href="{{ contact.linkedin }}" target="_blank" class="entity-link">LinkedIn</a>
+                      </div>
+                    {% endif %}
+                    {% if contact.phone %}<div class="value">{{ contact.phone }}</div>{% endif %}
+                  </div>
+                  <hr />
+                  <div class="table-fields">
+                    <div class="row info-field border">
+                      <div class="col-md label">Title</div>
+                      <div class="col-md value">{{ contact.title }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Seniority</div>
+                      <div class="col-md value">{{ contact.seniority|title }}</div>
+                    </div>
+                    <div class="row info-field border">
+                      <div class="col-md label">Location</div>
+                      <div class="col-md value">{{ contact.city }}, {{ contact.province }} {{ contact.country }}</div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row info-field multi-value-field text-center">
+                    <div class="label">Departments</div>
+                    {% for department in contact_departments %}<span class="m-0 p-3 border"><b>{{ department }}</b></span>{% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7 message-container">
+              <h2>Message</h2>
+              <div class="row form-field">
+                <div class="col-md-auto label my-auto">Sequence Index</div>
+                <div class="col-md value">
+                  <span class="p-3">{{ sequence.email_index }}</span>
+                </div>
+              </div>
+              <div class="form-content">
+                <div class="row form-field">
+                  <div class="col-md-auto label my-auto">Subject</div>
+                  <div class="col-md value">
+                    <input type="text" id="message-subject" class="p-3" name="message-subject" value="{{ subject }}" />
+                  </div>
+                </div>
+                <div class="row form-field">
+                  <div class="col-md-auto label my-auto">Body</div>
+                  <div class="col-md value">
+                    <textarea id="message-body" name="message-body" class="message-text-field p-4">{{ body }}</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="control-group message-control-container text-center mx-auto">
+            <button type="button"
+                    id="send-button"
+                    class="btn btn-success dynamic-control"
+                    data-url="{% url 'outreach:send' pk=message.id %}">Send</button>
+            <button type="button"
+                    id="skip-button"
+                    class="btn btn-secondary dynamic-control"
+                    data-url="{% url 'outreach:skip' pk=message.id %}">Skip</button>
+            <button type="button"
+                    id="block-button"
+                    class="btn btn-danger dynamic-control"
+                    data-url="{% url 'outreach:block' pk=message.id %}">Block</button>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

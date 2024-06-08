@@ -52,6 +52,7 @@ def clear_active_team(user):
 
 def team_file_access(private_file):
     from app.documents.models import TeamDocumentCollection
+    from app.outreach.models import Campaign
 
     user = private_file.request.user
     if user.is_authenticated:
@@ -66,6 +67,12 @@ def team_file_access(private_file):
             try:
                 instance = TeamDocumentCollection.objects.get(id=instance_id)
             except TeamDocumentCollection.DoesNotExist:
+                return False
+        elif instance_type == "campaign":
+            try:
+                instance = Campaign.objects.get(id=instance_id)
+                return True
+            except Campaign.DoesNotExist:
                 return False
 
         team = get_active_team(user)

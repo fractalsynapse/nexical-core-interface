@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags crispy_forms_field %}
+
+{% block title %}
+  Manage Outreach Campaign
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock css %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'js/outreach-manage-page.min.js' %}"></script>
+{% endblock javascript %}
+{% block inline_javascript %}
+  {{ form.media.js }}
+{% endblock inline_javascript %}
+{% block content %}
+  <div class="container">
+    <div class="mt-1 mb-0 mx-5">
+      <a id="btn-back"
+         href="{% url 'outreach:campaign_list' %}"
+         class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-chevron-left"></i><span>Back to list</span></a>
+      <a id="btn-manage"
+         href="{% url 'outreach:campaign_process' pk=object.id %}"
+         class="btn btn-outline-primary ms-3 mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-mail-send"></i><span>Manage Campaign</span></a>
+      <a id="btn-contacts"
+         href="{% url 'outreach:contact_group_list' %}"
+         class="btn btn-outline-primary ms-3 mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-group"></i><span>Contact Groups</span></a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
+      <div class="container">
+        <div class="col">
+          <div id="outreach-form">
+            <h2>
+              {% if operation == 'create' %}
+                Create a new Outreach Campaign
+              {% else %}
+                Update Outreach Campaign
+              {% endif %}
+            </h2>
+            {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+                </div>
+              {% endfor %}
+            {% endif %}
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.name|as_crispy_field }}
+              {{ form.description|as_crispy_field }}
+              <div class="contact_group-form-wrapper inline-form-wrapper">
+                <h4>Contact Groups</h4>
+                <br />
+                {{ form.contact_groups|as_crispy_field }}
+              </div>
+              <div class="emails-form-wrapper inline-form-wrapper">
+                <h4>Emails</h4>
+                <br />
+                <div class="alert alert-info d-flex flex-row gap-1">
+                  <div class="mx-3 my-auto">
+                    <i class="bx bx-info-circle"></i>
+                    <span>Emails will be sent in the following order to contacts in this campaign</span>
+                  </div>
+                </div>
+                {{ emails.management_form }}
+                <table id="email-form-table" class="inline-form-table">
+                  {% for email_form in emails.forms %}
+                    <tr class="email-form" data-basename="email-{{ forloop.counter0 }}">
+                      <td class="email-input form-field">
+                        {{ email_form.id }}
+                        {{ email_form.subject_template|as_crispy_field }}
+                        {{ email_form.body_template|as_crispy_field }}
+                        {{ email_form.wait_days|as_crispy_field }}
+                        <div class="row token-wrapper d-flex justify-content-end m-3">
+                          <div class="col-md-4 p-3">
+                            <button type="button" class="token-view-toggle btn btn-secondary btn-lg mx-3">Expand Tokens</button>
+                          </div>
+                          <div class="token-table">
+                            {% for token, value in message_context.items %}
+                              <div class="row">
+                                <div class="col p-2">{{ token }}</div>
+                                <div class="col p-2">{{ value }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </td>
+                      <td class="email-delete delete">
+                        <div class="delete-button">
+                          <span class="material-symbols-outlined">delete</span>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  <tr id="email-empty-form" class="d-none">
+                    <td class="email-input form-field">
+                      {{ emails.empty_form.subject_template|as_crispy_field }}
+                      {{ emails.empty_form.body_template|as_crispy_field }}
+                      {{ emails.empty_form.wait_days|as_crispy_field }}
+                      <div class="row token-wrapper d-flex justify-content-end m-3">
+                        <div class="col-md-4 p-3">
+                          <button type="button" class="token-view-toggle btn btn-secondary btn-lg mx-3">Expand Tokens</button>
+                        </div>
+                        <div class="token-table">
+                          {% for token, value in message_context.items %}
+                            <div class="row">
+                              <div class="col p-2">{{ token }}</div>
+                              <div class="col p-2">{{ value }}</div>
+                            </div>
+                          {% endfor %}
+                        </div>
+                        <div>
+                        </td>
+                        <td class="email-delete delete">
+                          <div class="delete-button">
+                            <span class="material-symbols-outlined">delete</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <div class="email-add-wrapper inline-form-controls">
+                      <button type="button" id="add-email" class="add-inline-form-button">
+                        <span class="material-symbols-outlined">add_circle</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" class="btn btn-primary btn-lg">
+                        {% if operation == 'create' %}
+                          Create
+                        {% else %}
+                          Update
+                        {% endif %}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

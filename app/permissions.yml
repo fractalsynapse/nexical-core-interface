@@ -18,6 +18,7 @@ engine:
     change_event,
     view_event,
   ]
+outreach: [add_message, change_message, delete_message, view_message]
 business_team_member:
   [
     add_team,
