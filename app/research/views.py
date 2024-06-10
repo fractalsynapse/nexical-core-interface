@@ -27,7 +27,7 @@ class PanelView(BasePanelView):
     template_name = "research.html"
 
     def dispatch(self, request, *args, **kwargs):
-        if not get_active_project(request.user):
+        if not TeamProject.objects.filter(team__members__user=request.user).count():
             messages.add_message(
                 request,
                 messages.WARNING,
