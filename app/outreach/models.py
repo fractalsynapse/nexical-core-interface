@@ -220,20 +220,20 @@ def delete_contact_group_hook(sender, instance, using, **kwargs):
 
 class Organization(BaseUUIDModel):
     link = models.URLField(_("Organization URL"), blank=False, max_length=1024, unique=True)
-    name = models.CharField(_("Organization Name"), blank=False, max_length=512)
+    name = models.CharField(_("Organization Name"), blank=False, max_length=1024)
     linkedin = models.URLField(_("Organization LinkedIn"), blank=True, null=True, max_length=1024)
 
-    description = models.CharField(_("Organization Description"), blank=False, max_length=512)
+    description = models.CharField(_("Organization Description"), blank=False, max_length=1024)
     technologies = fields.ListField(_("Organization Technologies"))
 
     employees = models.IntegerField(_("Organization Employees"), blank=True, null=True)
-    industry = models.CharField(_("Organization Industry"), blank=True, null=True, max_length=512)
+    industry = models.CharField(_("Organization Industry"), blank=True, null=True, max_length=1024)
     keywords = fields.ListField(_("Organization Keywords"))
 
     revenue = models.FloatField(_("Organization Revenue"), blank=True, null=True)
     total_funding = models.FloatField(_("Organization Total Funding"), blank=True, null=True)
     last_funding_stage = models.CharField(
-        _("Organization Latest Funding Stage"), blank=True, null=True, max_length=256
+        _("Organization Latest Funding Stage"), blank=True, null=True, max_length=1024
     )
     last_funding = models.FloatField(_("Organization Latest Funding Amount"), blank=True, null=True)
     last_raised_at = models.DateField(_("Organization Last Raised At"), blank=True, null=True)
@@ -267,18 +267,18 @@ class Organization(BaseUUIDModel):
 class Contact(BaseUUIDModel):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="contacts")
 
-    email = models.EmailField(_("Contact Email"), blank=False, max_length=512, unique=True)
+    email = models.EmailField(_("Contact Email"), blank=False, max_length=1024, unique=True)
     phone = models.CharField(_("Contact Phone"), blank=False, max_length=256)
-    first_name = models.CharField(_("Contact First Name"), blank=False, max_length=256)
-    last_name = models.CharField(_("Contact Last Name"), blank=False, max_length=256)
+    first_name = models.CharField(_("Contact First Name"), blank=False, max_length=512)
+    last_name = models.CharField(_("Contact Last Name"), blank=False, max_length=512)
 
-    seniority = models.CharField(_("Contact Seniority"), blank=False, max_length=256)
-    title = models.CharField(_("Contact Title"), blank=False, max_length=512)
+    seniority = models.CharField(_("Contact Seniority"), blank=False, max_length=512)
+    title = models.CharField(_("Contact Title"), blank=False, max_length=1024)
     departments = models.CharField(_("Contact Departments"), blank=False)
 
-    city = models.CharField(_("Contact City"), blank=False, max_length=256)
-    province = models.CharField(_("Contact Province"), blank=False, max_length=256)
-    country = models.CharField(_("Contact Country"), blank=False, max_length=256)
+    city = models.CharField(_("Contact City"), blank=False, max_length=512)
+    province = models.CharField(_("Contact Province"), blank=False, max_length=512)
+    country = models.CharField(_("Contact Country"), blank=False, max_length=512)
     linkedin = models.URLField(_("Contact LinkedIn"), blank=False, max_length=1024)
 
     engaged = models.BooleanField(_("Contact Engaged"), default=False)
