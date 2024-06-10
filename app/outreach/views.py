@@ -217,12 +217,15 @@ class CampaignFormMixin(OutreachAccessMixin):
         context["campaign_count"] = queryset.count()
 
         message_context = {}
-        contact = models.Contact.objects.filter(
-            membership__contact_group__id__in=list(
-                self.object.contact_groups.all().distinct().values_list("id", flat=True)
-            ),
-            blocked=False,
-        ).first()
+        contact = None
+
+        if self.object:
+            contact = models.Contact.objects.filter(
+                membership__contact_group__id__in=list(
+                    self.object.contact_groups.all().distinct().values_list("id", flat=True)
+                ),
+                blocked=False,
+            ).first()
 
         if contact:
             for key, value in self.request.user.export().items():

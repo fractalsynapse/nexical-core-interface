@@ -23,9 +23,11 @@
       <a id="btn-back"
          href="{% url 'outreach:campaign_list' %}"
          class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-chevron-left"></i><span>Back to list</span></a>
-      <a id="btn-manage"
-         href="{% url 'outreach:campaign_process' pk=object.id %}"
-         class="btn btn-outline-primary ms-3 mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-mail-send"></i><span>Manage Campaign</span></a>
+      {% if object %}
+        <a id="btn-manage"
+           href="{% url 'outreach:campaign_process' pk=object.id %}"
+           class="btn btn-outline-primary ms-3 mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-mail-send"></i><span>Manage Campaign</span></a>
+      {% endif %}
       <a id="btn-contacts"
          href="{% url 'outreach:contact_group_list' %}"
          class="btn btn-outline-primary ms-3 mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-group"></i><span>Contact Groups</span></a>
