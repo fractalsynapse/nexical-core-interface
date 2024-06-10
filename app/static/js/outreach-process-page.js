@@ -14,7 +14,7 @@ $(function () {
 
   $('#message-subject').on('keyup keypress', function () {
     var text = $(this).val();
-    if (text.indexOf('{') != -1 || text.indexOf('}') != -1) {
+    if (text.indexOf('<<') != -1 || text.indexOf('>>') != -1) {
       $(this).addClass('invalid-token');
       $('#send-button').prop('disabled', true);
     } else {
@@ -24,7 +24,7 @@ $(function () {
   });
   $('#message-subject').each(function () {
     var text = $(this).val();
-    if (text.indexOf('{') != -1 || text.indexOf('}') != -1) {
+    if (text.indexOf('<<') != -1 || text.indexOf('>>') != -1) {
       $(this).addClass('invalid-token');
       $('#send-button').prop('disabled', true);
     }
@@ -32,7 +32,7 @@ $(function () {
 
   $('#message-body').on('keyup keypress', function () {
     var text = $(this).val();
-    if (text.indexOf('{') != -1 || text.indexOf('}') != -1) {
+    if (text.indexOf('<<') != -1 || text.indexOf('>>') != -1) {
       $(this).addClass('invalid-token');
       $('#send-button').prop('disabled', true);
     } else {
@@ -42,7 +42,7 @@ $(function () {
   });
   $('#message-body').each(function () {
     var text = $(this).val();
-    if (text.indexOf('{') != -1 || text.indexOf('}') != -1) {
+    if (text.indexOf('<<') != -1 || text.indexOf('>>') != -1) {
       $(this).addClass('invalid-token');
       $('#send-button').prop('disabled', true);
     }
