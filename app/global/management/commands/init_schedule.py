@@ -20,9 +20,9 @@ class Command(BaseCommand):
             (schedule, created) = CrontabSchedule.objects.get_or_create(
                 minute=schedule_elements[0],
                 hour=schedule_elements[1] if len(schedule_elements) > 1 else "*",
-                day_of_week=schedule_elements[2] if len(schedule_elements) > 2 else "*",
-                day_of_month=schedule_elements[3] if len(schedule_elements) > 3 else "*",
-                month_of_year=schedule_elements[4] if len(schedule_elements) > 4 else "*",
+                day_of_month=schedule_elements[2] if len(schedule_elements) > 2 else "*",
+                month_of_year=schedule_elements[3] if len(schedule_elements) > 3 else "*",
+                day_of_week=schedule_elements[4] if len(schedule_elements) > 4 else "*",
             )
             (task, created) = PeriodicTask.objects.get_or_create(name=name, crontab=schedule)
             task.enabled = spec.get("enabled", True)
