@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.template import Template
+from django.template import Context, Template
 
 
 class Email:
@@ -27,6 +27,7 @@ class Email:
     def render(self, _email, from_email=None, **context):
         subject_template = Template(self.subject_template)
         body_template = Template(self.body_template)
+        context = Context(context)
 
         if not from_email:
             from_email = settings.DEFAULT_FROM_EMAIL
