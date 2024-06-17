@@ -1,4 +1,9 @@
+import re
+
+from bs4 import BeautifulSoup
 from django.http import JsonResponse
+from django.urls import reverse
+from django.utils.html import format_html
 from django.views import View
 from django.views.generic import TemplateView
 from rest_framework import status
@@ -28,13 +33,42 @@ def get_summary_references(summary):
 
     for reference in summary.references.all().order_by("-score"):
         information = {"type": reference.type, "score": round((reference.score / total_score) * 100, 0)}
-        try:
-            document = TeamDocument.objects.get(id=reference.document_id)
-            information["name"] = document.file.path.split("/")[-1]
-            information["link"] = document.file.url
+        if reference.type in ["team_document", "file"]:
+            try:
+                document = TeamDocument.objects.get(id=reference.document_id)
+                name = document.file.path.split("/")[-1]
 
-        except TeamDocument.DoesNotExist:
-            pass
+                information["id"] = document.id
+                information["type"] = "File"
+                information["link"] = format_html(f'<a href="{document.file.url}" target="_blank">{name}</a>')
+            except TeamDocument.DoesNotExist:
+                pass
+
+        elif reference.type == "note":
+            try:
+                note = ProjectNote.objects.get(id=reference.document_id)
+                link = reverse("research:note", kwargs={"pk": note.id})
+
+                information["id"] = note.id
+                information["type"] = "Note"
+                information["link"] = format_html(f'<a href="{link}" class="note-ref-link">{note.name}</a>')
+
+            except ProjectNote.DoesNotExist:
+                pass
+
+        elif reference.type == "summary":
+            try:
+                summary = ProjectSummary.objects.get(id=reference.document_id)
+                text = re.sub(r"<.*?>", "", summary.summary)
+                name = summary.name if summary.name else ((text[:50] + "...") if len(text) > 50 else text)
+                link = reverse("research:summary", kwargs={"pk": summary.id})
+
+                information["id"] = summary.id
+                information["type"] = "Summary"
+                information["link"] = format_html(f'<a href="{link}" class="summary-ref-link">{name}</a>')
+
+            except ProjectSummary.DoesNotExist:
+                pass
 
         references.append(information)
     return references
@@ -58,13 +92,19 @@ class SummaryView(BaseAjaxSummaryView):
         for tag in TeamTag.objects.filter(team=team):
             tag_options.append({"name": tag.name, "active": tag.name in tags})
 
+        summary_text = summary.summary
+        if summary_text:
+            html_checker = BeautifulSoup(summary_text, "html.parser")
+            if not bool(html_checker.find()):
+                summary_text = summary_text.replace("\n", "<br />")
+
         return JsonResponse(
             {
                 "project_id": str(summary.project.id),
                 "id": summary.id,
                 "name": summary.name,
                 "prompt": summary.prompt,
-                "summary": summary.summary.replace("\n", "<br />") if summary.summary else None,
+                "summary": summary_text,
                 "tags": tag_options,
                 "processed_time": summary.processed_time,
                 "references": get_summary_references(summary),
@@ -112,6 +152,8 @@ class SummarySaveView(BaseAjaxSummaryView):
             prompt=prompt,
             format="Generate the response in HTML format.",
             endings=["</html>", "</div>", "</p>"],
+            max_sections=10,
+            sentence_limit=50,
             persona=project.summary_persona,
             temperature=project.temperature,
             top_p=project.top_p,
@@ -120,13 +162,19 @@ class SummarySaveView(BaseAjaxSummaryView):
         if not summary:
             return JsonResponse({"error": "Error creating summary"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+        summary_text = summary.summary
+        if summary_text:
+            html_checker = BeautifulSoup(summary_text, "html.parser")
+            if not bool(html_checker.find()):
+                summary_text = summary_text.replace("\n", "<br />")
+
         return JsonResponse(
             {
                 "project_id": str(summary.project.id),
                 "id": summary.id,
                 "name": summary.name,
                 "prompt": summary.prompt,
-                "summary": summary.summary.replace("\n", "<br />") if summary.summary else None,
+                "summary": summary_text,
                 "tags": list(summary.tags.values_list("name", flat=True)),
                 "references": get_summary_references(summary),
             },

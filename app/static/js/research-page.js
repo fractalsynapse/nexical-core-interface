@@ -151,21 +151,48 @@ function set_summary_references(references) {
     }
 
     html_references +=
-      '<li class="reference">' +
+      '<li class="reference w-100">' +
       '<span class="reference-importance ' +
       importance_class +
       '">' +
       reference['score'] +
       '%</span>' +
-      '<a href="' +
+      '<span class="align-middle text-center fs-6 m-1"><i>' +
+      reference['type'] +
+      ':' +
+      '</i></span>' +
       reference['link'] +
-      '" target="_blank">' +
-      reference['name'] +
-      '</a>' +
       '</li>';
   });
   html_references += '</ul>';
   $('#summary-container .summary-references').html(html_references);
+
+  // Note form loading
+  $('.note-ref-link').on('click', function (event) {
+    event.preventDefault();
+
+    reset_note_form();
+
+    $.get($(this).attr('href')).done(function (data) {
+      $('#note-id').val(data['id']);
+      $('#note-name').val(data['name']);
+      $('#note-message').val(data['message']);
+      $('#note-message').removeClass('note-empty').addClass('note-saved');
+
+      $('#note-tab').tab('show');
+      $('#note-message').height($('#note-message')[0].scrollHeight);
+      set_active_note();
+    });
+  });
+
+  // Summary form loading
+  $('.summary-ref-link').on('click', function (event) {
+    event.preventDefault();
+
+    $.get($(this).attr('href')).done(function (data) {
+      set_summary_form(data);
+    });
+  });
 }
 
 function reset_summary_form() {
