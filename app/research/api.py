@@ -20,8 +20,14 @@ def validate_summary(self, validated_data):
             {
                 "project_id": str(validated_data["project"].id),
                 "prompt": validated_data["prompt"],
-                "format": validated_data["format"],
-                "endings": validated_data["endings"],
+                "format": validated_data.get("format", ""),
+                "endings": validated_data.get("endings", [".", "?", "!"]),
+                "max_sections": validated_data.get("max_sections", 10),
+                "sentence_limit": validated_data.get("sentence_limit", 50),
+                "persona": validated_data.get("persona", ""),
+                "temperature": validated_data.get("temperature", 0.1),
+                "top_p": validated_data.get("top_p", 0.9),
+                "repetition_penalty": validated_data.get("repetition_penalty", 0.9),
             }
         )
         tags = []
@@ -115,6 +121,8 @@ views.generate(
         "prompt",
         "format",
         "endings",
+        "max_sections",
+        "sentence_limit",
         "token_count",
         "processing_time",
         "processed_time",
@@ -126,6 +134,8 @@ views.generate(
         "prompt",
         "format",
         "endings",
+        "max_sections",
+        "sentence_limit",
         "project",
         ("tags", {"read_only": True}),
     ],

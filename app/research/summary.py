@@ -8,6 +8,8 @@ def summarize(project, name, prompt, tags, **config):
     persona = config.get("persona", "")
     output_format = config.get("format", "")
     output_endings = config.get("endings", [".", "?", "!"])
+    max_sections = config.get("max_sections", 10)
+    sentence_limit = config.get("sentence_limit", 50)
     temperature = config.get("temperature", 0.1)
     top_p = config.get("top_p", 0.9)
     repetition_penalty = config.get("repetition_penalty", 0.9)
@@ -18,6 +20,8 @@ def summarize(project, name, prompt, tags, **config):
             "prompt": prompt,
             "format": output_format,
             "endings": output_endings,
+            "max_sections": max_sections,
+            "sentence_limit": sentence_limit,
             "persona": persona,
             "temperature": temperature,
             "top_p": top_p,

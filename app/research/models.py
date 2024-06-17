@@ -20,6 +20,8 @@ class ProjectSummary(ProjectResearchBase):
     prompt = models.TextField(_("Summary Prompt"), blank=False)
     format = models.TextField(_("Summary Format"), blank=True)
     endings = ListField(_("Summary allowed endings"), blank=True, default=[".", "?", "!"])
+    max_sections = models.IntegerField(_("Summary Maximum Sections per Topic"), default=10)
+    sentence_limit = models.IntegerField(_("Summary Maximum Ranked Sentences per Topic"), default=50)
     summary = models.TextField(_("Summary"), blank=True, null=True)
     token_count = models.IntegerField(_("Summary Token Count"), blank=True, null=True)
     processing_time = models.FloatField(_("Summary Processing Time"), blank=True, null=True)
@@ -39,6 +41,8 @@ class ProjectSummary(ProjectResearchBase):
                 "prompt": self.prompt,
                 "format": self.format,
                 "endings": self.endings,
+                "max_sections": self.max_sections,
+                "sentence_limit": self.sentence_limit,
             },
         )
         if operation != "delete":
