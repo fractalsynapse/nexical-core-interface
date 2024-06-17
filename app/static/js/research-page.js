@@ -3,9 +3,15 @@ function sleep(ms = 0) {
 }
 
 function initialize_timeline() {
-  $('textarea').each(function () {
+  $('textarea').on('keyup keypress', function () {
     $(this).height(0);
     $(this).height(this.scrollHeight);
+  });
+  $('#note-tab, #summary-tab').on('click', function () {
+    $('textarea').each(function () {
+      $(this).height(0);
+      $(this).height(this.scrollHeight);
+    });
   });
   // Timeline tag selection updates
   $('#tag-selector').on('change', function (e) {
@@ -270,17 +276,6 @@ function initialize_project_modals() {
 }
 
 $(function () {
-  $('textarea').on('keyup keypress', function () {
-    $(this).height(0);
-    $(this).height(this.scrollHeight);
-  });
-  $('#note-tab, #summary-tab').on('click', function () {
-    $('textarea').each(function () {
-      $(this).height(0);
-      $(this).height(this.scrollHeight);
-    });
-  });
-
   $('#project-selector').on('change', function () {
     var project = $(this).val();
     $.get($(`option#project-${project}`).attr('data-url'), function (data) {

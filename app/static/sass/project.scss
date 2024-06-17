@@ -2207,7 +2207,7 @@ td.documents-remove span {
   border-bottom-right-radius: 15px;
 }
 
-.summary-form-wrapper {
+.summarize-form-wrapper {
   margin: 0;
   padding: 0;
 }
@@ -2305,8 +2305,34 @@ td.documents-remove span {
   margin: 0;
   padding: 30px;
   font-size: 1.2em;
-  border: 2px solid $offwhite;
+  border: 4px solid $offwhite;
   border-radius: 15px;
+}
+
+.summarize-form #summary-container h1 {
+  margin: 30px 0 !important;
+  padding: 30px 0 !important;
+  color: $black !important;
+  font-weight: bold;
+  border-bottom: 4px solid $offwhite !important;
+}
+
+.summarize-form #summary-container h2,
+.summarize-form #summary-container h3,
+.summarize-form #summary-container h4 {
+  margin: 30px 0 !important;
+  padding: 30px 0 !important;
+  color: $dark-grey !important;
+  font-weight: bold;
+  border-bottom: 4px solid $offwhite !important;
+}
+
+.summarize-form #summary-container ul {
+  margin: 30px 0;
+}
+
+.summarize-form #summary-container li {
+  margin: 10px 0;
 }
 
 .summarize-form #summary-container #summary-expand {
@@ -2326,7 +2352,7 @@ td.documents-remove span {
 }
 
 .summarize-form .summary-expanded {
-  z-index: 1000;
+  z-index: 10;
   position: absolute;
   display: block;
   overflow: auto;

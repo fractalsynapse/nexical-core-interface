@@ -1,7 +1,7 @@
 <div class="research-form-wrapper">
   <nav class="research-form-nav">
     <div class="nav nav-tabs" id="nav-{{ project.id }}-tab" role="tablist" aria-orientation="horizontal">
-      <button class="user-setting nav-link last-nav"
+      <button class="user-setting nav-link first-nav"
               id="summary-tab"
               data-bs-toggle="pill"
               data-bs-target="#h-pills-{{ project.id }}-summary"
@@ -11,7 +11,7 @@
               role="tab"
               aria-controls="h-pills-{{ project.id }}-summary"
               aria-selected="false">AI Research</button>
-      <button class="user-setting nav-link first-nav active"
+      <button class="user-setting nav-link last-nav active"
               id="note-tab"
               data-bs-toggle="pill"
               data-bs-target="#h-pills-{{ project.id }}-note"
@@ -27,10 +27,14 @@
     <div class="research-form-tab-wrapper tab-pane fade show active"
          id="h-pills-{{ project.id }}-note"
          role="tabpanel"
-         aria-labelledby="h-pills-{{ project.id }}-note-tab">{% include 'components/note_form.html' %}</div>
+         aria-labelledby="h-pills-{{ project.id }}-note-tab">
+      <div class="note-form-wrapper">{% include 'components/note_form.html' %}</div>
+    </div>
     <div class="research-form-tab-wrapper tab-pane fade"
          id="h-pills-{{ project.id }}-summary"
          role="tabpanel"
-         aria-labelledby="h-pills-{{ project.id }}-summary-tab">{% include 'components/summary_form.html' %}</div>
+         aria-labelledby="h-pills-{{ project.id }}-summary-tab">
+      <div class="summarize-form-wrapper">{% include 'components/summary_form.html' %}</div>
+    </div>
   </div>
 </div>

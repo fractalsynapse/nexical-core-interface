@@ -12,12 +12,12 @@
             <div class="d-md-flex justify-content-end align-items-center">
               <label for="project-selector" class="form-label py-auto pr-3">Project</label>
               <select id="project-selector" class="form-select py-auto px-5">
-                {% if not active_project %}<option value="" selected>Select Project</option>{% endif %}
+                {% if not active_project %}<option value="" selected="selected">Select Project</option>{% endif %}
                 {% for project in projects %}
                   <option id="project-{{ project.id }}"
                           value="{{ project.id }}"
                           data-url="{% ui_url 'projects/~set' project.id %}"
-                          {% if active_project and project.id|stringformat:"s" == active_project.id %}selected{% endif %}>
+                          {% if active_project and project.id == active_project.id %}selected="selected"{% endif %}>
                     {{ project.name }}
                   </option>
                 {% endfor %}
