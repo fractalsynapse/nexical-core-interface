@@ -32,6 +32,15 @@ function reinitialize_table(id) {
 $(function () {
   reinitialize_table('file-form-table');
 
+  $('textarea').on('keyup keypress', function () {
+    $(this).height(0);
+    $(this).height(this.scrollHeight);
+  });
+  $('textarea').each(function () {
+    $(this).height(0);
+    $(this).height(this.scrollHeight);
+  });
+
   $('.document-progress').each(async function () {
     var $element = $(this);
     var progress_url = $element.attr('data-url');

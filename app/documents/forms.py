@@ -7,13 +7,19 @@ from . import models
 class DocumentCollectionForm(forms.ModelForm):
     class Meta:
         model = models.TeamDocumentCollection
-        fields = ["name"]
+        fields = ["name", "description"]
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 2}),
+        }
 
 
 class DocumentCollectionFileForm(forms.ModelForm):
     class Meta:
         model = models.TeamDocument
-        exclude = ()
+        fields = ["file", "description"]
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 2}),
+        }
 
 
 class BaseDocumentCollectionFileFormSet(BaseInlineFormSet):
@@ -30,7 +36,6 @@ DocumentCollectionFileFormSet = inlineformset_factory(
     models.TeamDocument,
     formset=BaseDocumentCollectionFileFormSet,
     form=DocumentCollectionFileForm,
-    fields=["file"],
     min_num=0,
     max_num=10,
     extra=0,

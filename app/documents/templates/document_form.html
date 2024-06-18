@@ -81,8 +81,13 @@
                 {{ files.management_form }}
                 <table id="file-form-table" class="inline-form-table">
                   {% for file_form in files.forms %}
-                    <tr class="file-form" data-basename="files-{{ forloop.counter0 }}">
-                      <td class="file-input form-field">{{ file_form.id }} {{ file_form.file|as_crispy_field }}</td>
+                    <tr class="file-form mt-2" data-basename="files-{{ forloop.counter0 }}">
+                      <td class="file-input form-field">
+                        {{ file_form.id }}
+                        {{ file_form.file|as_crispy_field }}
+                        <span class="pt-2">Description:</span>
+                        {{ file_form.description|as_crispy_field }}
+                      </td>
                       <td class="file-delete delete">
                         <div class="delete-button">
                           <span class="material-symbols-outlined">delete</span>
@@ -90,8 +95,12 @@
                       </td>
                     </tr>
                   {% endfor %}
-                  <tr id="file-empty-form" class="d-none">
-                    <td class="file-input form-field">{{ files.empty_form.file|as_crispy_field }}</td>
+                  <tr id="file-empty-form" class="d-none mt-2">
+                    <td class="file-input form-field">
+                      {{ files.empty_form.file|as_crispy_field }}
+                      <span class="pt-2">Description:</span>
+                      {{ files.empty_form.description|as_crispy_field }}
+                    </td>
                     <td class="file-delete delete">
                       <div class="delete-button">
                         <span class="material-symbols-outlined">delete</span>

@@ -19,6 +19,15 @@ def team_document_path(instance, filename):
 class TeamDocumentCollection(BaseUUIDModel):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="document_collections")
     name = models.CharField(_("Document Collection Name"), blank=False, max_length=255)
+    description = models.TextField(
+        _("Document Collection Description"),
+        help_text=_(
+            "This information can help guide the AI assistants and is always available to the AI "
+            "when conducting research.  The purpose of this description is to provide context "
+            "on the purpose of this document collection."
+        ),
+        blank=True,
+    )
     processed_time = models.DateTimeField(_("Processed Time"), blank=True, null=True)
 
     def __str__(self):
@@ -36,7 +45,14 @@ class TeamDocumentCollection(BaseUUIDModel):
                 if handle:
                     handle.close()
 
-            files.append({"id": str(file.id), "name": str(file.file).split("/")[-1], "hash": get_identifier(content)})
+            files.append(
+                {
+                    "id": str(file.id),
+                    "name": str(file.file).split("/")[-1],
+                    "description": file.description,
+                    "hash": get_identifier(content),
+                }
+            )
 
         Event.objects.create(
             type="document_collection",
@@ -46,6 +62,7 @@ class TeamDocumentCollection(BaseUUIDModel):
                 "team_name": self.team.name,
                 "id": str(self.id),
                 "name": self.name,
+                "description": self.description,
                 "files": files,
             },
         )
@@ -61,6 +78,15 @@ def delete_document_collection_hook(sender, instance, using, **kwargs):
 
 class TeamDocument(BaseUUIDModel):
     collection = models.ForeignKey(TeamDocumentCollection, on_delete=models.CASCADE, related_name="files")
+    description = models.TextField(
+        _("Document Description"),
+        help_text=_(
+            "This information can help guide the AI assistants and is always available to the AI "
+            "when conducting research.  The purpose of this description is to provide context "
+            "on the content of this document."
+        ),
+        blank=True,
+    )
     file = PrivateFileField(
         upload_to=team_document_path,
         content_types=[
