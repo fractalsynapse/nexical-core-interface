@@ -2301,7 +2301,7 @@ td.documents-remove span {
   border-radius: 15px;
 }
 
-.summarize-form #summary-container .summary-loaded h1 {
+.summarize-form .summary-loaded h1 {
   margin: 30px 0 !important;
   padding: 30px 0 !important;
   color: $black !important;
@@ -2309,9 +2309,9 @@ td.documents-remove span {
   border-bottom: 4px solid $offwhite !important;
 }
 
-.summarize-form #summary-container .summary-loaded h2,
-.summarize-form #summary-container .summary-loaded h3,
-.summarize-form #summary-container .summary-loaded h4 {
+.summarize-form .summary-loaded h2,
+.summarize-form .summary-loaded h3,
+.summarize-form .summary-loaded h4 {
   margin: 30px 0 !important;
   padding: 30px 0 !important;
   color: $dark-grey !important;
