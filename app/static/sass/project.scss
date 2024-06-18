@@ -653,7 +653,7 @@ select {
 .inline-form-table tr {
   padding: 10px;
   vertical-align: middle;
-  background: linear-gradient($offwhite, $light-grey);
+  background: linear-gradient($offwhite, $white);
 }
 
 .inline-form-table td {
@@ -2063,14 +2063,6 @@ td.documents-remove span {
   border-top: 1px solid $light-grey;
 }
 
-#documents-form .controls .button {
-  margin: 20px;
-  font-size: 2em;
-  background: radial-gradient(ellipse, $dark-green, $dark-grey);
-  border: 4px solid $dark-green;
-  color: $white;
-}
-
 //////////////
 // Explorer //
 //////////////
@@ -2309,7 +2301,7 @@ td.documents-remove span {
   border-radius: 15px;
 }
 
-.summarize-form #summary-container h1 {
+.summarize-form #summary-container .summary-loaded h1 {
   margin: 30px 0 !important;
   padding: 30px 0 !important;
   color: $black !important;
@@ -2317,9 +2309,9 @@ td.documents-remove span {
   border-bottom: 4px solid $offwhite !important;
 }
 
-.summarize-form #summary-container h2,
-.summarize-form #summary-container h3,
-.summarize-form #summary-container h4 {
+.summarize-form #summary-container .summary-loaded h2,
+.summarize-form #summary-container .summary-loaded h3,
+.summarize-form #summary-container .summary-loaded h4 {
   margin: 30px 0 !important;
   padding: 30px 0 !important;
   color: $dark-grey !important;
@@ -2459,9 +2451,9 @@ td.documents-remove span {
   font-size: 0.7em;
 }
 
-.summarize-form .summary-time-notice {
+.summarize-form .summary-time {
   padding: 20px;
-  color: $white;
+  color: $offwhite;
 }
 
 .summarize-form .controls {
