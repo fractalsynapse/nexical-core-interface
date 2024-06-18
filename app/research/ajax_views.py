@@ -1,6 +1,5 @@
 import re
 
-from bs4 import BeautifulSoup
 from django.http import JsonResponse
 from django.urls import reverse
 from django.utils.html import format_html
@@ -93,10 +92,6 @@ class SummaryView(BaseAjaxSummaryView):
             tag_options.append({"name": tag.name, "active": tag.name in tags})
 
         summary_text = summary.summary
-        if summary_text:
-            html_checker = BeautifulSoup(summary_text, "html.parser")
-            if not bool(html_checker.find()):
-                summary_text = summary_text.replace("\n", "<br />")
 
         return JsonResponse(
             {
@@ -151,9 +146,9 @@ class SummarySaveView(BaseAjaxSummaryView):
             name=name,
             prompt=prompt,
             format="Generate the response in HTML format.",
-            endings=["</html>", "</div>", "</p>"],
-            max_sections=10,
-            sentence_limit=50,
+            endings=["</html>", "</div>", "</p>", ".", "!", "?"],
+            max_sections=5,
+            sentence_limit=100,
             persona=project.summary_persona,
             temperature=project.temperature,
             top_p=project.top_p,
@@ -163,10 +158,6 @@ class SummarySaveView(BaseAjaxSummaryView):
             return JsonResponse({"error": "Error creating summary"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         summary_text = summary.summary
-        if summary_text:
-            html_checker = BeautifulSoup(summary_text, "html.parser")
-            if not bool(html_checker.find()):
-                summary_text = summary_text.replace("\n", "<br />")
 
         return JsonResponse(
             {
