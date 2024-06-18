@@ -7,6 +7,10 @@ function initialize_timeline() {
     $(this).height(0);
     $(this).height(this.scrollHeight);
   });
+  $('textarea').each(function () {
+    $(this).height(0);
+    $(this).height(this.scrollHeight);
+  });
   $('#note-tab, #summary-tab').on('click', function () {
     $('textarea').each(function () {
       $(this).height(0);
@@ -276,6 +280,11 @@ function initialize_project_modals() {
 }
 
 $(function () {
+  $('textarea').each(function () {
+    $(this).height(0);
+    $(this).height(this.scrollHeight);
+  });
+
   $('#project-selector').on('change', function () {
     var project = $(this).val();
     $.get($(`option#project-${project}`).attr('data-url'), function (data) {
