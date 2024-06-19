@@ -38,7 +38,7 @@
             <a href="#"
                data-href="{% url 'projects:modal_form_create' %}"
                id="create-project-link"
-               class="research-btn btn btn-outline-primary">
+               class="research-btn btn {% if active_project %}btn-outline-primary{% else %}btn-outline-success{% endif %}">
               <i class="bx bx-plus-circle mx-2"></i><span>Create Project</span>
             </a>
           </div>
@@ -53,6 +53,12 @@
         </div>
         <input type="hidden" id="project-id" value="{{ active_project.id }}" />
         <input type="hidden" id="timeline-url" value="{% url 'research:timeline' active_project.id %}" />
+      {% else %}
+        <div class="research-wrapper">
+          <div class="project-create-message text-center">
+            <h2>You must first create a project to conduct research</h2>
+          </div>
+        </div>
       {% endif %}
     </div>
   </div>
