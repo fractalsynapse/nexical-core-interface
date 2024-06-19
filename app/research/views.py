@@ -1,6 +1,3 @@
-from django.contrib import messages
-from django.shortcuts import redirect
-
 # from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 
@@ -25,17 +22,6 @@ class BasePanelView(TeamOwnershipMixin, BusinessTeamAccessMixin, TemplateView):
 
 class PanelView(BasePanelView):
     template_name = "research.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        if not TeamProject.objects.filter(team__members__user=request.user).count():
-            messages.add_message(
-                request,
-                messages.WARNING,
-                "Before conducting project related research you must create a project in the active team",
-            )
-            return redirect("projects:form_create")
-
-        return super().dispatch(request, *args, **kwargs)
 
 
 class ModalPanelView(BasePanelView):
