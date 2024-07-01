@@ -87,6 +87,16 @@ $(function () {
       $form_input.attr('name').replace('__prefix__', form_index),
     );
 
+    $form_textarea = $new_form.find('textarea');
+    $form_textarea.attr(
+      'id',
+      $form_textarea.attr('id').replace('__prefix__', form_index),
+    );
+    $form_textarea.attr(
+      'name',
+      $form_textarea.attr('name').replace('__prefix__', form_index),
+    );
+
     $('#file-form-table').append($new_form);
     $('#id_files-TOTAL_FORMS').attr('value', form_index + 1);
 
