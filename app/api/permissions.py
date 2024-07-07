@@ -37,14 +37,6 @@ class EnginePermissions(BasePermission):
         return True
 
 
-class OutreachPermissions(BasePermission):
-    def has_permission(self, request, view):
-        user = request.user
-        if not user or not user.check_member("outreach"):
-            return False
-        return True
-
-
 class SiteModelPermissions(BaseModelPermissions):
     pass
 

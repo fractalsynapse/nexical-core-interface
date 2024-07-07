@@ -17,12 +17,3 @@ class BusinessTeamAccessMixin(AccessMixin):
         if not request.user.is_authenticated or not request.user.check_member("business_team_member"):
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
-
-
-class OutreachAccessMixin(AccessMixin):
-    """Verify that the current user is an administrative outreach user."""
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.check_member("outreach"):
-            return self.handle_no_permission()
-        return super().dispatch(request, *args, **kwargs)

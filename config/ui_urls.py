@@ -29,7 +29,6 @@ urlpatterns = [
     path("projects/", include("app.projects.urls", namespace="projects")),
     path("documents/", include("app.documents.urls", namespace="documents")),
     path("research/", include("app.research.urls", namespace="research")),
-    path("outreach/", include("app.outreach.urls", namespace="outreach")),
     path("feedback/", include("app.feedback.urls", namespace="feedback")),
     path("private-media/", include(private_storage.urls)),
     path(settings.ADMIN_PATH, admin.site.urls),

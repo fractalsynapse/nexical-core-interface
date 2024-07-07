@@ -1,14 +1,1 @@
-process_outreach_messages:
-  task: app.outreach.tasks.process_messages
-  schedule: '5,20,35,50 * * * *'
-  priority: 0
-
-send_outreach_messages:
-  task: app.outreach.tasks.send_messages
-  schedule: '10,40 17-20 * * 1-5'
-  priority: 0
-
-clean_contact_checkouts:
-  task: app.outreach.tasks.clean_checkouts
-  schedule: '0 * * * *'
-  priority: 0
+{}
