@@ -13,13 +13,13 @@ from django.views.generic import CreateView, DeleteView, TemplateView, UpdateVie
 
 from app.projects.models import set_active_project
 from app.users.models import check_verified_email
-from app.utils.auth import BusinessTeamAccessMixin
+from app.utils.auth import TeamAccessMixin
 from app.utils.views import ParamFormView
 
 from . import forms, models
 
 
-class TeamOwnershipMixin(BusinessTeamAccessMixin):
+class TeamOwnershipMixin(TeamAccessMixin):
     def get_queryset(self):
         return self.model.objects.filter(team=self.team)
 
@@ -175,7 +175,7 @@ class TeamInviteTable(django_tables2.Table):
         )
 
 
-class ListView(BusinessTeamAccessMixin, TemplateView):
+class ListView(TeamAccessMixin, TemplateView):
     template_name = "team_list.html"
     model = models.Team
 
@@ -207,7 +207,7 @@ class ListView(BusinessTeamAccessMixin, TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class FormMixin(BusinessTeamAccessMixin):
+class FormMixin(TeamAccessMixin):
     template_name = "team_form.html"
     model = models.Team
 
@@ -275,7 +275,7 @@ class UpdateFormView(FormMixin, UpdateView):
         return reverse("teams:form_update", kwargs={"pk": self.object.pk})
 
 
-class RemoveView(BusinessTeamAccessMixin, DeleteView):
+class RemoveView(TeamAccessMixin, DeleteView):
     template_name = "team_confirm_delete.html"
     model = models.Team
 
@@ -298,7 +298,7 @@ class RemoveView(BusinessTeamAccessMixin, DeleteView):
         return reverse("teams:list")
 
 
-class MemberListView(BusinessTeamAccessMixin, TemplateView):
+class MemberListView(TeamAccessMixin, TemplateView):
     template_name = "team_members.html"
 
     def dispatch(self, request, *args, **kwargs):
@@ -322,7 +322,7 @@ class MemberListView(BusinessTeamAccessMixin, TemplateView):
         return context
 
 
-class MemberRemoveView(BusinessTeamAccessMixin, DeleteView):
+class MemberRemoveView(TeamAccessMixin, DeleteView):
     template_name = "team_member_confirm_delete.html"
     model = models.TeamMembership
 
@@ -339,7 +339,7 @@ class MemberRemoveView(BusinessTeamAccessMixin, DeleteView):
         return reverse("teams:form_update", kwargs={"pk": self.object.team.id})
 
 
-class InviteRemoveView(BusinessTeamAccessMixin, DeleteView):
+class InviteRemoveView(TeamAccessMixin, DeleteView):
     template_name = "team_invite_confirm_delete.html"
     model = models.TeamInvite
 

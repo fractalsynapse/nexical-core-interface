@@ -4,10 +4,10 @@ from django.views.generic import TemplateView
 from app.projects.models import TeamProject, get_active_project
 from app.teams.models import TeamTag
 from app.teams.views import TeamOwnershipMixin
-from app.utils.auth import BusinessTeamAccessMixin
+from app.utils.auth import TeamAccessMixin
 
 
-class BasePanelView(TeamOwnershipMixin, BusinessTeamAccessMixin, TemplateView):
+class BasePanelView(TeamOwnershipMixin, TeamAccessMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 

@@ -1,6 +1,6 @@
 {% load static i18n site_urls user_perms team_select %}
 
-{% is_business_team_member request.user as business_team_member %}
+{% is_team_member request.user as team_member %}
 {% if request.user.is_authenticated %}
   <div class="l-navbar">
     <nav class="l-navbar-nav">
@@ -12,7 +12,7 @@
           <img class="brand" src="{% static 'images/logos/nexical-logo-full-mix.png' %}" alt="nexical logo" />
         </a>
         <div class="nav_list border-top pt-4">
-          {% if business_team_member %}
+          {% if team_member %}
             <a id="lnk-teams" href="{% ui_url 'teams' %}" class="nav_link text-decoration-none">
               <i class="bx bx-shape-polygon"></i>
               <span class="nav_name">{% translate 'Teams' %}</span>
@@ -71,7 +71,7 @@
                    class="nav_link text-decoration-none">
                   <span class="nav_name">{% translate 'Change Password' %}</span>
                 </a>
-                {% if business_team_member %}
+                {% if team_member %}
                   <a id="lnk-token"
                      href="{% url 'users:token' %}"
                      title="{% translate 'API Token' %}"

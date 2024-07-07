@@ -10,14 +10,14 @@ from rest_framework import status
 from app.documents.models import TeamDocument
 from app.projects.models import TeamProject
 from app.teams.models import TeamTag, get_active_team
-from app.utils.auth import BusinessTeamAccessMixin
+from app.utils.auth import TeamAccessMixin
 
 from .models import ProjectNote, ProjectResearchBase, ProjectSummary
 from .note import get_note, save_note
 from .summary import summarize
 
 
-class BaseAjaxSummaryView(BusinessTeamAccessMixin, View):
+class BaseAjaxSummaryView(TeamAccessMixin, View):
     def _validate_team(self, team):
         if not team:
             return JsonResponse(
@@ -184,7 +184,7 @@ class SummaryRemoveView(BaseAjaxSummaryView):
         return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
 
 
-class BaseAjaxNoteView(BusinessTeamAccessMixin, View):
+class BaseAjaxNoteView(TeamAccessMixin, View):
     def _validate_team(self, team):
         if not team:
             return JsonResponse(
@@ -250,7 +250,7 @@ class NoteRemoveView(BaseAjaxNoteView):
         return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
 
 
-class TimelineListView(BusinessTeamAccessMixin, TemplateView):
+class TimelineListView(TeamAccessMixin, TemplateView):
     template_name = "components/timeline.html"
 
     def get_context_data(self, **kwargs):

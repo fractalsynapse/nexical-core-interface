@@ -12,7 +12,7 @@
 {% block content %}
   <div id="user-token-form" class="container">
     <div class="page-wrapper d-flex justify-content-center">
-      {% is_business_team_member request.user as business_team_member %}
+      {% is_team_member request.user as team_member %}
       <div class="container">
         <div class="row">
           <div class="col">
@@ -37,7 +37,7 @@
                  href="{% url 'account_change_password' %}"
                  role="button"><span>Update
               Password</span></a>
-              {% if business_team_member %}
+              {% if team_member %}
                 <a class="btn group-btn align-middle btn-outline-primary mx-1 my-2 my-lg-0 d-block d-lg-inline active"
                    href="{% url 'users:token' %}"
                    role="button"><span>Update

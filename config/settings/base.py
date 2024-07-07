@@ -389,11 +389,11 @@ ACCOUNT_FORMS = {}
 REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_CLASSES": (
         "app.api.throttling.EngineUserRoleRateThrottle",
-        "app.api.throttling.BusinessUserRoleRateThrottle",
+        "app.api.throttling.TeamUserRoleRateThrottle",
     ),
     "DEFAULT_THROTTLE_RATES": {
         "engine": env.str("API_ENGINE_USER_THROTTLE_RATE", default="100/sec"),
-        "business_team_member": env.str("API_BUSINESS_USER_THROTTLE_RATE", default="60/min"),
+        "team_member": env.str("API_TEAM_USER_THROTTLE_RATE", default="60/min"),
     },
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",

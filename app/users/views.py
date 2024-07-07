@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, TemplateView, UpdateView
 from rest_framework.authtoken.models import Token
 
-from app.utils.auth import BusinessTeamAccessMixin, PublicOnlyAccessMixin
+from app.utils.auth import PublicOnlyAccessMixin, TeamAccessMixin
 from app.utils.models import render_field_table
 from app.utils.views import ParamFormView
 
@@ -59,7 +59,7 @@ class UpdateFormView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return reverse("users:me")
 
 
-class BaseTokenFormView(BusinessTeamAccessMixin, TemplateView):
+class BaseTokenFormView(TeamAccessMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:

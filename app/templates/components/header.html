@@ -15,8 +15,8 @@
             </div>
           </div>
         </div>
-        {% is_business_team_member request.user as business_team_member %}
-        {% if business_team_member %}
+        {% is_team_member request.user as team_member %}
+        {% if team_member %}
           <div class="col-md p-3">
             {% with active_team=request.user.settings.active_team %}
               {% user_member_teams request.user as current_user_member_teams %}

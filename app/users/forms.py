@@ -69,7 +69,7 @@ class SignupForm(forms.Form):
             last_name=self.cleaned_data["last_name"],
             settings={},
         )
-        user.groups.add(Group.objects.get(name="business_team_member"))
+        user.groups.add(Group.objects.get(name="team_member"))
         user.save()
 
         (team, created) = Team.objects.get_or_create(owner=user, name="Personal")

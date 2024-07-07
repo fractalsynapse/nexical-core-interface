@@ -12,5 +12,5 @@ class EngineUserRoleRateThrottle(BaseRoleRateThrottle):
     scope = "engine"
 
 
-class BusinessUserRoleRateThrottle(BaseRoleRateThrottle):
-    scope = "business_team_member"
+class TeamUserRoleRateThrottle(BaseRoleRateThrottle):
+    scope = "team_member"

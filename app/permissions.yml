@@ -18,7 +18,7 @@ engine:
     change_event,
     view_event,
   ]
-business_team_member:
+team_member:
   [
     add_team,
     change_team,

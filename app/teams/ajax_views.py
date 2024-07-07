@@ -4,12 +4,12 @@ from django.urls import reverse
 from django.views import View
 from rest_framework import status
 
-from app.utils.auth import BusinessTeamAccessMixin
+from app.utils.auth import TeamAccessMixin
 
 from .models import Team, TeamInvite, get_active_team, set_active_team
 
 
-class TeamOwnershipAJAXMixin(BusinessTeamAccessMixin):
+class TeamOwnershipAJAXMixin(TeamAccessMixin):
     def get_queryset(self):
         return self.model.objects.filter(team=self.team)
 
@@ -31,14 +31,14 @@ class TeamOwnershipAJAXMixin(BusinessTeamAccessMixin):
         self.team = get_active_team(request.user)
 
 
-class SetActiveView(BusinessTeamAccessMixin, View):
+class SetActiveView(TeamAccessMixin, View):
     def get(self, request, *args, **kwargs):
         team = get_object_or_404(Team, pk=self.kwargs["pk"])
         set_active_team(request.user, team.id)
         return JsonResponse({}, status=status.HTTP_200_OK)
 
 
-class InviteSendView(BusinessTeamAccessMixin, View):
+class InviteSendView(TeamAccessMixin, View):
     def get(self, request, *args, **kwargs):
         team = get_object_or_404(Team, pk=self.kwargs["team"])
         email = request.GET.get("email", None)

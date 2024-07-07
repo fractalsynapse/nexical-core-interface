@@ -21,10 +21,10 @@ class BaseModelPermissions(DjangoModelPermissions):
         return user.has_perms(perms)
 
 
-class BusinessTeamPermissions(BasePermission):
+class TeamPermissions(BasePermission):
     def has_permission(self, request, view):
         user = request.user
-        if not user or not user.check_member("business_team_member"):
+        if not user or not user.check_member("team_member"):
             return False
         return True
 

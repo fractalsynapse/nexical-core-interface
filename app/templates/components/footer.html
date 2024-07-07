@@ -16,8 +16,8 @@
             </div>
             <div class="col-md-6 d-md-flex justify-content-end align-items-center pr-0">
               <a href="{% ui_url 'contact' %}" class="p-2">{% translate "Contact Us" %}</a>
-              {% is_business_team_member request.user as business_team_member %}
-              {% if business_team_member %}
+              {% is_team_member request.user as team_member %}
+              {% if team_member %}
                 <a href="{% ui_url 'api/docs' %}" class="p-2">{% translate "API Documentation" %}</a>
               {% endif %}
               <a href="{% ui_url 'tos' %}" class="p-2">{% translate "Terms of Service" %}</a>

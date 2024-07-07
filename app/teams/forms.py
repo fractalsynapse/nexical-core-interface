@@ -77,7 +77,7 @@ class SignupForm(SignupForm):
             last_name=self.cleaned_data["last_name"],
             settings={},
         )
-        user.groups.add(Group.objects.get(name="business_team_member"))
+        user.groups.add(Group.objects.get(name="team_member"))
         user.save()
 
         models.set_active_team(user, self.invite.team.id)

@@ -4,7 +4,7 @@ from django.views import View
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from app.utils.auth import BusinessTeamAccessMixin
+from app.utils.auth import TeamAccessMixin
 
 
 class SettingsView(LoginRequiredMixin, View):
@@ -25,14 +25,14 @@ class SaveSettingsView(LoginRequiredMixin, View):
         return JsonResponse({}, status=status.HTTP_200_OK)
 
 
-class GenerateTokenView(BusinessTeamAccessMixin, View):
+class GenerateTokenView(TeamAccessMixin, View):
     def get(self, request, *args, **kwargs):
         Token.objects.filter(user=request.user).delete()
         token = Token.objects.create(user=request.user)
         return JsonResponse({"token": token.key}, status=status.HTTP_200_OK)
 
 
-class RevokeTokenView(BusinessTeamAccessMixin, View):
+class RevokeTokenView(TeamAccessMixin, View):
     def get(self, request, *args, **kwargs):
         Token.objects.filter(user=request.user).delete()
         return JsonResponse({"token": ""}, status=status.HTTP_200_OK)
