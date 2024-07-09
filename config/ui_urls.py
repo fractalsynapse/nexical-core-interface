@@ -14,7 +14,7 @@ admin.site.site_title = "Nexical Knowledge Explorer"
 admin.site.site_header = "Nexical Knowledge Explorer Administration"
 admin.site.index_title = "Administration"
 
-handler404 = "landing.views.Site404"
+# handler404 = "landing.views.Site404"
 
 
 urlpatterns = [
