@@ -12,11 +12,7 @@
       It is safe to navigate away from this page
     </div>
     <div class="row">
-      <div class="col-11">
-        <div class="summary-text"></div>
-        <div class="summary-references"></div>
-      </div>
-      <div class="col-1">
+      <div class="col text-left">
         <a id="summary-expand" href="#" class="expand-link text-decoration-none" title="Expand">
           <i class="bx bx-expand"></i>
         </a>
@@ -24,6 +20,16 @@
           <i class="bx bx-exit-fullscreen"></i>
         </a>
       </div>
+      <div class="col text-right">
+        <button type="button" class="btn btn-primary summary-reset-form-button px-5">New</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-11">
+        <div class="summary-text"></div>
+        <div class="summary-references"></div>
+      </div>
+      <div class="col-1"></div>
     </div>
   </div>
   <form id="summary-form" class="form-horizontal">
@@ -61,7 +67,7 @@
     <div class="control-group">
       <div class="controls">
         <button type="button" id="summary-summarize-form-button" class="btn btn-primary px-5">Summarize</button>
-        <button type="button" id="summary-reset-form-button" class="btn btn-primary px-5">Reset Form</button>
+        <button type="button" class="btn btn-primary summary-reset-form-button px-5">Reset Form</button>
       </div>
     </div>
     <input type="hidden" id="summary-id" value="" />

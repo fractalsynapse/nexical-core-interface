@@ -231,6 +231,43 @@ select.form-select {
   max-width: 360px;
 }
 
+////////////
+// Tables //
+////////////
+
+.table-container {
+  padding: 0 20px 20px 20px;
+}
+
+.table-header {
+  border-bottom: 2px solid $light-grey;
+}
+
+.table-header .col {
+  padding: 20px 50px;
+  color: $med-grey;
+  font-size: 1.2em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.table-body {
+  padding: 10px;
+}
+
+.table-body .row {
+  margin: 10px 0;
+  background: linear-gradient($offwhite, $white);
+  border: 1px solid $light-grey;
+  border-radius: 10px;
+}
+
+.table-body .row .col {
+  padding: 20px 50px;
+  font-size: 1.5em;
+  background: transparent;
+}
+
 //////////////////
 // Page Headers //
 //////////////////
@@ -313,16 +350,18 @@ h4,
 }
 
 .btn-outline-primary {
+  padding: 10px 20px;
   border-color: $color-dark-blue;
   color: $color-dark-blue;
+  background-image: radial-gradient($white, $offwhite);
 }
 
 .btn-outline-primary:hover,
 .btn-outline-primary:focus {
   outline: $btn-outline solid $color-primary !important;
-  border-color: $color-primary;
-  background-color: #fff;
-  color: $color-primary;
+  border-color: $color-dark-blue;
+  background-image: radial-gradient($white, $light-blue);
+  color: $color-dark-blue;
 }
 
 .btn-light:hover,
@@ -2485,7 +2524,7 @@ td.documents-remove span {
   z-index: 10;
   position: absolute;
   display: block;
-  overflow: auto;
+  // overflow: auto;
   width: 100%;
   min-height: 100%;
   top: 0;

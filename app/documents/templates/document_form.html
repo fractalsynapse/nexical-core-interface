@@ -20,9 +20,7 @@
 {% block content %}
   {% if collection_count > 0 %}
     <div class="mt-1 mb-0 mx-5">
-      <a id="btn-back"
-         href="{% url 'documents:list' %}"
-         class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-chevron-left"></i><span>Back to list</span></a>
+      <a id="btn-back" href="{% url 'documents:list' %}" class="btn btn-primary mb-5 d-flexx align-items-center d-inline-flex"><i class="bx bx-chevron-left"></i><span>Back to list</span></a>
     </div>
   {% endif %}
   <div class="container">

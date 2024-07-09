@@ -6,7 +6,7 @@
     {% if table.show_header %}
       <div class="row table-header" {{ table.attrs.thead.as_html }}>
         {% for column in table.columns %}
-          <div class="col text-nowrap align-items-end" {{ column.attrs.th.as_html }}>
+          <div class="col text-nowrap" {{ column.attrs.th.as_html }}>
             {% if column.orderable %}
               <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a>
             {% else %}
@@ -17,7 +17,6 @@
       </div>
     {% endif %}
     <div class="table-body" {{ table.attrs.tbody.as_html }}>
-      <hr />
       {% for row in table.paginated_rows %}
         <div class="row" {{ row.attrs.as_html }}>
           {% for column, cell in row.items %}

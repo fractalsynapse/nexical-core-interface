@@ -316,12 +316,24 @@ $(function () {
 
   $('a#summary-expand').on('click', function () {
     $('#summary-container').addClass('summary-expanded');
+    $('#main-content').each(function () {
+      this.setAttribute(
+        'style',
+        'height:' + this.scrollHeight + 'px;overflow-y:hidden;',
+      );
+    });
   });
   $('a#summary-shrink').on('click', function () {
     $('#summary-container').removeClass('summary-expanded');
+    $('#main-content').each(function () {
+      this.setAttribute(
+        'style',
+        'height:' + this.scrollHeight + 'px;overflow-y:hidden;',
+      );
+    });
   });
 
-  $('#summary-reset-form-button').on('click', function () {
+  $('.summary-reset-form-button').on('click', function () {
     reset_summary_form();
   });
   $('#summary-summarize-form-button').on('click', function () {

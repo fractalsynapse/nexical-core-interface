@@ -22,17 +22,17 @@ class ProjectTable(django_tables2.Table):
         fields = ["name", "operations"]
 
     def render_operations(self, value, record):
-        operations = ['<div class="text-center">']
+        operations = ['<div class="text-right">']
 
         update_url = reverse("projects:form_update", kwargs={"pk": record.id})
         operations.append(
-            f'<a class="btn btn-outline-primary " title="Edit" href="{update_url}">'
+            f'<a class="btn btn-primary px-4 py-2" title="Edit" href="{update_url}">'
             + '<i class="bx bx-edit"></i>'
             + "</a>"
         )
         remove_url = reverse("projects:remove", kwargs={"pk": record.id})
         operations.append(
-            f'<a class="btn btn-outline-primary ms-2" title="Remove" href="{remove_url}">'
+            f'<a class="btn btn-primary ms-2 px-4 py-2" title="Remove" href="{remove_url}">'
             + '<i class="bx bx-trash-alt"></i>'
             + "</a>"
         )

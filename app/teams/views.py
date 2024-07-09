@@ -51,8 +51,8 @@ class TeamOwnershipMixin(TeamAccessMixin):
 
 
 class TeamTable(django_tables2.Table):
-    name = django_tables2.Column(orderable=True)
-    owner = django_tables2.Column(orderable=True)
+    name = django_tables2.Column(orderable=False)
+    owner = django_tables2.Column(orderable=False)
     operations = django_tables2.Column(orderable=False, empty_values=(), verbose_name="")
 
     class Meta:
@@ -64,25 +64,25 @@ class TeamTable(django_tables2.Table):
         self.user = user
 
     def render_operations(self, value, record):
-        operations = ['<div class="text-center">']
+        operations = ['<div class="text-right">']
 
         if self.user.id != record.owner.id and record.members.filter(user=self.user):
             members_url = reverse("teams:members", kwargs={"pk": record.id})
             operations.append(
-                f'<a class="btn btn-outline-primary " title="Members" href="{members_url}">'
+                f'<a class="btn btn-primary px-4 py-2" title="Members" href="{members_url}">'
                 + '<i class="bx bx-group"></i>'
                 + "</a>"
             )
         if self.user.id == record.owner.id:
             update_url = reverse("teams:form_update", kwargs={"pk": record.id})
             operations.append(
-                f'<a class="btn btn-outline-primary " title="Edit" href="{update_url}">'
+                f'<a class="btn btn-primary px-4 py-2" title="Edit" href="{update_url}">'
                 + '<i class="bx bx-edit"></i>'
                 + "</a>"
             )
             remove_url = reverse("teams:remove", kwargs={"pk": record.id})
             operations.append(
-                f'<a class="btn btn-outline-primary ms-2" title="Remove" href="{remove_url}">'
+                f'<a class="btn btn-primary ms-2 px-4 py-2" title="Remove" href="{remove_url}">'
                 + '<i class="bx bx-trash-alt"></i>'
                 + "</a>"
             )
