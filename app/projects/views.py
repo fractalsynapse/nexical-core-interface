@@ -90,21 +90,24 @@ class FormMixin(TeamOwnershipMixin):
         # context["help_title"] = "Project Help"
         # context["help_body"] = render_to_string("project_help.html")
 
-        messages.warning(
-            self.request,
-            "This demo environment only provides our default open source AI foundation model,"
-            " Mixtral, for summarization but we have plugin providers for other open source"
-            " and proprietary AI models available.",
-        )
-        messages.warning(
-            self.request,
-            "This demo environment only allows linking to 10 document collections"
-            " but this is not a limitation on production systems",
-        )
-        messages.success(
-            self.request,
-            "We can add new AI model integrations on request and work with you to fine tune AI models to your needs",
-        )
+        if not self.request.user.is_staff:
+            messages.warning(
+                self.request,
+                "This demo environment only provides our default open source AI foundation model,"
+                " Mixtral, for summarization but we have plugin providers for other open source"
+                " and proprietary AI models available.",
+            )
+            messages.warning(
+                self.request,
+                "This demo environment only allows linking to 10 document collections"
+                " but this is not a limitation on production systems",
+            )
+            messages.success(
+                self.request,
+                "We can add new AI model integrations on request and work with you "
+                "to fine tune AI models to your needs",
+            )
+
         return context
 
     def form_valid(self, form):

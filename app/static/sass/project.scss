@@ -734,6 +734,68 @@ select {
   color: $med-grey;
 }
 
+.select2-selection__rendered {
+  margin: 5px auto;
+  padding: 0;
+  text-align: left !important;
+  white-space: normal !important;
+}
+
+.select2-dropdown {
+  font-size: 1rem;
+  background-color: $dark-blue !important;
+  color: $white;
+  font-weight: normal;
+}
+
+.select2-selection__choice {
+  padding: 0 20px 0 0 !important;
+  text-wrap: wrap;
+  background: linear-gradient($offwhite, $light-blue);
+  color: $dark-blue;
+  border: 1px solid $dark-blue;
+  border-radius: 10px !important;
+}
+
+.select2-selection__clear {
+  height: 80% !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  font-size: 1rem !important;
+  margin: 20px !important;
+  padding: 5px 20px !important;
+  color: $red !important;
+  border: 1px solid $red !important;
+  border-radius: 10px !important;
+}
+
+.select2-selection__clear:hover {
+  background: none !important;
+  background-color: $red !important;
+  color: $white !important;
+  border: 1px solid $red !important;
+}
+
+.select2-selection__choice__remove {
+  position: static !important;
+  text-align: center;
+  width: 50px;
+  height: 100% !important;
+  margin: 0 10px 0 0 !important;
+  padding: 10px;
+  // background: linear-gradient($light-grey, $med-grey);
+  color: $dark-blue !important;
+  border: 1px solid $dark-blue;
+  border-radius: 10px;
+}
+
+.select2-selection__choice__remove:hover {
+  background: none;
+  background-color: $red;
+  color: $white !important;
+  border: 1px solid $red;
+}
+
 ///////////
 // Cards //
 ///////////
@@ -1919,6 +1981,32 @@ footer {
   border-radius: 5px;
 }
 
+#project-form #div_id_projects > div:nth-child(2) {
+  min-height: 50px;
+  overflow: auto;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: $offwhite;
+  border: 1px solid $light-grey;
+  border-radius: 10px;
+}
+
+#project-form #div_id_projects div.form-check {
+  margin: 0;
+  padding: 10px;
+  background-color: $white;
+  border: 1px solid $light-grey;
+  border-radius: 10px;
+}
+
+#project-form #div_id_projects .form-check-input {
+  margin-left: 10px;
+  margin-right: 20px;
+  padding: 5px;
+  border: 1px solid $dark-grey;
+  border-radius: 5px;
+}
+
 ///////////////////////////////
 // Team Document Collections //
 ///////////////////////////////
@@ -1990,7 +2078,46 @@ td.documents-remove span {
   font-size: 1.2em;
 }
 
-#documents-form {
+.collection-form-nav {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.collection-form-nav button {
+  z-index: 1;
+  width: 50%;
+  padding: 10px 50px 10px 50px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-top: 1px solid $light-grey !important;
+  border-left: 1px solid $light-grey !important;
+  border-right: 1px solid $light-grey !important;
+  border-radius: 0 !important;
+}
+
+.collection-form-nav button:hover {
+  background-color: $light-green;
+}
+
+.collection-form-nav button.first-nav {
+  border-top-left-radius: 15px !important;
+}
+
+.collection-form-nav button.last-nav {
+  border-top-right-radius: 15px !important;
+}
+
+.collection-form-tab-wrapper {
+  width: 100%;
+  margin-top: -1px;
+  padding: 50px;
+  background-color: $white;
+  border: 1px solid $light-grey;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+#document-form {
   margin: 30px auto;
   padding: 50px;
   width: 100%;
@@ -2023,7 +2150,7 @@ td.documents-remove span {
   }
 }
 
-#documents-form .section-help {
+#document-form .section-help {
   display: inline-block;
   width: 100%;
   margin: 10px 0;
@@ -2034,29 +2161,32 @@ td.documents-remove span {
   border: 1px solid $light-grey;
 }
 
-#documents-form label {
+#document-form label {
+  padding: 15px;
   font-weight: bold;
   display: block;
 }
 
-#documents-form input {
+#document-form input {
+  padding: 10px;
   // font-size: 2em;
 }
 
-#documents-form textarea {
+#document-form textarea {
   // font-size: 1.5em;
 }
 
-#documents-form .select2 {
+#document-form .select2 {
   width: 100%;
 }
 
-#documents-form .select2-selection__choice {
+#document-form .select2-selection__choice {
+  padding: 20px;
   color: $dark-blue;
   background-color: $light-grey;
 }
 
-#documents-form .controls {
+#document-form .controls {
   text-align: center;
   margin-top: 50px;
   padding-top: 50px;

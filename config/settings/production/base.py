@@ -26,6 +26,17 @@ CACHES = {
             "IGNORE_EXCEPTIONS": True,
         },
     },
+    "select2": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": get_redis_url(2),
+        "TIMEOUT": 604800,  # 7 days
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # Mimicing memcache behavior.
+            # https://github.com/jazzband/django-redis#memcached-exceptions-behavior
+            "IGNORE_EXCEPTIONS": True,
+        },
+    },
 }
 
 # SECURITY
@@ -61,6 +72,10 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+# FORMS
+# ------------------------------------------------------------------------------
+SELECT2_CACHE_BACKEND = "select2"
 
 # LOGGING
 # ------------------------------------------------------------------------------

@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from rest_framework import status
 
-from app.documents.models import TeamDocument
+from app.documents.models import TeamBookmark, TeamDocument
 from app.projects.models import TeamProject
 from app.teams.models import TeamTag, get_active_team
 from app.utils.auth import TeamAccessMixin
@@ -41,6 +41,19 @@ def get_summary_references(summary):
                 information["type"] = "File"
                 information["link"] = format_html(f'<a href="{document.file.url}" target="_blank">{name}</a>')
             except TeamDocument.DoesNotExist:
+                pass
+
+        elif reference.type == "bookmark":
+            try:
+                bookmark = TeamBookmark.objects.get(id=reference.document_id)
+
+                information["id"] = bookmark.id
+                information["type"] = "Bookmark"
+                information["link"] = format_html(
+                    f'<a href="{bookmark.url}" class="bookmark-ref-link" target="_blank">{bookmark.url}</a>'
+                )
+
+            except TeamBookmark.DoesNotExist:
                 pass
 
         elif reference.type == "note":

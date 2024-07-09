@@ -86,6 +86,11 @@ class FormMixin(TeamOwnershipMixin):
     model = models.TeamDocumentCollection
     form_class = forms.DocumentCollectionForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["team"] = self.team
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -93,8 +98,12 @@ class FormMixin(TeamOwnershipMixin):
             context["files"] = forms.DocumentCollectionFileFormSet(
                 self.request.POST, self.request.FILES, instance=self.object, prefix="files"
             )
+            context["bookmarks"] = forms.DocumentCollectionBookmarkFormSet(
+                self.request.POST, instance=self.object, prefix="bookmarks"
+            )
         else:
             context["files"] = forms.DocumentCollectionFileFormSet(instance=self.object, prefix="files")
+            context["bookmarks"] = forms.DocumentCollectionBookmarkFormSet(instance=self.object, prefix="bookmarks")
 
         queryset = self.get_queryset()
         context["collection_count"] = queryset.count()
@@ -102,26 +111,32 @@ class FormMixin(TeamOwnershipMixin):
         # context["help_title"] = "Document Collection Help"
         # context["help_body"] = render_to_string("document_help.html")
 
-        messages.warning(
-            self.request,
-            "This demo environment limits files in a collection to 10"
-            " but production platforms can contain unlimited files",
-        )
-        messages.warning(self.request, "Files can be added through the website upload forms or via the API")
-        messages.success(self.request, "We can add new file parsers and build custom importers on request")
+        if not self.request.user.is_staff:
+            messages.warning(
+                self.request,
+                "This demo environment limits files in a collection to 10"
+                " but production platforms can contain unlimited files",
+            )
+            messages.warning(self.request, "Files can be added through the website upload forms or via the API")
+            messages.success(self.request, "We can add new file parsers and build custom importers on request")
+
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         files = context["files"]
+        bookmarks = context["bookmarks"]
 
         with transaction.atomic():
             form.instance.team = self.team
             self.object = form.save()
 
-            if files.is_valid():
+            if files.is_valid() and bookmarks.is_valid():
                 files.instance = self.object
                 files.save()
+
+                bookmarks.instance = self.object
+                bookmarks.save()
 
                 self.object.create_event()
             else:

@@ -105,6 +105,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "anymail",
     "django_tables2",
+    "django_select2",
 ]
 
 LOCAL_APPS = [
@@ -307,6 +308,11 @@ MANAGERS = ADMINS
 # Force the `admin` sign in process to go through the `django-allauth` workflow
 DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=False)
 
+# FORMS
+# ------------------------------------------------------------------------------
+# Tell select2 which cache configuration to use:
+SELECT2_CACHE_BACKEND = "default"
+
 # LOGGING
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
@@ -413,9 +419,9 @@ REST_FRAMEWORK = {
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Nexical Core API",
+    "TITLE": "Nexical Knowledge Explorer API",
     "DESCRIPTION": """
-Documentation for the OpenAPI compatible REST endpoints of the Nexical Core API.
+Documentation for the OpenAPI compatible REST endpoints of the Nexical Knowledge Explorer API.
 <small>You can manage your API token <a href="/users/token/embed">here</a>.</small>
 """,
     "VERSION": "1.0.0",

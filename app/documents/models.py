@@ -30,6 +30,8 @@ class TeamDocumentCollection(BaseUUIDModel):
     )
     processed_time = models.DateTimeField(_("Processed Time"), blank=True, null=True)
 
+    access_teams = models.ManyToManyField(Team, related_name="document_collection_access", blank=True)
+
     def __str__(self):
         return self.name
 
@@ -54,6 +56,16 @@ class TeamDocumentCollection(BaseUUIDModel):
                 }
             )
 
+        bookmarks = []
+        for bookmark in self.bookmarks.all():
+            bookmarks.append(
+                {
+                    "id": str(bookmark.id),
+                    "description": bookmark.description,
+                    "url": bookmark.url,
+                }
+            )
+
         Event.objects.create(
             type="document_collection",
             data={
@@ -64,6 +76,8 @@ class TeamDocumentCollection(BaseUUIDModel):
                 "name": self.name,
                 "description": self.description,
                 "files": files,
+                "bookmarks": bookmarks,
+                "access_teams": [str(team_id) for team_id in self.access_teams.values_list("id", flat=True)],
             },
         )
         if operation != "delete":
@@ -88,6 +102,7 @@ class TeamDocument(BaseUUIDModel):
         blank=True,
     )
     file = PrivateFileField(
+        _("File"),
         upload_to=team_document_path,
         content_types=[
             "application/pdf",
@@ -109,3 +124,17 @@ class TeamDocument(BaseUUIDModel):
     def delete(self, *args, **kwargs):
         self.file.delete(save=False)
         super().delete(*args, **kwargs)
+
+
+class TeamBookmark(BaseUUIDModel):
+    collection = models.ForeignKey(TeamDocumentCollection, on_delete=models.CASCADE, related_name="bookmarks")
+    description = models.TextField(
+        _("Webpage Description"),
+        help_text=_(
+            "This information can help guide the AI assistants and is always available to the AI "
+            "when conducting research.  The purpose of this description is to provide context "
+            "on the content of this webpage."
+        ),
+        blank=True,
+    )
+    url = models.URLField(_("URL"), max_length=500)

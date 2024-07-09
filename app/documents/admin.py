@@ -8,6 +8,11 @@ class TeamDocumentInline(admin.TabularInline):
     extra = 1
 
 
+class TeamBookmarkInline(admin.TabularInline):
+    model = models.TeamBookmark
+    extra = 1
+
+
 @admin.register(models.TeamDocumentCollection)
 class TeamDocumentCollectionAdmin(admin.ModelAdmin):
-    inlines = [TeamDocumentInline]
+    inlines = [TeamDocumentInline, TeamBookmarkInline]

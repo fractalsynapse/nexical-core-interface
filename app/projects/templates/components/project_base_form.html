@@ -36,7 +36,10 @@
           {% endif %}
           <form class="form-horizontal" method="post">
             {% csrf_token %}
-            {{ form.name|as_crispy_field }}
+            <div class="p-3">
+              {{ form.name|as_crispy_field }}
+              {{ form.access_teams|as_crispy_field }}
+            </div>
             <div class="classification-form-wrapper inline-form-wrapper">
               <h4>AI Summarization Configuration</h4>
               <br />
@@ -57,14 +60,24 @@
                 <div class="mx-3 my-auto">
                   <i class="bx bx-info-circle"></i>
                 </div>
-                <div class="mx-3">
-                  <strong>Select up to 10 document collections</strong>
-                </div>
                 <p class="mb-0">
-                  The AI research engine will reference material in the following document collections when conducting research
+                  The AI research engine will reference documents and bookmarks in the following document collections when conducting research
                 </p>
               </div>
               {{ form.documents|as_crispy_field }}
+            </div>
+            <div class="document-form-wrapper inline-form-wrapper">
+              <h4>Projects</h4>
+              <br />
+              <div class="alert alert-info d-flex flex-row gap-1">
+                <div class="mx-3 my-auto">
+                  <i class="bx bx-info-circle"></i>
+                </div>
+                <p class="mb-0">
+                  The AI research engine will reference notes and AI summaries in the following projects when conducting research
+                </p>
+              </div>
+              {{ form.projects|as_crispy_field }}
             </div>
             <div class="control-group">
               <div class="controls">

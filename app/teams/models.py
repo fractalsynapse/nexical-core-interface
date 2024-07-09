@@ -79,7 +79,7 @@ class Team(BaseUUIDModel):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ownership")
 
     def __str__(self):
-        return f"[ {self.id} ]: {self.name}"
+        return f"{self.name} <{self.owner.email}>"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

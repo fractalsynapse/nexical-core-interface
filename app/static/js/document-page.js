@@ -10,6 +10,14 @@ function update_file_add_button() {
   }
 }
 
+function update_bookmark_add_button() {
+  if ($('.bookmark-form:not(.d-none)').length == 10) {
+    $('.bookmark-add-wrapper').hide();
+  } else {
+    $('.bookmark-add-wrapper').show();
+  }
+}
+
 function reinitialize_table(id) {
   $(`#${id} .delete-button`).on('click', function () {
     var $tr = $(this).closest('tr');
@@ -25,12 +33,15 @@ function reinitialize_table(id) {
     });
     $tr.find('td.delete').append($input);
     update_file_add_button();
+    update_bookmark_add_button();
   });
   update_file_add_button();
+  update_bookmark_add_button();
 }
 
 $(function () {
   reinitialize_table('file-form-table');
+  reinitialize_table('bookmark-form-table');
 
   $('textarea').on('keyup keypress', function () {
     $(this).height(0);
@@ -101,5 +112,50 @@ $(function () {
     $('#id_files-TOTAL_FORMS').attr('value', form_index + 1);
 
     reinitialize_table('file-form-table');
+  });
+
+  $('#add-bookmarks').on('click', function () {
+    var $new_form = $('#bookmark-empty-form').clone();
+    var form_index = parseInt($('#id_bookmarks-TOTAL_FORMS').val());
+
+    $new_form.removeClass('d-none').addClass('bookmark-form');
+    $new_form.attr('data-basename', `bookmarks-${form_index}`);
+
+    $form_div = $new_form.find('div');
+    $form_div.attr(
+      'id',
+      $form_div.attr('id').replace('__prefix__', form_index),
+    );
+
+    $form_label = $new_form.find('label');
+    $form_label.attr(
+      'for',
+      $form_label.attr('for').replace('__prefix__', form_index),
+    );
+
+    $form_input = $new_form.find('input');
+    $form_input.attr(
+      'id',
+      $form_input.attr('id').replace('__prefix__', form_index),
+    );
+    $form_input.attr(
+      'name',
+      $form_input.attr('name').replace('__prefix__', form_index),
+    );
+
+    $form_textarea = $new_form.find('textarea');
+    $form_textarea.attr(
+      'id',
+      $form_textarea.attr('id').replace('__prefix__', form_index),
+    );
+    $form_textarea.attr(
+      'name',
+      $form_textarea.attr('name').replace('__prefix__', form_index),
+    );
+
+    $('#bookmark-form-table').append($new_form);
+    $('#id_bookmarks-TOTAL_FORMS').attr('value', form_index + 1);
+
+    reinitialize_table('bookmark-form-table');
   });
 });

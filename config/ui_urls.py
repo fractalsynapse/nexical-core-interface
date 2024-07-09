@@ -10,9 +10,11 @@ from app.api import views as api_views
 from app.contact.views import ContactFormView
 from app.landing.views import HomeRedirectView
 
-admin.site.site_title = "Nexical Core"
-admin.site.site_header = "Nexical Core Administration"
+admin.site.site_title = "Nexical Knowledge Explorer"
+admin.site.site_header = "Nexical Knowledge Explorer Administration"
 admin.site.index_title = "Administration"
+
+handler404 = "landing.views.Site404"
 
 
 urlpatterns = [
@@ -30,6 +32,7 @@ urlpatterns = [
     path("documents/", include("app.documents.urls", namespace="documents")),
     path("research/", include("app.research.urls", namespace="research")),
     path("feedback/", include("app.feedback.urls", namespace="feedback")),
+    path("select2/", include("django_select2.urls")),
     path("private-media/", include(private_storage.urls)),
     path(settings.ADMIN_PATH, admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -48,11 +51,6 @@ if settings.DEBUG:
             "403/",
             default_views.permission_denied,
             kwargs={"exception": Exception("Permission Denied")},
-        ),
-        path(
-            "404/",
-            default_views.page_not_found,
-            kwargs={"exception": Exception("Page not Found")},
         ),
         path("500/", default_views.server_error),
     ]

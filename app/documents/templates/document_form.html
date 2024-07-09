@@ -65,53 +65,139 @@
                 </div>
               {% endfor %}
             {% endif %}
-            <form class="form-horizontal" method="post" enctype="multipart/form-data">
-              {% csrf_token %} {{ form|crispy }}
-              <div class="files-form-wrapper inline-form-wrapper">
-                <h4>Files</h4>
-                <br />
-                <div class="alert alert-info d-flex flex-row gap-1">
-                  <div class="mx-3 my-auto">
-                    <i class="bx bx-info-circle"></i>
+            {% if bookmarks.errors %}
+              {% for field in bookmarks %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                    <strong>{{ error|escape|title }} error</strong>
                   </div>
-                  <div class="mx-3">
-                    <strong>Select up to 10 PDF, DOCX, or TXT files</strong>
+                {% endfor %}
+              {% endfor %}
+              {% for error in bookmarks.non_form_errors %}
+                <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+                </div>
+              {% endfor %}
+            {% endif %}
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="p-3">
+                {{ form.name|as_crispy_field }}
+                {{ form.description|as_crispy_field }}
+                {{ form.access_teams|as_crispy_field }}
+              </div>
+              <nav class="collection-form-nav mt-5">
+                <div class="nav nav-tabs" id="nav-collection-tab" role="tablist" aria-orientation="horizontal">
+                  <button class="user-setting nav-link first-nav active"
+                          id="files-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#h-pills-collection-files"
+                          data-user-setting="collection_focus"
+                          data-user-value="files"
+                          type="button"
+                          role="tab"
+                          aria-controls="h-pills-collection-files"
+                          aria-selected="false">Files</button>
+                  <button class="user-setting nav-link last-nav"
+                          id="bookmarks-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#h-pills-collection-bookmarks"
+                          data-user-setting="collection_focus"
+                          data-user-value="bookmarks"
+                          type="button"
+                          role="tab"
+                          aria-controls="h-pills-collection-bookmarks"
+                          aria-selected="true">Bookmarks</button>
+                </div>
+              </nav>
+              <div class="tab-content h-100" id="h-pills-collection-tab-content">
+                <div class="collection-form-tab-wrapper tab-pane fade show active"
+                     id="h-pills-collection-files"
+                     role="tabpanel"
+                     aria-labelledby="h-pills-collection-files-tab">
+                  <div class="files-form-wrapper inline-form-wrapper">
+                    <div class="alert alert-info d-flex flex-row gap-1">
+                      <div class="mx-3 my-auto">
+                        <i class="bx bx-info-circle"></i>
+                      </div>
+                      <div class="mx-3">
+                        <strong>PDF, DOCX, or TXT files currently supported</strong>
+                      </div>
+                    </div>
+                    {{ files.management_form }}
+                    <table id="file-form-table" class="inline-form-table">
+                      {% for file_form in files.forms %}
+                        <tr class="file-form mt-2" data-basename="files-{{ forloop.counter0 }}">
+                          <td class="file-input form-field">
+                            {{ file_form.id }}
+                            {{ file_form.file|as_crispy_field }}
+                            {{ file_form.description|as_crispy_field }}
+                          </td>
+                          <td class="file-delete delete">
+                            <div class="delete-button">
+                              <span class="material-symbols-outlined">delete</span>
+                            </div>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      <tr id="file-empty-form" class="d-none mt-2">
+                        <td class="file-input form-field">
+                          {{ files.empty_form.file|as_crispy_field }}
+                          {{ files.empty_form.description|as_crispy_field }}
+                        </td>
+                        <td class="file-delete delete">
+                          <div class="delete-button">
+                            <span class="material-symbols-outlined">delete</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <div class="file-add-wrapper inline-form-controls">
+                      <button type="button" id="add-files" class="add-inline-form-button">
+                        <span class="material-symbols-outlined">add_circle</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-                {{ files.management_form }}
-                <table id="file-form-table" class="inline-form-table">
-                  {% for file_form in files.forms %}
-                    <tr class="file-form mt-2" data-basename="files-{{ forloop.counter0 }}">
-                      <td class="file-input form-field">
-                        {{ file_form.id }}
-                        {{ file_form.file|as_crispy_field }}
-                        <span class="pt-2">Description:</span>
-                        {{ file_form.description|as_crispy_field }}
-                      </td>
-                      <td class="file-delete delete">
-                        <div class="delete-button">
-                          <span class="material-symbols-outlined">delete</span>
-                        </div>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                  <tr id="file-empty-form" class="d-none mt-2">
-                    <td class="file-input form-field">
-                      {{ files.empty_form.file|as_crispy_field }}
-                      <span class="pt-2">Description:</span>
-                      {{ files.empty_form.description|as_crispy_field }}
-                    </td>
-                    <td class="file-delete delete">
-                      <div class="delete-button">
-                        <span class="material-symbols-outlined">delete</span>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-                <div class="file-add-wrapper inline-form-controls">
-                  <button type="button" id="add-files" class="add-inline-form-button">
-                    <span class="material-symbols-outlined">add_circle</span>
-                  </button>
+                <div class="collection-form-tab-wrapper tab-pane fade"
+                     id="h-pills-collection-bookmarks"
+                     role="tabpanel"
+                     aria-labelledby="h-pills-collection-bookmarks-tab">
+                  <div class="bookmarks-form-wrapper inline-form-wrapper">
+                    {{ bookmarks.management_form }}
+                    <table id="bookmark-form-table" class="inline-form-table">
+                      {% for bookmark_form in bookmarks.forms %}
+                        <tr class="bookmark-form mt-2" data-basename="bookmarks-{{ forloop.counter0 }}">
+                          <td class="bookmark-input form-field">
+                            {{ bookmark_form.id }}
+                            {{ bookmark_form.url|as_crispy_field }}
+                            {{ bookmark_form.description|as_crispy_field }}
+                          </td>
+                          <td class="bookmark-delete delete">
+                            <div class="delete-button">
+                              <span class="material-symbols-outlined">delete</span>
+                            </div>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      <tr id="bookmark-empty-form" class="d-none mt-2">
+                        <td class="bookmark-input form-field">
+                          {{ bookmarks.empty_form.url|as_crispy_field }}
+                          {{ bookmarks.empty_form.description|as_crispy_field }}
+                        </td>
+                        <td class="bookmark-delete delete">
+                          <div class="delete-button">
+                            <span class="material-symbols-outlined">delete</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <div class="bookmark-add-wrapper inline-form-controls">
+                      <button type="button" id="add-bookmarks" class="add-inline-form-button">
+                        <span class="material-symbols-outlined">add_circle</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="control-group">

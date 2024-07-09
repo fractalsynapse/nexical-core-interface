@@ -71,6 +71,8 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
     repetition_penalty = models.FloatField(_("Summary Repetition Penalty"), blank=False, default=0.9)
 
     documents = models.ManyToManyField(TeamDocumentCollection, related_name="projects", blank=True)
+    projects = models.ManyToManyField("TeamProject", related_name="+", blank=True)
+    access_teams = models.ManyToManyField(Team, related_name="project_access", blank=True)
 
     def __str__(self):
         return self.name
@@ -91,6 +93,8 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
                 "top_p": self.top_p,
                 "repetition_penalty": self.repetition_penalty,
                 "documents": [str(id) for id in self.documents.values_list("id", flat=True)],
+                "projects": [str(id) for id in self.projects.values_list("id", flat=True)],
+                "access_teams": [str(id) for id in self.access_teams.values_list("id", flat=True)],
             },
         )
         if operation != "delete":
