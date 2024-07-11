@@ -13,6 +13,10 @@ from app.utils import fields
 from app.utils.models import BaseUUIDModel
 
 
+class TeamAccessError(Exception):
+    pass
+
+
 def get_active_team(user, id_only=False):
     try:
         team_id = user.settings.get("active_team", None)
@@ -50,6 +54,31 @@ def clear_active_team(user):
     user.save()
 
 
+def get_team_instance(
+    team,
+    model_class,
+    instance_id,
+    team_field="team",
+    id_field="id",
+    share_model_class=None,
+    share_model_team_field="team_id",
+):
+    if not team:
+        raise TeamAccessError("Team not found")
+    if not share_model_class:
+        share_model_class = model_class
+    try:
+        access_teams = list(
+            share_model_class.objects.filter(access_teams__id=team.id)
+            .distinct()
+            .values_list(share_model_team_field, flat=True)
+        )
+
+        return model_class.objects.get(**{f"{team_field}__in": [team] + access_teams, id_field: instance_id})
+    except model_class.DoesNotExist:
+        raise TeamAccessError("Team instance not found")
+
+
 def team_file_access(private_file):
     from app.documents.models import TeamDocumentCollection
 
@@ -57,20 +86,20 @@ def team_file_access(private_file):
     if user.is_authenticated:
         try:
             name_components = private_file.relative_name.split("/")
-            instance_type = name_components[1]
+            # instance_type = name_components[1]
             instance_id = name_components[2]
         except Exception:
             return False
 
-        if instance_type == "doc":
-            try:
-                instance = TeamDocumentCollection.objects.get(id=instance_id)
-            except TeamDocumentCollection.DoesNotExist:
-                return False
-
         team = get_active_team(user)
-        if team and team.id == instance.team.id:
+        if not team:
+            return False
+        try:
+            get_team_instance(team, TeamDocumentCollection, instance_id)
             return True
+        except TeamAccessError:
+            pass
+
     return False
 
 

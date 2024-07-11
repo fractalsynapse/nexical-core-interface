@@ -1,7 +1,7 @@
 {% load i18n site_urls %}
 
-<div class="research-panel container-fluid pt-2">
-  <div class="page-wrapper p-10">
+<div class="research-panel container-fluid">
+  <div class="page-wrapper p-3">
     <div class="research-header-wrapper row">
       <div class="d-md-flex justify-content-between">
         <div class="project-selector">
@@ -29,7 +29,7 @@
               <a href="#"
                  data-href="{% url 'projects:modal_form_update' active_project.id %}"
                  id="update-project-link"
-                 class="research-btn btn btn-outline-primary">
+                 class="research-btn btn btn-primary">
                 <i class="bx bx-edit-alt mx-2"></i><span>Edit Project</span>
               </a>
             </div>
@@ -38,7 +38,7 @@
             <a href="#"
                data-href="{% url 'projects:modal_form_create' %}"
                id="create-project-link"
-               class="research-btn btn {% if active_project %}btn-outline-primary{% else %}btn-outline-success{% endif %}">
+               class="research-btn btn {% if active_project %}btn-primary{% else %}btn-success{% endif %}">
               <i class="bx bx-plus-circle mx-2"></i><span>Create Project</span>
             </a>
           </div>

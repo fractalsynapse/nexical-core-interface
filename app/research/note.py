@@ -8,26 +8,6 @@ from app.utils.python import get_identifier
 from .models import ProjectNote
 
 
-def get_note(response_class, team, note_id):
-    try:
-        note = ProjectNote.objects.get(project__team=team, id=note_id)
-    except ProjectNote.DoesNotExist:
-        return response_class(
-            {"error": "Project note does not exist within team"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
-
-    tags = list(note.tags.values_list("name", flat=True))
-    tag_options = []
-
-    for tag in TeamTag.objects.filter(team=team):
-        tag_options.append({"name": tag.name, "active": tag.name in tags})
-
-    return response_class(
-        {"id": note.id, "name": note.name, "message": note.message, "tags": tag_options}, status=status.HTTP_200_OK
-    )
-
-
 def save_note(response_class, project, note_id, name, message, tags):
     if not note_id:
         note_id = get_identifier({"project_id": str(project.id), "timestamp": time.time_ns()})

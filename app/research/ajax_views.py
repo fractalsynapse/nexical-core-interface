@@ -9,11 +9,11 @@ from rest_framework import status
 
 from app.documents.models import TeamBookmark, TeamDocument
 from app.projects.models import TeamProject
-from app.teams.models import TeamTag, get_active_team
+from app.teams.models import TeamAccessError, TeamTag, get_active_team, get_team_instance
 from app.utils.auth import TeamAccessMixin
 
 from .models import ProjectNote, ProjectResearchBase, ProjectSummary
-from .note import get_note, save_note
+from .note import save_note
 from .summary import summarize
 
 
@@ -38,7 +38,7 @@ def get_summary_references(summary):
                 name = document.file.path.split("/")[-1]
 
                 information["id"] = document.id
-                information["type"] = "File"
+                information["type"] = f"File @ {document.collection.team}"
                 information["link"] = format_html(f'<a href="{document.file.url}" target="_blank">{name}</a>')
             except TeamDocument.DoesNotExist:
                 pass
@@ -48,7 +48,7 @@ def get_summary_references(summary):
                 bookmark = TeamBookmark.objects.get(id=reference.document_id)
 
                 information["id"] = bookmark.id
-                information["type"] = "Bookmark"
+                information["type"] = f"Bookmark @ {bookmark.collection.team}"
                 information["link"] = format_html(
                     f'<a href="{bookmark.url}" class="bookmark-ref-link" target="_blank">{bookmark.url}</a>'
                 )
@@ -62,7 +62,7 @@ def get_summary_references(summary):
                 link = reverse("research:note", kwargs={"pk": note.id})
 
                 information["id"] = note.id
-                information["type"] = "Note"
+                information["type"] = f"Note @ {note.project.team}"
                 information["link"] = format_html(f'<a href="{link}" class="note-ref-link">{note.name}</a>')
 
             except ProjectNote.DoesNotExist:
@@ -76,7 +76,7 @@ def get_summary_references(summary):
                 link = reverse("research:summary", kwargs={"pk": summary.id})
 
                 information["id"] = summary.id
-                information["type"] = "Summary"
+                information["type"] = f"Summary @ {summary.project.team}"
                 information["link"] = format_html(f'<a href="{link}" class="summary-ref-link">{name}</a>')
 
             except ProjectSummary.DoesNotExist:
@@ -89,14 +89,12 @@ def get_summary_references(summary):
 class SummaryView(BaseAjaxSummaryView):
     def get(self, request, *args, **kwargs):
         team = get_active_team(request.user)
-        error = self._validate_team(team)
-        if error:
-            return error
-
         try:
-            summary = ProjectSummary.objects.get(project__team=team, id=self.kwargs["pk"])
-        except ProjectSummary.DoesNotExist:
-            return JsonResponse({"error": "Summary not found in active team"}, status=status.HTTP_400_BAD_REQUEST)
+            summary = get_team_instance(
+                team, ProjectSummary, self.kwargs["pk"], team_field="project__team", share_model_class=TeamProject
+            )
+        except TeamAccessError as e:
+            return JsonResponse({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         tags = list(summary.tags.values_list("name", flat=True))
         tag_options = []
@@ -209,11 +207,22 @@ class BaseAjaxNoteView(TeamAccessMixin, View):
 class NoteView(BaseAjaxNoteView):
     def get(self, request, *args, **kwargs):
         team = get_active_team(request.user)
-        error = self._validate_team(team)
-        if error:
-            return error
+        try:
+            note = get_team_instance(
+                team, ProjectNote, self.kwargs["pk"], team_field="project__team", share_model_class=TeamProject
+            )
+        except TeamAccessError as e:
+            return JsonResponse({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-        return get_note(JsonResponse, team, self.kwargs["pk"])
+        tags = list(note.tags.values_list("name", flat=True))
+        tag_options = []
+
+        for tag in TeamTag.objects.filter(team=team):
+            tag_options.append({"name": tag.name, "active": tag.name in tags})
+
+        return JsonResponse(
+            {"id": note.id, "name": note.name, "message": note.message, "tags": tag_options}, status=status.HTTP_200_OK
+        )
 
 
 class NoteSaveView(BaseAjaxNoteView):
@@ -248,6 +257,15 @@ class NoteSaveView(BaseAjaxNoteView):
             project = TeamProject.objects.get(team=team, pk=project_id)
         except TeamProject.DoesNotExist:
             return JsonResponse({"error": "Project not found in active team"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if note_id:
+            try:
+                note = ProjectNote.objects.get(pk=note_id)
+            except ProjectNote.DoesNotExist:
+                return JsonResponse({"error": "Project note not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+            if project.team.id != note.project.team.id:
+                note_id = None
 
         return save_note(JsonResponse, project, note_id, name, message, tags)
 

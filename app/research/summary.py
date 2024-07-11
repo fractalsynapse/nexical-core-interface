@@ -35,7 +35,13 @@ def summarize(project, name, prompt, tags, **config):
     except ProjectSummary.DoesNotExist:
         try:
             summary = ProjectSummary.objects.create(
-                id=summary_id, project_id=project.id, prompt=prompt, format=output_format, endings=output_endings
+                id=summary_id,
+                project_id=project.id,
+                prompt=prompt,
+                format=output_format,
+                endings=output_endings,
+                max_sections=max_sections,
+                sentence_limit=sentence_limit,
             )
             created = True
 

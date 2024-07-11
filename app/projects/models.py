@@ -75,7 +75,7 @@ Generate an engaging summary on the topic with appropriate headings, subheadings
     access_teams = models.ManyToManyField(Team, related_name="project_access", blank=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} @ {self.team}"
 
     def create_event(self, operation="update"):
         Event.objects.create(

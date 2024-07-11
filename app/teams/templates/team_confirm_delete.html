@@ -4,14 +4,18 @@
   Delete: {{ object.name }}?
 {% endblock title %}
 {% block content %}
-  <div class="container rounded-45">
-    <div class="row bg-white rounded-5">
-      <div class="container p-5">
-        <div class="col">
+  <div class="container">
+    <div class="row bg-white rounded-5 page-wrapper d-flex justify-content-center">
+      <div class="container p-2">
+        <div class="col d-flex justify-content-center text-center">
           <form method="post">
             {% csrf_token %}
-            <h2>Are you sure you want to delete "{{ object.name }}"?</h2>
-            <button type="submit" class="btn btn-primary">Confirm</button>
+            <h1>
+              Are you sure you want to delete team: <strong>{{ object.name }}</strong>?
+            </h1>
+            <hr />
+            <button type="submit" class="btn btn-danger mt-3 px-5 py-3">Confirm</button>
+            <a href="{% url 'teams:list' %}" class="btn btn-outline-primary mt-3 px-5 py-3">Cancel</a>
           </form>
         </div>
       </div>

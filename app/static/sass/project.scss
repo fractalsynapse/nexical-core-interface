@@ -265,7 +265,9 @@ select.form-select {
 .table-body .row .col {
   padding: 20px 50px;
   font-size: 1.5em;
+  font-weight: bold;
   background: transparent;
+  color: $dark-blue;
 }
 
 //////////////////
@@ -773,9 +775,11 @@ select {
   color: $med-grey;
 }
 
+.select2 {
+  width: 100% !important;
+}
+
 .select2-selection__rendered {
-  margin: 5px auto;
-  padding: 0;
   text-align: left !important;
   white-space: normal !important;
 }
@@ -787,8 +791,14 @@ select {
   font-weight: normal;
 }
 
+.select2-selection {
+  vertical-align: middle;
+}
+
 .select2-selection__choice {
-  padding: 0 20px 0 0 !important;
+  margin: 10px !important;
+  padding: 5px 10px !important;
+  font-weight: bold;
   text-wrap: wrap;
   background: linear-gradient($offwhite, $light-blue);
   color: $dark-blue;
@@ -797,11 +807,11 @@ select {
 }
 
 .select2-selection__clear {
-  height: 80% !important;
+  height: 40px !important;
   text-align: center !important;
   vertical-align: middle !important;
   font-size: 1rem !important;
-  margin: 20px !important;
+  margin: 10px !important;
   padding: 5px 20px !important;
   color: $red !important;
   border: 1px solid $red !important;
@@ -819,20 +829,36 @@ select {
   position: static !important;
   text-align: center;
   width: 50px;
-  height: 100% !important;
   margin: 0 10px 0 0 !important;
-  padding: 10px;
-  // background: linear-gradient($light-grey, $med-grey);
+  padding: 5px;
   color: $dark-blue !important;
-  border: 1px solid $dark-blue;
-  border-radius: 10px;
+  border: 1px solid $light-grey !important;
+  border-radius: 5px !important;
 }
 
 .select2-selection__choice__remove:hover {
-  background: none;
-  background-color: $red;
+  background-color: $red !important;
   color: $white !important;
-  border: 1px solid $red;
+  border: 1px solid $red !important;
+  border-radius: 5px !important;
+}
+
+.select2-search {
+  margin: 0 !important;
+  padding: 5px !important;
+  vertical-align: middle;
+}
+
+.select2-search__field {
+  height: 45px !important;
+  margin: auto 5px !important;
+  font-size: 1.4em !important;
+}
+
+.select2-search__field:hover,
+.select2-search__field:focus {
+  border: none !important;
+  outline: none !important;
 }
 
 ///////////
@@ -1990,7 +2016,7 @@ footer {
   color: $dark-green;
 }
 
-#project-form .document-form-wrapper label:first-child {
+#project-form .document-form-wrapper legend {
   display: none;
 }
 
@@ -2215,16 +2241,6 @@ td.documents-remove span {
   // font-size: 1.5em;
 }
 
-#document-form .select2 {
-  width: 100%;
-}
-
-#document-form .select2-selection__choice {
-  padding: 20px;
-  color: $dark-blue;
-  background-color: $light-grey;
-}
-
 #document-form .controls {
   text-align: center;
   margin-top: 50px;
@@ -2429,25 +2445,6 @@ td.documents-remove span {
   margin: 10px;
 }
 
-.summarize-form .select2-container {
-  width: 100% !important;
-  width: 100%;
-  margin: 5px auto;
-  padding: 0;
-  border: 2px solid $dark-grey;
-  border-radius: 5px;
-}
-
-.summarize-form .select2-selection__rendered {
-  padding: 10px;
-  font-size: 1.2em;
-}
-
-.summarize-form .select2-selection__choice__display {
-  padding: 10px !important;
-  font-size: 1.2em !important;
-}
-
 .summarize-form .summary-documents {
   min-height: 100px;
   overflow: auto;
@@ -2506,6 +2503,7 @@ td.documents-remove span {
 
 .summarize-form #summary-container #summary-expand {
   display: block;
+  text-align: left !important;
 }
 
 .summarize-form #summary-container #summary-expand:hover {
@@ -2514,6 +2512,7 @@ td.documents-remove span {
 
 .summarize-form #summary-container #summary-shrink {
   display: none;
+  text-align: left !important;
 }
 
 .summarize-form #summary-container #summary-shrink:hover {
@@ -2590,19 +2589,13 @@ td.documents-remove span {
 }
 
 .summarize-form .summary-references .reference-importance {
-  width: 50px;
+  width: 100px;
   height: 50px;
-  margin-right: 5px;
-  padding: 5px;
-  font-size: 0.5em;
+  margin-right: 10px;
+  padding: 5px 15px;
+  font-size: 0.8em;
   font-weight: bold;
   border-radius: 10px;
-}
-
-.summarize-form .summary-references .reference-importance:hover {
-  width: 75px;
-  height: 75px;
-  font-size: 0.75em;
 }
 
 .summarize-form .summary-references .imp-1 {
@@ -2711,25 +2704,6 @@ td.documents-remove span {
 
 .note-form .tag-selector {
   margin: 10px;
-}
-
-.note-form .select2-container {
-  width: 100% !important;
-  width: 100%;
-  margin: 5px auto;
-  padding: 0;
-  border: 2px solid $dark-grey;
-  border-radius: 5px;
-}
-
-.note-form .select2-selection__rendered {
-  padding: 10px;
-  font-size: 1.2em;
-}
-
-.note-form .select2-selection__choice__display {
-  padding: 10px !important;
-  font-size: 1.2em !important;
 }
 
 .note-form .controls {

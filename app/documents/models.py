@@ -30,10 +30,18 @@ class TeamDocumentCollection(BaseUUIDModel):
     )
     processed_time = models.DateTimeField(_("Processed Time"), blank=True, null=True)
 
-    access_teams = models.ManyToManyField(Team, related_name="document_collection_access", blank=True)
+    access_teams = models.ManyToManyField(
+        Team,
+        related_name="document_collection_access",
+        help_text=_(
+            "You can share this document collection with other teams on this platform. "
+            "You can search teams by team name or team owner email address."
+        ),
+        blank=True,
+    )
 
     def __str__(self):
-        return self.name
+        return f"{self.name} @ {self.team}"
 
     def create_event(self, operation="update"):
         files = []

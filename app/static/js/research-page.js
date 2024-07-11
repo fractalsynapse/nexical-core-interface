@@ -88,6 +88,7 @@ function initialize_timeline() {
         );
       }
       $('#note-tags').select2({
+        placeholder: 'Specify a topic tag',
         tags: true,
         allowClear: true,
       });
@@ -107,6 +108,7 @@ function load_timeline(tag = '') {
     initialize_timeline();
     set_active_note();
     set_active_summary();
+    window.scrollTo(0, 0);
   });
 }
 
@@ -143,6 +145,7 @@ function set_summary_form(data) {
     );
   }
   $('#summary-tags').select2({
+    placeholder: 'Specify a topic tag',
     tags: true,
     allowClear: true,
   });
@@ -166,7 +169,7 @@ function set_summary_references(references) {
     }
 
     html_references +=
-      '<li class="reference w-100">' +
+      '<li class="reference align-middle w-100">' +
       '<span class="reference-importance ' +
       importance_class +
       '">' +
@@ -224,6 +227,7 @@ function reset_summary_form() {
   $('#summary-tags').empty();
   $('.doc-selector-cb').prop('checked', false);
   reset_active_summary();
+  window.scrollTo(0, 0);
 }
 
 function reset_active_summary() {
@@ -236,6 +240,13 @@ function set_active_summary() {
   if (summary_id) {
     $('#timeline-' + summary_id).addClass('active');
   }
+  $('#main-content').each(function () {
+    this.setAttribute(
+      'style',
+      'height:' + this.scrollHeight + 'px;overflow-y:hidden;',
+    );
+  });
+  window.scrollTo(0, 0);
 }
 
 function reset_note_form() {
@@ -246,6 +257,7 @@ function reset_note_form() {
 
   $('#note-tags').empty();
   reset_active_note();
+  window.scrollTo(0, 0);
 }
 
 function reset_active_note() {
@@ -258,6 +270,13 @@ function set_active_note() {
   if (note_id) {
     $('#timeline-' + note_id).addClass('active');
   }
+  $('#main-content').each(function () {
+    this.setAttribute(
+      'style',
+      'height:' + this.scrollHeight + 'px;overflow-y:hidden;',
+    );
+  });
+  window.scrollTo(0, 0);
 }
 
 function initialize_project_modals() {
@@ -297,15 +316,22 @@ $(function () {
       this.style.height = this.scrollHeight + 'px';
     });
 
+  $('#team-selector').on('change', function () {
+    reset_summary_form();
+    reset_note_form();
+  });
   $('#project-selector').on('change', function () {
     var project = $(this).val();
     $.get($(`option#project-${project}`).attr('data-url'), function (data) {
       window.location.reload();
+      reset_summary_form();
+      reset_note_form();
     });
   });
 
   // Summary form initialization
   $('#summary-tags').select2({
+    placeholder: 'Specify a topic tag',
     tags: true,
     allowClear: true,
   });
@@ -386,6 +412,7 @@ $(function () {
 
   // Note form initialization
   $('#note-tags').select2({
+    placeholder: 'Specify a topic tag',
     tags: true,
     allowClear: true,
   });

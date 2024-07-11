@@ -79,13 +79,16 @@
             </div>
             <div class="control-group">
               <div class="controls">
-                <button type="submit" class="btn btn-primary btn-lg">
+                <button type="submit" class="btn btn-primary mt-3 px-5 py-3">
                   {% if operation == 'create' %}
                     Create
                   {% else %}
                     Update
                   {% endif %}
                 </button>
+                {% if operation == 'update' %}
+                  <a href="{% url 'projects:remove' pk=object.id %}" class="btn btn-danger mt-3 px-5 py-3">Delete</a>
+                {% endif %}
               </div>
             </div>
           </form>

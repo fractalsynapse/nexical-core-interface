@@ -21,9 +21,7 @@
 {% block content %}
   {% if team_count > 0 %}
     <div class="mt-1 mb-0 mx-5">
-      <a id="btn-back"
-         href="{% url 'teams:list' %}"
-         class="btn btn-outline-primary mb-5 d-flexx align-items-center d-inline-flex">
+      <a id="btn-back" href="{% url 'teams:list' %}" class="btn btn-primary mb-5 d-flexx align-items-center d-inline-flex">
         <i class="bx bx-chevron-left"></i>
         <span>Back to list</span>
       </a>
@@ -71,7 +69,7 @@
                           {% if object %}
                             <label for="invite-email" class="form-label">Email Address</label>
                             <input type="email" name="invite-email" id="invite-email" class="email-field form-control" value="" />
-                            <button type="button" id="invite-button" class="btn btn-outline-primary my-3" disabled>Send Invitation</button>
+                            <button type="button" id="invite-button" class="btn btn-primary my-3" disabled>Send Invitation</button>
                             <input id="invite-url" class="d-none" value="{% url 'teams:invite_send' object.id %}" />
                           {% endif %}
                         </div>
@@ -89,6 +87,9 @@
                       Update
                     {% endif %}
                   </button>
+                  {% if operation == 'update' %}
+                    <a href="{% url 'teams:form_create' %}" class="btn btn-primary">Create New</a>
+                  {% endif %}
                 </div>
               </div>
             </form>
