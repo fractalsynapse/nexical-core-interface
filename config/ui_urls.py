@@ -8,13 +8,11 @@ from django.views.generic import TemplateView
 
 from app.api import views as api_views
 from app.contact.views import ContactFormView
-from app.landing.views import HomeRedirectView, Site404
+from app.landing.views import HomeRedirectView
 
 admin.site.site_title = "Nexical Knowledge Explorer"
 admin.site.site_header = "Nexical Knowledge Explorer Administration"
 admin.site.index_title = "Administration"
-
-handler404 = Site404
 
 
 urlpatterns = [
