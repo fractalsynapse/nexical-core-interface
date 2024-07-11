@@ -6,6 +6,8 @@ from app.teams.models import TeamTag
 from app.teams.views import TeamOwnershipMixin
 from app.utils.auth import TeamAccessMixin
 
+from . import models
+
 
 class BasePanelView(TeamOwnershipMixin, TeamAccessMixin, TemplateView):
     def get_context_data(self, **kwargs):
@@ -14,6 +16,9 @@ class BasePanelView(TeamOwnershipMixin, TeamAccessMixin, TemplateView):
         context["active_project"] = get_active_project(self.request.user)
         context["projects"] = TeamProject.objects.filter(team=self.team)
         context["tags"] = TeamTag.objects.filter(team=self.team)
+
+        context["show_summary_help"] = models.ProjectSummary.objects.filter(user=self.request.user).count() < 10
+        context["show_note_help"] = models.ProjectNote.objects.filter(user=self.request.user).count() < 10
 
         # context["help_title"] = "Research Help"
         # context["help_body"] = render_to_string("research_help.html")

@@ -117,6 +117,8 @@ function set_summary_form(data) {
   $('#summary-id').val(data['id']);
   $('#summary-name').val(data['name']);
   $('#summary-prompt').val(data['prompt']);
+  $('#summary-project-format').prop('checked', data['use_format']);
+  $('#summary-research-depth').val(data['depth']);
 
   if ('processed_time' in data && data['processed_time']) {
     $('#summary-container .summary-text').html(data['summary']);
@@ -217,6 +219,8 @@ function reset_summary_form() {
   $('#summary-id').val('');
   $('#summary-name').val('');
   $('#summary-prompt').val('');
+  $('#summary-project-format').prop('checked', true);
+  $('#summary-research-depth').val(5);
   $('#summary-container .summary-text').html('');
   $('#summary-container .summary-references').html('');
   $('#summary-container')
@@ -390,6 +394,8 @@ $(function () {
         project_id: $('#project-id').val(),
         name: $('#summary-name').val(),
         prompt: $('#summary-prompt').val(),
+        use_format: $('#summary-project-format').is(':checked'),
+        depth: $('#summary-research-depth').val(),
         tags: tags.join(','),
       },
     }).done(function (data) {

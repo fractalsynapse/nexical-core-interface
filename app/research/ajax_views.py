@@ -1,3 +1,4 @@
+import math
 import re
 
 from django.http import JsonResponse
@@ -110,6 +111,8 @@ class SummaryView(BaseAjaxSummaryView):
                 "id": summary.id,
                 "name": summary.name,
                 "prompt": summary.prompt,
+                "use_format": summary.use_default_format,
+                "depth": math.floor(summary.sentence_limit / (20 * 5)),
                 "summary": summary_text,
                 "tags": tag_options,
                 "processed_time": summary.processed_time,
@@ -133,6 +136,13 @@ class SummarySaveView(BaseAjaxSummaryView):
         project_id = request.POST.get("project_id", None)
         name = request.POST.get("name", None)
         prompt = request.POST.get("prompt", None)
+        use_format = request.POST.get("use_format", True)
+        if isinstance(use_format, str):
+            use_format = True if use_format.lower() == "true" else False
+
+        depth = int(request.POST.get("depth", 5))
+        max_sections = depth * 5
+        sentence_limit = max_sections * 20
 
         tags = request.POST.get("tags", [])
         if isinstance(tags, str):
@@ -152,14 +162,16 @@ class SummarySaveView(BaseAjaxSummaryView):
             return JsonResponse({"error": "Project not found in active team"}, status=status.HTTP_400_BAD_REQUEST)
 
         summary = summarize(
+            request.user,
             project,
             tags=tags,
             name=name,
             prompt=prompt,
             format="Generate the response in HTML format.",
+            use_default_format=use_format,
             endings=["</html>", "</div>", "</p>", ".", "!", "?"],
-            max_sections=15,
-            sentence_limit=200,
+            max_sections=max_sections,
+            sentence_limit=sentence_limit,
             persona=project.summary_persona,
             temperature=project.temperature,
             top_p=project.top_p,
@@ -176,6 +188,8 @@ class SummarySaveView(BaseAjaxSummaryView):
                 "id": summary.id,
                 "name": summary.name,
                 "prompt": summary.prompt,
+                "use_format": summary.use_default_format,
+                "depth": depth,
                 "summary": summary_text,
                 "tags": list(summary.tags.values_list("name", flat=True)),
                 "references": get_summary_references(summary),

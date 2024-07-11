@@ -39,8 +39,10 @@
       <div class="row">
         <div class="col-9 summary-prompt-label-wrapper mb-3">
           <b>Ask a question or type an instruction:</b>
-          <br />
-          <i>The more detail the better</i>
+          {% if show_summary_help %}
+            <br />
+            <i>The more detail the better</i>
+          {% endif %}
         </div>
         <div class="col-3 summary-name-wrapper d-flex justify-content-end">
           <button type="button" id="summary-name-toggle-button" class="btn btn-light px-5 summary-name-button">Name</button>
@@ -48,23 +50,42 @@
       </div>
       <input type="text" id="summary-name" class="form-control" minlength="4" maxlength="250" placeholder="Name" />
       <textarea autofocus required id="summary-prompt"></textarea>
-      <div class="form-help-text">
-        <p>To format a good AI prompt that provides accurate and helpful answers, follow these guidelines:</p>
-        <ul>
-          <li>Ask specific and unambiguous questions, focusing on one topic at a time.</li>
-          <li>Provide necessary context and background information, but avoid overwhelming details.</li>
-          <li>Ensure that the prompt is grammatically correct and concise.</li>
-        </ul>
+      <div class="mx-3 mb-3">
+        <input type="checkbox" id="summary-project-format" value="1" checked />
+        <label for="summary-project-format">Use default project format instructions</label>
       </div>
+      {% if show_summary_help %}
+        <div class="form-help-text">
+          <p>To format a good AI prompt that provides accurate and helpful answers, follow these guidelines:</p>
+          <ul>
+            <li>Ask specific and unambiguous questions, focusing on one topic at a time.</li>
+            <li>Provide necessary context and background information, but avoid overwhelming details.</li>
+            <li>Ensure that the prompt is grammatically correct and concise.</li>
+          </ul>
+        </div>
+      {% endif %}
+      <label for="summary-research-depth">
+        <b>Research Depth:</b>
+      </label>
+      <input type="range" id="summary-research-depth" class="form-range" min="1" max="10" value="5" />
+      {% if show_summary_help %}
+        <div class="form-help-text">
+          <p>
+            This will adjust the number of statements and passages that are considered in the response.  Larger value means longer wait time and greater cost, but a deeper answer.
+          </p>
+        </div>
+      {% endif %}
       <label for="summary-tags">
         <b>Tags:</b>
       </label>
       <select id="summary-tags" class="form-control" multiple="multiple">
         {% for tag in tags %}<option value="{{ tag.name }}">{{ tag.name }}</option>{% endfor %}
       </select>
-      <div class="form-help-text">
-        <p>If you want to update tags later, just press the summarize button with the same prompt and different tags</p>
-      </div>
+      {% if show_summary_help %}
+        <div class="form-help-text">
+          <p>If you want to update tags later, just press the summarize button with the same prompt and different tags</p>
+        </div>
+      {% endif %}
     </div>
     <div class="control-group">
       <div class="controls">

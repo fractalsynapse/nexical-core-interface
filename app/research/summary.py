@@ -4,9 +4,10 @@ from app.utils.python import get_identifier
 from .models import ProjectSummary
 
 
-def summarize(project, name, prompt, tags, **config):
+def summarize(user, project, name, prompt, tags, **config):
     persona = config.get("persona", "")
     output_format = config.get("format", "")
+    use_default_format = config.get("use_default_format", True)
     output_endings = config.get("endings", [".", "?", "!"])
     max_sections = config.get("max_sections", 10)
     sentence_limit = config.get("sentence_limit", 50)
@@ -19,6 +20,7 @@ def summarize(project, name, prompt, tags, **config):
             "project_id": str(project.id),
             "prompt": prompt,
             "format": output_format,
+            "use_default_format": use_default_format,
             "endings": output_endings,
             "max_sections": max_sections,
             "sentence_limit": sentence_limit,
@@ -35,10 +37,12 @@ def summarize(project, name, prompt, tags, **config):
     except ProjectSummary.DoesNotExist:
         try:
             summary = ProjectSummary.objects.create(
+                user=user,
                 id=summary_id,
                 project_id=project.id,
                 prompt=prompt,
                 format=output_format,
+                use_default_format=use_default_format,
                 endings=output_endings,
                 max_sections=max_sections,
                 sentence_limit=sentence_limit,
