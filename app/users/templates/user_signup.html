@@ -6,6 +6,10 @@
 {% block title %}
   Nexical Knowledge Explorer - Signup
 {% endblock title %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'js/user-signup-page.min.js' %}"></script>
+{% endblock javascript %}
 {% block content %}
   <div id="user-signup-page">
     <div class="hero-banner d-flex justify-content-center py-5 mb-3">
@@ -21,9 +25,32 @@
         </div>
       </div>
     </div>
+    <div class="demo-section p-5">
+      <div class="row px-5 d-flex justify-content-center">
+        <div class="col-md-4 text-center">
+          <iframe width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/Fov0YJXuwwY?si=jd3wvwRYOiUxh9Rq"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen></iframe>
+        </div>
+        <div class="col-md-4 demo-message-wrapper text-center">
+          <div class="demo-message text-center">
+            Checkout a demo for a <b>knowledge glue</b> between the teams in your organization
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="value-prop d-flex justify-content-center pt-5">
       <div class="value-prop-inner text-center">
-        <h2>Our Value Proposition</h2>
+        <h2>
+          Nexical is an open source knowledge management and AI research platform
+          <br />
+          that focuses on...
+        </h2>
         <div class="row d-flex flex-type-column justify-content-center py-5">
           <div class="col-md-3 d-flex flex-column justify-content-between">
             <div class="mb-auto">
@@ -33,9 +60,14 @@
               <hr />
               <h4>Finding the information you need, when you need it</h4>
             </div>
-            <div class="value-blurb mt-3">
-              Building on an open AI platform, integrating your documents, and extending to fit your needs,
-              we simplify research, knowledge generation, and sharing with your team or customers.
+            <div class="value-blurb mt-5">
+              <div class="value-problem-blurb">
+                <b>Over 80% of all information in most organizations</b> is locked in unstructured format
+                preventing employees from learning from it.
+              </div>
+              <hr />
+              <b>We're simplifying research, knowledge generation, and sharing with your teams</b>
+              by building an open AI research platform, integrating securely with your data, and extending to fit your needs, without the wait
             </div>
           </div>
           <div class="col-md-3 d-flex flex-column justify-content-between">
@@ -46,9 +78,13 @@
               <hr />
               <h4>Saving you valuable time to focus on more impactful activities</h4>
             </div>
-            <div class="value-blurb mt-3">
-              Using a private research platform with pluggable AI systems to connect with internal documents and data,
-              AI assistants can save your team hours parsing and analyzing information.
+            <div class="value-blurb mt-5">
+              <div class="value-problem-blurb">
+                <b>How much time per day</b> do you spend reading and researching topics for your business?
+              </div>
+              <hr />
+              <b>Imagine the time you could save with colonies of AI research assistants that evolve with you</b>,
+              in a private research platform, with pluggable AI systems, and connected with information you care about
             </div>
           </div>
           <div class="col-md-3 d-flex flex-column justify-content-between">
@@ -59,9 +95,15 @@
               <hr />
               <h4>Making money from your data and knowledge instead of it draining your bank account</h4>
             </div>
-            <div class="value-blurb mt-3">
-              We've developed an ecommerce system that plugs into our open research platform
-              to monetize knowledge, with membership tiers and usage based pricing.
+            <div class="value-blurb mt-5">
+              <div class="value-problem-blurb">
+                <b>If AI is revolutionizing business and depends on data</b>,
+                we need new innovative ways to share and monetize that important data.
+              </div>
+              <hr />
+              You can easily <b>build and package collections of knowledge</b>,
+              <b>share your managed knowledge collections with others</b>,
+              and optionally <b>create your own monetized SaaS</b> with an integrated ecommerce system
             </div>
           </div>
         </div>
@@ -72,9 +114,248 @@
         <div class="col-7">
           <p class="lead text-center">
             <strong>We're building an open AI platform</strong> that accelerates business productivity across your organization
-            focused on data privacy, auditability and security, and research efficiency with your internal data and systems,
-            while being extremely cost effective and avoiding vendor lock-in.
           </p>
+          <ul class="list-group list-group-flush text-center mt-4">
+            <li class="list-group-item">focused on data privacy, auditability and security</li>
+            <li class="list-group-item">research efficiency with your internal data and systems</li>
+            <li class="list-group-item">extremely cost effective and avoiding vendor lock-in</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="comparison-table-wrapper d-flex justify-content-center p-5">
+      <div class="comparison-table-inner text-center">
+        <h2>How Nexical fits into the AI ecosystem...</h2>
+        <div class="row d-flex justify-content-center pt-5 px-5">
+          <table class="comparison-table">
+            <tr>
+              <td></td>
+              <td class="label">
+                Total
+                <br />
+                Privacy
+              </td>
+              <td class="label">
+                Open
+                <br />
+                Platform
+              </td>
+              <td class="label">
+                Multi-Vendor
+                <br />
+                AI
+              </td>
+              <td class="label">Customizable</td>
+              <td class="label">Inexpensive</td>
+              <td class="label">
+                Knowledge
+                <br />
+                Hub <i>[1]</i>
+              </td>
+              <td class="label">
+                Ready
+                <br />
+                Made
+              </td>
+              <td class="label">
+                Web
+                <br />
+                Based
+              </td>
+              <td class="label">Teams</td>
+              <td class="label">Projects</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="label">
+                <b>Nexical
+                  <br />
+                Knowledge Explorer</b>
+              </td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="comment">
+                Self hostable and customizable AI integration platform focused on research and knowledge management
+              </td>
+            </tr>
+            <tr>
+              <td class="label">Proprietary AI companies</td>
+              <td class="no-value">No</td>
+              <td class="no-value">No</td>
+              <td class="no-value">No</td>
+              <td class="limited-value">
+                Limited <i>[2]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[3]</i>
+              </td>
+              <td class="no-value">No</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="limited-value">
+                Limited <i>[4]</i>
+              </td>
+              <td class="no-value">No</td>
+              <td class="comment">Can be good API building blocks, but very limited non-customizable user interfaces</td>
+            </tr>
+            <tr>
+              <td class="label">Cloud hosting companies</td>
+              <td class="limited-value">
+                Limited <i>[5]</i>
+              </td>
+              <td class="no-value">No</td>
+              <td class="limited-value">
+                Limited <i>[6]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[2]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[3]</i>
+              </td>
+              <td class="no-value">No</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="limited-value">
+                Limited <i>[4]</i>
+              </td>
+              <td class="no-value">No</td>
+              <td class="comment">Good for foundational resources to build upon depending on cost and privacy needs</td>
+            </tr>
+            <tr>
+              <td class="label">Specialized AI SaaS companies</td>
+              <td class="no-value">No</td>
+              <td class="no-value">No</td>
+              <td class="limited-value">
+                Limited <i>[6]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[2]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[3]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[7]</i>
+              </td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="limited-value">
+                Limited <i>[4]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[8]</i>
+              </td>
+              <td class="comment">
+                Good for specialized use cases, but not customizable or private, and don't make good integration platforms
+              </td>
+            </tr>
+            <tr>
+              <td class="label">AI consultancies and agencies</td>
+              <td class="limited-value">
+                Limited <i>[9]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[9]</i>
+              </td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="no-value">No</td>
+              <td class="limited-value">
+                Limited <i>[9]</i>
+              </td>
+              <td class="no-value">No</td>
+              <td class="yes-value">Yes</td>
+              <td class="limited-value">
+                Limited <i>[9]</i>
+              </td>
+              <td class="limited-value">
+                Limited <i>[9]</i>
+              </td>
+              <td class="comment">Good if you need a completely custom solution, but it comes with a cost and time delay</td>
+            </tr>
+            <tr>
+              <td class="label">AI desktop applications</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="yes-value">Yes</td>
+              <td class="limited-value">
+                Limited <i>[10]</i>
+              </td>
+              <td class="yes-value">Yes</td>
+              <td class="no-value">No</td>
+              <td class="yes-value">Yes</td>
+              <td class="limited-value">
+                Limited <i>[11]</i>
+              </td>
+              <td class="no-value">No</td>
+              <td class="no-value">No</td>
+              <td class="comment">
+                Good if you need to play around with different AI models, or for personal use, but limited in connectivity and team support
+              </td>
+            </tr>
+          </table>
+          <div class="comparison-explanations">
+            <div class="text-start">
+              <a href="#" id="explanation-toggle-button">Open references</a>
+            </div>
+            <div id="explanation-statements" class="row d-flex justify-content-center d-none">
+              <div class="col-11 text-start">
+                <div class="numbered-explanation">
+                  <span class="number">[<b>1</b>]</span>
+                  <span class="description">When we refer to a knowledge hub, we are describing a UI and API driven knowledge management system, not chatbot or database only systems</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>2</b>]</span>
+                  <span class="description">These services are normally limited to customization through API integrations with other apps</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>3</b>]</span>
+                  <span class="description">These services relative value and expense is determined by how they are used</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>4</b>]</span>
+                  <span class="description">These services either implement teams at higher subscription tiers or for administrative use</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>5</b>]</span>
+                  <span class="description">These services may occasionally provide a physical hosting option, such as AWS Outposts, usually at a premium price</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>6</b>]</span>
+                  <span class="description">These services support a limited set of AI providers, and you can not add new ones</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>7</b>]</span>
+                  <span class="description">There are a few services like Perpexity that seek to create public search engines with summarization, but most are wrapper chatbots or AI bolt-ons to existing products</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>8</b>]</span>
+                  <span class="description">Some AI SaaS services may implement project based workflows, but many don't</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>9</b>]</span>
+                  <span class="description">You can find someone to build you what you want, but many AI agencies are focused on wrapping a few services and AI providers into simple chatbots</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>10</b>]</span>
+                  <span class="description">Most of these applications are open source and can be customized, and the ease of customization depends on the architecture</span>
+                </div>
+                <div class="numbered-explanation">
+                  <span class="number">[<b>11</b>]</span>
+                  <span class="description">Some of these applications can run a local server and could be made web accessible, but they are mainly made for personal use</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -126,7 +407,7 @@
           </div>
         </div>
         <div class="col-md-5 pt-5">
-          <div class=" bg-black rounded-5 p-4">
+          <div class="rounded-5 p-4 border">
             <div class="signup-disclaimer mt-4 rounded-top-5">
               <p>
                 <strong>This is a demo environment of our Nexical Core AI Research platform</strong>, and is not meant as a production research platform itself.
