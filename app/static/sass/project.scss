@@ -366,6 +366,13 @@ h4,
   color: $color-dark-blue;
 }
 
+.btn-outline-primary.active {
+  outline: $btn-outline solid $dark-grey !important;
+  border-color: $dark-grey;
+  background-image: radial-gradient($white, $light-blue);
+  color: $dark-grey;
+}
+
 .btn-light:hover,
 .btn-light:focus,
 .btn-outline-light:hover,
