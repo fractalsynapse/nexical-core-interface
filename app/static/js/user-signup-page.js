@@ -1,17 +1,20 @@
 $(function () {
-  var explanation_state = 0;
-
-  $('#explanation-toggle-button').on('click', function (event) {
+  $('.explanation-link').on('click', function (event) {
     event.preventDefault();
 
-    if (explanation_state == 1) {
-      $('#explanation-toggle-button').text('Open references');
-      $('#explanation-statements').addClass('d-none');
-      explanation_state = 0;
+    $explanation = $(this).find('.explanation-popup');
+    if ($explanation.length == 0) {
+      $(this).append('<div class="explanation-popup"></div>');
+      $explanation = $(this).find('.explanation-popup');
+      $explanation.text($('#' + $(this).attr('data-ref')).text());
+
+      $explanation.on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        $(this).remove();
+      });
     } else {
-      $('#explanation-toggle-button').text('Close references');
-      $('#explanation-statements').removeClass('d-none');
-      explanation_state = 1;
+      $explanation.remove();
     }
   });
 });

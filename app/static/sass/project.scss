@@ -1793,36 +1793,23 @@ footer {
   border: 1px solid $dark-grey;
 }
 
-#user-signup-page .comparison-explanations {
-  margin: 0;
+#user-signup-page .comparison-table .explanation-link {
   position: relative;
-  background-color: $white;
-  border: 1px solid $light-grey;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 
-#user-signup-page #explanation-toggle-button {
+#user-signup-page .comparison-table .explanation-popup {
+  z-index: 10;
+  left: 0;
+  min-width: 400px;
+  max-width: 600px;
   position: absolute;
-  top: -1px;
-  margin: 0;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-weight: bold;
-  color: $bright-blue;
-  background-color: $light-blue;
-  border: 1px solid $dark-grey;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-#user-signup-page #explanation-toggle-button:hover {
+  padding: 20px;
+  font-size: 1.2em;
+  font-style: normal;
   color: $white;
-  background-color: $bright-blue;
-}
-
-#user-signup-page #explanation-statements {
-  padding: 60px;
+  background-color: $black;
+  border: 1px solid $dark-grey;
+  border-radius: 10px;
 }
 
 #user-signup-page .signup-disclaimer {
