@@ -1750,6 +1750,28 @@ footer {
   border: 1px solid $white;
 }
 
+#user-signup-page .list-intro-wrapper {
+  background: linear-gradient(
+    to right,
+    $white 0,
+    $light-green 50%,
+    $white 100%
+  );
+}
+
+#user-signup-page .list-intro {
+  padding: 50px;
+  font-size: 1.4em;
+}
+
+#user-signup-page .list-group {
+  padding: 10px;
+}
+
+#user-signup-page .list-group-item {
+  font-size: 1.3em;
+}
+
 #user-signup-page .comparison-table {
   padding: 10px;
 }
@@ -1814,8 +1836,9 @@ footer {
 
 #user-signup-page .signup-disclaimer {
   padding: 30px;
+  font-size: 1.1em;
   background-color: $yellow;
-  border-bottom: 2px solid $black;
+  border: 2px solid $black;
 }
 
 #user-signup-page .advantage-card {
@@ -1825,7 +1848,9 @@ footer {
 }
 
 #user-signup-page .advantage-card li {
+  margin-top: 10px;
   padding: 5px;
+  font-size: 1.3em;
 }
 
 #user-signup-page .contact-section {
