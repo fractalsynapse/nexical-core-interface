@@ -187,6 +187,12 @@ function set_summary_references(references) {
   html_references += '</ul>';
   $('#summary-container .summary-references').html(html_references);
 
+  if (references.length > 0) {
+    $('#summary-container .summary-reference-wrapper').show();
+  } else {
+    $('#summary-container .summary-reference-wrapper').hide();
+  }
+
   // Note form loading
   $('.note-ref-link').on('click', function (event) {
     event.preventDefault();
@@ -268,12 +274,15 @@ function reset_active_note() {
   $('.note-card').removeClass('active');
 }
 
-function set_active_note() {
+async function set_active_note() {
   var note_id = $('#note-id').val();
   reset_active_note();
   if (note_id) {
     $('#timeline-' + note_id).addClass('active');
   }
+
+  await sleep(1000);
+
   $('#main-content').each(function () {
     this.setAttribute(
       'style',

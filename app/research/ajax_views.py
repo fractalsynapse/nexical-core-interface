@@ -42,7 +42,7 @@ def get_summary_references(summary):
                 information["type"] = f"File @ {document.collection.team}"
                 information["link"] = format_html(f'<a href="{document.file.url}" target="_blank">{name}</a>')
             except TeamDocument.DoesNotExist:
-                pass
+                information = None
 
         elif reference.type == "bookmark":
             try:
@@ -55,7 +55,7 @@ def get_summary_references(summary):
                 )
 
             except TeamBookmark.DoesNotExist:
-                pass
+                information = None
 
         elif reference.type == "note":
             try:
@@ -67,7 +67,7 @@ def get_summary_references(summary):
                 information["link"] = format_html(f'<a href="{link}" class="note-ref-link">{note.name}</a>')
 
             except ProjectNote.DoesNotExist:
-                pass
+                information = None
 
         elif reference.type == "summary":
             try:
@@ -81,9 +81,11 @@ def get_summary_references(summary):
                 information["link"] = format_html(f'<a href="{link}" class="summary-ref-link">{name}</a>')
 
             except ProjectSummary.DoesNotExist:
-                pass
+                information = None
 
-        references.append(information)
+        if information:
+            references.append(information)
+
     return references
 
 

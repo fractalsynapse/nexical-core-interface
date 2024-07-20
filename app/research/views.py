@@ -12,8 +12,9 @@ from . import models
 class BasePanelView(TeamOwnershipMixin, TeamAccessMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        active_project = get_active_project(self.request.user)
 
-        context["active_project"] = get_active_project(self.request.user)
+        context["active_project"] = active_project
         context["projects"] = TeamProject.objects.filter(team=self.team)
         context["tags"] = TeamTag.objects.filter(team=self.team)
 
