@@ -2688,6 +2688,7 @@ td.documents-remove span {
 }
 
 .summarize-form .summary-text {
+  margin-bottom: 40px;
   padding: 50px 30px 10px 30px;
 }
 
@@ -2697,9 +2698,15 @@ td.documents-remove span {
   margin: 0.75em;
 }
 
+.summarize-form .summary-reference-label {
+  padding-left: 20px;
+  font-weight: bold;
+  font-style: italic;
+  color: $med-grey;
+}
+
 .summarize-form .summary-references {
-  margin-top: 40px;
-  border-top: 1px solid $light-grey;
+  margin-top: 30px;
 }
 
 .summarize-form .summary-references ul {
