@@ -10,7 +10,7 @@ from rest_framework import status
 
 from app.documents.models import TeamBookmark, TeamDocument
 from app.projects.models import TeamProject
-from app.teams.models import TeamAccessError, TeamTag, get_active_team, get_team_instance
+from app.teams.models import TeamAccessError, TeamTag, get_active_team, get_team_instance, update_team_settings
 from app.utils.auth import TeamAccessMixin
 
 from .models import ProjectNote, ProjectResearchBase, ProjectSummary
@@ -145,6 +145,8 @@ class SummarySaveView(BaseAjaxSummaryView):
         depth = int(request.POST.get("depth", 5))
         max_sections = depth * 5
         sentence_limit = max_sections * 20
+
+        update_team_settings(request.user, default_summary_depth=depth)
 
         tags = request.POST.get("tags", [])
         if isinstance(tags, str):
