@@ -19,7 +19,7 @@ django-allauth==0.63.6  # https://github.com/pennersr/django-allauth
 django-private-storage==3.1.1  # https://github.com/edoburu/django-private-storage
 django-filter==24.2  # https://github.com/carltongibson/django-filter
 django-select2==8.1.2  # https://github.com/codingjoe/django-select2
-django-crispy-forms==2.1  # https://github.com/django-crispy-forms/django-crispy-forms
+django-crispy-forms==2.3  # https://github.com/django-crispy-forms/django-crispy-forms
 crispy-bootstrap5==2024.2  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-redis==5.4.0  # https://github.com/jazzband/django-redis
 django-anymail[mailgun]==10.3  # https://github.com/anymail/django-anymail
