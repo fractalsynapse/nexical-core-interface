@@ -22,7 +22,7 @@ django-select2==8.1.2  # https://github.com/codingjoe/django-select2
 django-crispy-forms==2.3  # https://github.com/django-crispy-forms/django-crispy-forms
 crispy-bootstrap5==2024.2  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-redis==5.4.0  # https://github.com/jazzband/django-redis
-django-anymail[mailgun]==10.3  # https://github.com/anymail/django-anymail
+django-anymail[mailgun]==11.0.1  # https://github.com/anymail/django-anymail
 django-tables2==2.7.0  # https://github.com/jieter/django-tables2
 # Django REST Framework
 djangorestframework==3.15.1  # https://github.com/encode/django-rest-framework
