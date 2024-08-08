@@ -11,7 +11,7 @@ beautifulsoup4==4.12.3  # https://code.launchpad.net/beautifulsoup
 
 # Django
 # ------------------------------------------------------------------------------
-django==5.0.7  # pyup: < 5.0  # https://www.djangoproject.com/
+django==5.1  # pyup: < 5.0  # https://www.djangoproject.com/
 django-environ==0.11.2  # https://github.com/joke2k/django-environ
 django-timezone-field==7.0 # https://github.com/mfogel/django-timezone-field
 django-model-utils==4.5.1  # https://github.com/jazzband/django-model-utils
