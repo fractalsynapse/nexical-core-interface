@@ -18,7 +18,7 @@
     "gulp-uglify-es": "^3.0.0",
     "node-sass-tilde-importer": "^1.0.2",
     "pixrem": "^5.0.0",
-    "postcss": "^8.4.41",
+    "postcss": "^8.4.43",
     "sass": "^1.77.8"
   },
   "engines": {
