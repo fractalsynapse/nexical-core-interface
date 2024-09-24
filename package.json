@@ -6,7 +6,7 @@
     "autoprefixer": "^10.4.20",
     "jquery": "3.7.1",
     "bootstrap": "^5.3.3",
-    "browser-sync": "^3.0.2",
+    "browser-sync": "^3.0.3",
     "cssnano": "^7.0.4",
     "gulp": "^5.0.0",
     "gulp-concat": "^2.6.1",
