@@ -4,12 +4,11 @@
 
 // Gulp and package
 const { src, dest, parallel, series, watch } = require('gulp');
-const pjson = require('./package.json');
+const pjson = require('/node-lib/package.json');
 
 // Plugins
 const autoprefixer = require('autoprefixer');
 const browserSync = require('browser-sync').create();
-const concat = require('gulp-concat');
 const tildeImporter = require('node-sass-tilde-importer');
 const cssnano = require('cssnano');
 const pixrem = require('pixrem');
@@ -18,19 +17,13 @@ const postcss = require('gulp-postcss');
 const reload = browserSync.reload;
 const rename = require('gulp-rename');
 const sass = require('gulp-sass')(require('sass'));
-const spawn = require('child_process').spawn;
 const uglify = require('gulp-uglify-es').default;
 
 // Relative paths function
 function pathsConfig(appName) {
   this.app = `./${pjson.name}`;
-  const vendorsRoot = 'node_modules';
 
   return {
-    vendorsJs: [
-      `${vendorsRoot}/@popperjs/core/dist/umd/popper.js`,
-      `${vendorsRoot}/bootstrap/dist/js/bootstrap.js`,
-    ],
     app: this.app,
     templates: `${this.app}/templates`,
     css: `${this.app}/static/css`,
@@ -82,50 +75,6 @@ function scripts() {
     .pipe(dest(paths.js));
 }
 
-// Vendor Javascript minification
-function vendorScripts() {
-  return src(paths.vendorsJs, { sourcemaps: true })
-    .pipe(concat('vendors.js'))
-    .pipe(dest(paths.js))
-    .pipe(plumber()) // Checks for errors
-    .pipe(uglify()) // Minifies the js
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(paths.js, { sourcemaps: '.' }));
-}
-
-// Run django server
-function runServer(cb) {
-  const cmd = spawn('python', ['manage.py', 'runserver'], { stdio: 'inherit' });
-  cmd.on('close', function (code) {
-    console.log('runServer exited with code ' + code);
-    cb(code);
-  });
-}
-
-// Browser sync server for live reload
-function initBrowserSync() {
-  browserSync.init(
-    [`${paths.css}/*.css`, `${paths.js}/*.js`, `${paths.templates}/*.html`],
-    {
-      // https://www.browsersync.io/docs/options/#option-open
-      // Disable as it doesn't work from inside a container
-      open: false,
-      // https://www.browsersync.io/docs/options/#option-proxy
-      proxy: {
-        target: 'ui:8000',
-        proxyReq: [
-          function (proxyReq, req) {
-            // Assign proxy 'host' header same as current request at Browsersync server
-            proxyReq.setHeader('Host', req.headers.host);
-          },
-        ],
-      },
-      // https://browsersync.io/docs/options/#option-notify
-      notify: false,
-    },
-  );
-}
-
 // Watch
 function watchPaths() {
   watch(`${paths.sass}/*.scss`, project_styles);
@@ -137,11 +86,8 @@ function watchPaths() {
 }
 
 // Generate all assets
-const generateAssets = parallel(project_styles, scripts, vendorScripts);
+const generateAssets = parallel(project_styles, scripts);
 
-// Set up dev environment
-const dev = parallel(initBrowserSync, watchPaths);
-
-exports.default = series(generateAssets, dev);
+exports.default = series(generateAssets, watchPaths);
 exports['generate-assets'] = generateAssets;
-exports['dev'] = dev;
+exports['dev'] = series(generateAssets, watchPaths);
