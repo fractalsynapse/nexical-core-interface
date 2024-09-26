@@ -2,7 +2,7 @@
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "--reuse-db"
-norecursedirs = ["node_modules"]
+norecursedirs = []
 
 # ==== Coverage ====
 [tool.coverage.run]
