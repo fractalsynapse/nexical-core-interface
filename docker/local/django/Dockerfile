@@ -8,17 +8,17 @@ ARG BUILD_ENVIRONMENT=local
 
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    # dependencies for building Python packages
-    build-essential \
-    # psycopg2 dependencies
-    libpq-dev
+  # dependencies for building Python packages
+  build-essential \
+  # psycopg2 dependencies
+  libpq-dev
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
 
 # Create Python Dependency and Sub-Dependency Wheels.
 RUN pip wheel --wheel-dir /usr/src/app/wheels  \
-    -r ${BUILD_ENVIRONMENT}.txt
+  -r ${BUILD_ENVIRONMENT}.txt
 
 
 # Python 'run' stage
@@ -36,24 +36,24 @@ WORKDIR ${APP_HOME}
 
 # devcontainer dependencies and utils
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    sudo git bash-completion nano ssh
+  sudo git bash-completion nano ssh
 
 # Create devcontainer user and add it to sudoers
 RUN groupadd --gid 1000 dev-user \
-    && useradd --uid 1000 --gid dev-user --shell /bin/bash --create-home dev-user \
-    && echo dev-user ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/dev-user \
-    && chmod 0440 /etc/sudoers.d/dev-user
+  && useradd --uid 1000 --gid dev-user --shell /bin/bash --create-home dev-user \
+  && echo dev-user ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/dev-user \
+  && chmod 0440 /etc/sudoers.d/dev-user
 
 
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    # psycopg2 dependencies
-    libpq-dev \
-    # Translations dependencies
-    gettext \
-    # cleaning up unused files
-    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-    && rm -rf /var/lib/apt/lists/*
+  # psycopg2 dependencies
+  libpq-dev \
+  # Translations dependencies
+  gettext \
+  # cleaning up unused files
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+  && rm -rf /var/lib/apt/lists/*
 
 # All absolute dir copies ignore workdir instruction. All relative dir copies are wrt to the workdir instruction
 # copy python dependency wheels from python-build-stage
@@ -61,31 +61,28 @@ COPY --from=python-build-stage /usr/src/app/wheels  /wheels/
 
 # use wheels to install python dependencies
 RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
-    && rm -rf /wheels/
+  && rm -rf /wheels/
 
 
-COPY ./compose/local/django/entrypoint /entrypoint
-RUN sed -i 's/\r$//g' /entrypoint
+COPY ./docker/local/django/entrypoint /entrypoint
 RUN chmod +x /entrypoint
 
-COPY ./compose/local/django/ui/start /start-ui
-RUN sed -i 's/\r$//g' /start-ui
+COPY ./docker/setup /setup
+RUN chmod +x /setup
+
+COPY ./docker/local/django/ui/start /start-ui
 RUN chmod +x /start-ui
 
-COPY ./compose/local/django/api/start /start-api
-RUN sed -i 's/\r$//g' /start-api
+COPY ./docker/local/django/api/start /start-api
 RUN chmod +x /start-api
 
-COPY ./compose/local/django/celery/worker/start /start-worker
-RUN sed -i 's/\r$//g' /start-worker
+COPY ./docker/local/django/celery/worker/start /start-worker
 RUN chmod +x /start-worker
 
-COPY ./compose/local/django/celery/beat/start /start-scheduler
-RUN sed -i 's/\r$//g' /start-scheduler
+COPY ./docker/local/django/celery/beat/start /start-scheduler
 RUN chmod +x /start-scheduler
 
-COPY ./compose/local/django/celery/flower/start /start-flower
-RUN sed -i 's/\r$//g' /start-flower
+COPY ./docker/local/django/celery/flower/start /start-flower
 RUN chmod +x /start-flower
 
 

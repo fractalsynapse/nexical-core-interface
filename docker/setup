@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+source /entrypoint
+
+if ! ./manage.py check_admin_user; then
+  ./manage.py createsuperuser --no-input \
+    --first_name="$DJANGO_SUPERUSER_FIRST_NAME" \
+    --last_name="$DJANGO_SUPERUSER_LAST_NAME"
+fi
+./manage.py init_admin_user

@@ -2,7 +2,7 @@ FROM node:22-bullseye-slim
 
 WORKDIR /node-lib
 
-COPY ./package.json /node-lib
+COPY ./docker/package.json /node-lib
 
 RUN npm install --prefix=/node-lib && npm cache clean --force
 
