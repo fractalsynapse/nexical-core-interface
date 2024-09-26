@@ -265,7 +265,6 @@ project.css
 project.min.css
 admin.css
 admin.min.css
-vendors.js
 *.min.js
 *.min.js.map
 .env/.secret
