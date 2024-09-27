@@ -2,10 +2,5 @@
 .gitattributes
 .github
 .gitignore
-.gitlab-ci.yml
-.idea
 .pre-commit-config.yaml
-.travis.yml
-venv
 .git
-.env/

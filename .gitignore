@@ -267,4 +267,3 @@ admin.css
 admin.min.css
 *.min.js
 *.min.js.map
-.env/.secret
